@@ -6,8 +6,11 @@ class Main extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        ENVIRONMENT == 'development'
-            ? $this->output->enable_profiler(TRUE) : TRUE;
+        if (false)
+        {
+            ENVIRONMENT == 'development'
+                ? $this->output->enable_profiler(TRUE) : TRUE;
+        }
         #$this->authenticate->check_for_auth();
     }
 

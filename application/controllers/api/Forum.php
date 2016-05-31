@@ -14,22 +14,10 @@ class Forum extends Main {
         $this->_output_result("Forum Ready for requests");
     }
 
-    public function get_all()
+    public function all_for_version($version_id)
     {
-        $forums = [
-            (object)[
-                "id"=>1,
-                "label"=>"Forum 1",
-                "description"=>"Test forum 1",
-                "max_points"=>10,
-            ],
-            (object)[
-                "id"=>2,
-                "label"=>"Forum 2",
-                "description"=>"Test forum 2",
-                "max_points"=>10,
-            ]
-        ];
+        $this->db->where('course_version', $version_id);
+        $forums = cfr('Forum');
         $this->_output_result($forums);
     }
 }

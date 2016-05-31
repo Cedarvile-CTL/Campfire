@@ -10,10 +10,10 @@
  */
 class MY_DSO extends CI_DSO {
     
-    public function load_defaults()
+    public function load_defaults() 
     {
-        $this->page_title = 'Application Page';
-        $this->page_id = 'page-unknown';
+        $this->page_title = 'Campfire';
+        $this->page_id = 'page-campfire';
         $this->crumbs = breadcrumbs();
         $this->auth_in_app = FALSE;
         $this->stylesheets = array();
