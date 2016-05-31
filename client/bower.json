@@ -1,0 +1,27 @@
+{
+  "name": "campfire-client",
+  "homepage": "https://github.com/Cedarvile-CTL/Campfire",
+  "authors": [
+    "Philip J Schanely <philschanely@cedarville.edu>"
+  ],
+  "description": "Front-end controls for the Campfire discussion forum application",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "lodash": "^4.13.1",
+    "DateJS": "^1.0.0-rc3",
+    "angular-route": "^1.5.6",
+    "angular-sanitize": "^1.5.6",
+    "jquery": "^2.2.4",
+    "Materialize": "materialize#^0.97.6"
+  }
+}

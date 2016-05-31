@@ -1,0 +1,51 @@
+<nav class="row">
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="#/" class="brand-logo">Campfire</a>
+            <ul class="right hide-on-med-and-down">
+                <li class="active"><a href="#/">Forums</a></li>
+                <li class=""><a href="#/admin">Administration</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>{{main.label}}</h1>
+    <ul class="row">
+        <li class="forum card hoverable" ng-repeat="forum in main.forums">
+            <div class="card-content">
+                <h2 class="card-title label"><a ng-href="#/forum/{{forum.id}}">{{forum.label}}</a></h2>
+                <div ng-bind-html="forum.description" class="description"></div>
+            </div>
+            <div class="card-action">
+                <a href="#/forum/{{forum.id}}">Go to forum &raquo;</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">About Campfire</h5>
+                <p class="grey-text text-lighten-4">Campfire is a custom threaded discussion application built by
+                the Center for Teaching and Learning at Cedarville University.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#/tutorials">Tutorials</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#/tech-support">Technical Support</a></li>
+                    <li><a class="grey-text text-lighten-3" href="http://moodle.cedarville.edu">Moodle</a></li>
+                    <li><a class="grey-text text-lighten-3" href="http://cedarville.edu/student">Student Homepage</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            &copy; 2016 by <a class="grey-text text-lighten-4" href="http://cedarville.edu">Cedarville University</a>. All rights reserved.
+            <a class="grey-text text-lighten-4 right" href="http://cedarville.edu/ctl">Cedarville University CT&amp;L</a>
+        </div>
+    </div>
+</footer>
