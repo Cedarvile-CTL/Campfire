@@ -15,9 +15,27 @@ class Forum extends Main {
         $this->_output_result("Forum Ready for requests");
     }
 
+    public function all()
+    {
+        $forums = $this->Forum_model->get_all();
+        $this->_output_result($forums);
+    }
+
     public function all_for_version($version_id)
     {
         $forums = $this->Forum_model->get_for_version($version_id);
         $this->_output_result($forums);
+    }
+    
+    public function get($forum_id)
+    {
+        $this->load->model('Thread_model');
+
+        $forum = $this->Forum_model->get($forum_id);
+        if ($forum)
+        {
+            $forum->threads = $this->Thread_model->get_for_forum($forum_id);
+        }
+        $this->_output_result($forum);
     }
 }
