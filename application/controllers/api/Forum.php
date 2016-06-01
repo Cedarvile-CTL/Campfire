@@ -7,6 +7,7 @@ class Forum extends Main {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Forum_model');
     }
 
     public function index()
@@ -16,8 +17,7 @@ class Forum extends Main {
 
     public function all_for_version($version_id)
     {
-        $this->db->where('course_version', $version_id);
-        $forums = cfr('Forum');
+        $forums = $this->Forum_model->get_for_version($version_id);
         $this->_output_result($forums);
     }
 }
