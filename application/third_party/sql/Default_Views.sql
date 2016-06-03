@@ -8,6 +8,14 @@ CREATE OR REPLACE VIEW Warehouse_Course AS
 
 -- --------
 
+
+CREATE OR REPLACE VIEW Thorin_Section AS
+	SELECT *
+	FROM Thorin.Section_Details;
+
+-- --------
+
+
 CREATE OR REPLACE VIEW Warehouse_Person AS 
     SELECT warehouse.Person.redwoodID as personID, 
         warehouse.Person.firstName, 
@@ -20,18 +28,12 @@ CREATE OR REPLACE VIEW Warehouse_Person AS
 
 -- --------
 
-CREATE OR REPLACE VIEW `Academic_Role` AS 
-select `warehouse`.`Academic_Role`.`ID` AS `ID`,
-        `warehouse`.`Academic_Role`.`name` AS `name` 
-from `warehouse`.`Academic_Role`;
 
--- --------
-
-CREATE OR REPLACE VIEW Person_Info AS
-    SELECT Warehouse_Person.*, 
-        User.accessLevelID,
-        Access_Level.name as accessLevelName, 
-        Access_Level.`order` as accessLevelOrder 
-    FROM User 
-NATURAL JOIN Warehouse_Person 
-NATURAL JOIN Access_Level; 
+CREATE OR REPLACE VIEW User_Info AS
+    SELECT Warehouse_Person.*,
+        User.access_level,
+        Access_Level.name as access_level_name,
+        Access_Level.`order` as access_level_order
+    FROM User
+JOIN Warehouse_Person ON User.id = Warehouse_Person.personID
+JOIN Access_Level ON User.access_level = Access_Level.id;

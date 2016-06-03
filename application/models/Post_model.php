@@ -72,6 +72,44 @@ class Post_model extends CI_Model
                     break;
 
             }
+        } 
+    }
+
+    public function subordinate_posts(&$posts)
+    {
+        $grouped_posts = array();
+        if (!empty($posts))
+        {
+            // First group the posts by parent
+            foreach ($posts as $post)
+            {
+                // If the post has no parent add it to first index
+                if ($post->parent == NULL)
+                {
+                    $grouped_posts[0][] = $post;
+                    continue;
+                }
+                // Otherwise add it to an index that matches its parent
+                $grouped_posts[$post->parent][] = $post;
+            }
+            // Next loop through unparented list and begin to subordinate
+            $this->_load_child_posts($grouped_posts[0], $grouped_posts);
+        }
+        if (!empty($grouped_posts[0]))
+        {
+            $posts = $grouped_posts[0];
+        }
+    }
+
+    private function _load_child_posts(&$root_list, $full_list)
+    {
+        if (!empty($root_list)) {
+            foreach ($root_list as &$post) {
+                if (array_key_exists($post->id, $full_list)) {
+                    $post->posts = $full_list[$post->id];
+                    $this->_load_child_posts($post->posts, $full_list);
+                }
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ class Forum_model extends CI_Model
 
     public function get_for_version($version_id)
     {
-        $this->db->where('version', $version_id);
+        $this->db->where('course_version', $version_id);
         return $this->get_list();
     }
 
