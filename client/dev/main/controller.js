@@ -1,11 +1,8 @@
 (function () {
     'use strict';
 
-
-// Current password: project5508category
-
     angular.module('campfire-client').controller('mainCtrl', function (
-        $scope, Main, service, Forum
+        $scope, Main, Forum
     ) {
         var vm = this;
 
@@ -24,4 +21,4 @@
 
         initialize();
     });
-})();
+})(); 

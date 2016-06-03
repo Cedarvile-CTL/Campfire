@@ -35,3 +35,8 @@
     .value('$', window.$);
 
 })();
+
+function activateMaterialize(source) {
+    $('.collapsible').collapsible();
+    console.log("Loaded Materialize JS in " + source);
+}

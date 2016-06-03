@@ -1,2 +1,8 @@
-<h1>Forum</h1>
-<p>Coming soon.</p>
+<campfire-masthead></campfire-masthead>
+<div class="container">
+    <h1>{{forum.forum.label}}</h1>
+    <ul class="collapsible popout" data-collapsible="expandable">
+        <campfire-thread thread="thread" ng-repeat="thread in forum.forum.threads"></campfire-thread>
+    </ul>
+</div>
+<campfire-footer></campfire-footer>

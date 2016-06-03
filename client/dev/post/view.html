@@ -1,0 +1,11 @@
+<li>
+    <div class="collapsible-header" ng-click="post.getPosts($event)">
+        {{post.user.name}} | {{post.date_posted|date}}
+    </div>
+    <div class="collapsible-body">
+        <div ng-bind-html="post.body" class="body"></div>
+        <ul ng-show="post.has_posts">
+            <campfire-post post="inner_post" ng-repeat="inner_post in post.posts"></campfire-post>
+        </ul>
+    </div>
+</li>

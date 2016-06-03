@@ -1,0 +1,11 @@
+<li>
+    <div class="collapsible-header" ng-click="thread.getPosts($event)">
+        {{thread.label}}
+    </div>
+    <div class="collapsible-body">
+        <div ng-bind-html="thread.description" class="description"></div>
+        <ul>
+            <campfire-post post="post" ng-repeat="post in thread.posts"></campfire-post>
+        </ul>
+    </div>
+</li>

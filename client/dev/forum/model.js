@@ -16,14 +16,22 @@
 
         };
 
-        Forum.service = {
-            getAll: function(courseVersion) {
-                var d = $q.defer();
-                $http.get('api/forum/all_for_version/' + courseVersion).then(function (data) {
-                    d.resolve(data);
-                });
-                return d.promise;
-            }
+        Forum.get = function(forumId) {
+            var d = $q.defer();
+            $http.get('api/forum/get/' + forumId).then(function (result) {
+                var data = Forum.transformer(result.data);
+                d.resolve(data);
+            });
+            return d.promise;
+        };
+
+        Forum.getList = function(options) {
+            var d = $q.defer();
+            $http.get('api/forum/get_list', options).then(function (result) {
+                var data = Forum.transformer(result.data);
+                d.resolve(data);
+            });
+            return d.promise;
         };
 
         // static methods
@@ -37,13 +45,6 @@
                 );
             }
             return new Forum();
-        };
-
-        Forum.getAll = function(courseVersion) {
-            Forum.service.getAll(courseVersion).then(function(result){
-                forums = Forum.transformer(result.data);
-            });
-            return forums;
         };
 
         Forum.transformer = function (data) {

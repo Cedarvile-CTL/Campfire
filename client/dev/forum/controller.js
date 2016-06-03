@@ -5,14 +5,23 @@
 // Current password: project5508category
 
     angular.module('campfire-client').controller('forumCtrl', function (
-        $scope
+        $routeParams, $scope,
+        Forum
     ) {
         var vm = this;
+        vm.forum = {};
 
-        var initialize = function () { 
-            console.log("Forum init.");
+        vm.initialize = function () {
+            Forum.get($routeParams.forumId).then(function(result){
+                vm.forum = result;
+            });
+            activateMaterialize("Forum controller");
         };
 
-        initialize();
+        vm.getPosts = function(e){
+
+        };
+
+        vm.initialize();
     });
 })();

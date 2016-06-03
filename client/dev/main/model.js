@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').factory('Main', function ($q, $http, service, Forum) {
+    angular.module('campfire-client').factory('Main', function ($q, $http, Forum) {
 
         var Main = function () {};
 
