@@ -1,2 +1,0 @@
-!function(){"use strict";angular.module("campfire-client").service("mainService",function($q,$http){return{getForumsForVersion:function(data){var d=$q.defer();return $http.get("/api/forum/all_for_version",data).then(function(data){d.resolve(data)}),d.promise}}})}();
-//# sourceMappingURL=./mainService-min.js.map

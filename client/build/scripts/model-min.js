@@ -1,2 +1,0 @@
-!function(){"use strict";angular.module("campfire-client").factory("Main",function($q,$http,Forum){var Main=function(){};return Main.prototype={forums:[]},Main.forums=[],Main.getForumsForVersion=function(courseVersion){console.log("Getting forums...");var d=$q.defer();return $http.get("api/forum/all_for_version/"+courseVersion).then(function(data){consoel.log(data),d.resolve(data)}),d.promise},Main})}();
-//# sourceMappingURL=./model-min.js.map
