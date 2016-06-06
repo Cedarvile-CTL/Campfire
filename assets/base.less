@@ -1,3 +1,71 @@
+@color-grey-lighten-2: #e0e0e0;
+@color-deep-orange: #ff5722;
+@color-green-accent-3: #00e676;
+
+@color-standard-light-grey: @color-grey-lighten-2;
+@color-brand-1: @color-deep-orange;
+
 .card .card-title {
   margin-top:0; margin-bottom: 0;
+}
+
+.post {
+  position: relative;
+  .body {
+    p { padding:0; margin-bottom:10px; }
+  }
+  .post-user { margin-bottom:10px; }
+}
+
+.thread {
+  .thread-label {
+    font-weight:600;
+    .btn-floating {
+      transition:0.5s top linear;
+      float:right; margin-top:4px;
+      i { width:inherit; margin-right:0; line-height: 2.6rem; }
+    }
+  }
+  .description {
+    padding:10px 20px;
+    p { padding:0; }
+  }
+  .posts {
+    margin:10px 0 0;
+    border:1px solid @color-standard-light-grey;
+    border-left-width:4px;
+    .posts {
+      border-color:darken(@color-standard-light-grey,10%);
+      .posts {
+        border-color:darken(@color-standard-light-grey,20%);
+        .posts {
+          border-color:darken(@color-standard-light-grey,30%);
+          .posts {
+            border-color:darken(@color-standard-light-grey,40%);
+            .posts {
+              border-color:darken(@color-standard-light-grey,50%);
+              .posts {
+                border-color:darken(@color-standard-light-grey,60%);
+                .posts {
+                  border-color:darken(@color-standard-light-grey,70%);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .thread-body > .posts {
+    margin:10px 20px;
+  }
+  &.active {
+    .thread-label {
+      background-color: @color-standard-light-grey;
+      .btn-floating {
+        position: relative;
+        top:22px;
+      }
+    }
+  }
 }

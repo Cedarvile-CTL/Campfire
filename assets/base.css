@@ -2,4 +2,69 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+.post {
+  position: relative;
+}
+.post .body p {
+  padding: 0;
+  margin-bottom: 10px;
+}
+.post .post-user {
+  margin-bottom: 10px;
+}
+.thread .thread-label {
+  font-weight: 600;
+}
+.thread .thread-label .btn-floating {
+  transition: 0.5s top linear;
+  float: right;
+  margin-top: 4px;
+}
+.thread .thread-label .btn-floating i {
+  width: inherit;
+  margin-right: 0;
+  line-height: 2.6rem;
+}
+.thread .description {
+  padding: 10px 20px;
+}
+.thread .description p {
+  padding: 0;
+}
+.thread .posts {
+  margin: 10px 0 0;
+  border: 1px solid #e0e0e0;
+  border-left-width: 4px;
+}
+.thread .posts .posts {
+  border-color: #c7c7c7;
+}
+.thread .posts .posts .posts {
+  border-color: #adadad;
+}
+.thread .posts .posts .posts .posts {
+  border-color: #939393;
+}
+.thread .posts .posts .posts .posts .posts {
+  border-color: #7a7a7a;
+}
+.thread .posts .posts .posts .posts .posts .posts {
+  border-color: #616161;
+}
+.thread .posts .posts .posts .posts .posts .posts .posts {
+  border-color: #474747;
+}
+.thread .posts .posts .posts .posts .posts .posts .posts .posts {
+  border-color: #2e2e2e;
+}
+.thread .thread-body > .posts {
+  margin: 10px 20px;
+}
+.thread.active .thread-label {
+  background-color: #e0e0e0;
+}
+.thread.active .thread-label .btn-floating {
+  position: relative;
+  top: 22px;
+}
 /*# sourceMappingURL=base.css.map */
