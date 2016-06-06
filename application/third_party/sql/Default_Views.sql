@@ -37,3 +37,8 @@ CREATE OR REPLACE VIEW User_Info AS
     FROM User
 JOIN Warehouse_Person ON User.id = Warehouse_Person.personID
 JOIN Access_Level ON User.access_level = Access_Level.id;
+
+
+CREATE OR REPLACE VIEW Post_Details AS
+  SELECT * FROM Post
+    JOIN User_Info ON Post.user = User_Info.personID;

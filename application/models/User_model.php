@@ -48,4 +48,37 @@ class User_model extends CI_Model {
         }
         return $result;
     }
+
+    public function objectify($source)
+    {
+        $person_props = [
+            'firstName'=>'firstName',
+            'lastName'=>'lastName',
+            'username'=>'username',
+            'email'=>'email',
+            'personID'=>'id'
+        ];
+        $role_props = [
+            'access_level'=>'id',
+            'access_level_name'=>'name',
+            'access_level_order'=>'order'
+        ];
+        $person = new stdClass();
+        foreach ($person_props as $prop=>$new_prop)
+        {
+            $person->$new_prop = property_exists($source, $prop)
+                ? $source->$prop
+                : NULL;
+        }
+        $role = new stdClass();
+        foreach ($role_props as $prop=>$new_prop)
+        {
+            $role->$new_prop = property_exists($source, $prop)
+                ? $source->$prop
+                : NULL;
+        }
+        $person->accessLevel = $role;
+        $person->name = $person->firstName . ' ' . $person->lastName;
+        return $person;
+    }
 }

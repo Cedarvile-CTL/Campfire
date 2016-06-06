@@ -11,7 +11,7 @@ class Post_model extends CI_Model
     public function get($post_id)
     {
         $this->db->where('id', $post_id);
-        $post = cfr('Post', 'row');
+        $post = cfr('Post_details', 'row');
         return $post;
     }
 
@@ -45,7 +45,15 @@ class Post_model extends CI_Model
 
     public function get_list()
     {
-        $posts = cfr('Post');
+        $posts = cfr('Post_details');
+        if (!empty($posts))
+        {
+            $this->load->model('user_model');
+            foreach ($posts as &$post)
+            {
+                $post->user = $this->user_model->objectify($post);
+            }
+        }
         return $posts;
     }
 

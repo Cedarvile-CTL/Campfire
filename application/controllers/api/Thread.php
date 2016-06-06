@@ -29,14 +29,26 @@ class Thread extends Main {
 
     public function get($thread_id)
     {
-        $this->load->model('Post_model');
-
         $thread = $this->Thread_model->get($thread_id);
         if ($thread)
         {
-            $thread->posts = $this->Post_model->get_for_thread($thread_id);
-            $this->Post_model->subordinate_posts($thread->posts);
+            $thread->posts = $this->get_posts($thread_id, TRUE);
         }
         $this->_output_result($thread);
+    }
+
+    public function get_posts($thread_id, $return_object=FALSE)
+    {
+        $this->load->model('Post_model');
+
+        $posts = $this->Post_model->get_for_thread($thread_id);
+        $this->Post_model->subordinate_posts($posts);
+
+        if ($return_object)
+        {
+            return $posts;
+        }
+
+        $this->_output_result($posts);
     }
 }
