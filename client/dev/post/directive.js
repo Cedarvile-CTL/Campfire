@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').directive('campfire-post', function(){
+    angular.module('campfire-client').directive('campfirePost', function(){
         return {
             replace:true,
             scope: {},
@@ -10,20 +10,20 @@
             },
             restrict: "E",
             templateUrl: "./client/dev/post/view.html",
-            controller: ["$scope", PostCtrl],
+            controller: ["$scope", "Post", PostCtrl],
             controllerAs: "post"
         };
     });
 
-    function PostCtrl($scope) {
+    function PostCtrl($scope, Post) {
         var vm = this;
 
         vm.initialize = function () {
-            activateMaterialize("Post directive");
-            vm.id = vm.post.id;
-            vm.user = vm.post.user;
-            vm.body = vm.post.body;
-            vm.posts = vm.post.posts;
+            angular.forEach(vm.post, function(val, key){
+                vm[key] = val;
+            });
+            console.log(vm);
+            activateMaterialize("Post directive: " + vm.id);
         };
 
         vm.initialize();

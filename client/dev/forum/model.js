@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').factory('Forum', function ($q, $http) {
+    angular.module('campfire-client').factory('Forum', function ($q, $http, Thread) {
 
         var forums = [];
 
@@ -9,7 +9,7 @@
             this.id = id;
             this.label = label;
             this.description = description;
-            this.threads = threads;
+            this.threads = Thread.transformer(threads);
         };
 
         Forum.prototype = {

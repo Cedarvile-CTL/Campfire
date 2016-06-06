@@ -1,15 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').factory('Post', function ($q, $http) {
+    angular.module('campfire-client').factory('Post', function ($q, $http, User) {
 
-        var posts = [];
-
-        var Post = function (id, label, description, threads) {
-            // this.id = id;
-            // this.label = label;
-            // this.description = description;
-            // this.threads = threads;
+        var Post = function (id, body, posts, user, date_posted, date_updated) {
+            this.id = id;
+            this.body = body;
+            this.user = User.transformer(user);
+            this.date_posted = Date.parse(date_posted);
+            this.date_updated = Date.parse(date_updated);
+            this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
+            this.isMine = this.user.id === User.activeUser.id;
+            this.notMine = !this.isMine;
         };
 
         Post.prototype = {
@@ -38,10 +40,12 @@
         Post.build = function (data) {
             if (data) {
                 return new Post(
-                    // data.id,
-                    // data.label,
-                    // data.description,
-                    // data.threads
+                    data.id,
+                    data.body,
+                    data.posts,
+                    data.user,
+                    data.date_posted,
+                    data.date_updated
                 );
             }
             return new Post();
