@@ -5,11 +5,13 @@
 
         var Post = function (id, body, posts, user, date_posted, date_updated) {
             this.id = id;
-            this.body = body;
-            this.user = User.transformer(user);
-            this.date_posted = Date.parse(date_posted);
-            this.date_updated = Date.parse(date_updated);
-            this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
+            this.update({
+                body: body,
+                posts: posts,
+                user: user,
+                date_posted: date_posted,
+                date_updated: date_updated
+            });
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
@@ -21,30 +23,44 @@
                 "date_posted", "date_updated",
                 "section", "parent"
             ],
-            save: function(data) {
-                console.log("Saving post " + this.id);
-                angular.forEach(this.modelProps, function(property){
-                    if (! data.hasOwnProperty(property)) {
-                        switch (property)
-                        {
-                            case "user":
-                                data[property] = this.user.id;
-                                break;
-                            default:
-                                data[property] = val;
-                                break;
-                        }
+            save: function(form_data) {
+                var post = this;
+                angular.forEach(form_data, function(val, key){
+                    if (_.includes(post.modelProps, key)) {
+                        post[key] = val;
                     }
                 });
-                console.log(data);
-                var d = $q.defer();
                 var url = 'api/post/save';
-                    url += this.id > 0 ? "/" + this.id : "";
-                // $http.post(url, data).then(function (result) {
-                //     var data = Forum.transformer(result.data);
-                //     d.resolve(data);
-                // });
-                // return d.promise;
+
+                var data = {
+                    body: this.body,
+                    date_updated: this.date_udpated
+                };
+
+                if (!this.id > 0) {
+                    console.log("New post; add extra data");
+                    data.date_posted = this.date_updated;
+                    data.user = this.user.id;
+                    data.section = this.section.id;
+                    data.parent = this.parent;
+                } else {
+                    console.log("Update to existing post; keep it simple but add Id to API path");
+                    url += "/" + this.id;
+                }
+
+                var d = $q.defer();
+                $http.post(url, data).then(function (result) {
+                    post.update(result.data);
+                    d.resolve(post);
+                });
+                return d.promise;
+            },
+            update: function(data) {
+                this.body = data.body;
+                this.user = User.transformer(data.user);
+                this.date_posted = Date.parse(data.date_posted);
+                this.date_updated = Date.parse(data.date_updated);
+                this.posts = angular.isArray(data.posts) ? Post.transformer(data.posts) : [];
             }
         };
 
