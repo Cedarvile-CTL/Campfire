@@ -40,3 +40,20 @@ function activateMaterialize(source) {
     $('.collapsible').collapsible();
     console.log("Loaded Materialize JS in " + source);
 }
+
+function tinyMCEInit(selector) {
+    console.log("Activating TinyMC on " + selector);
+    tinymce.init({
+        selector:selector,
+        menubar: false,
+        plugins: 'link',
+        toolbar: [
+            'undo redo | bold italic | bullist numlist | outdent indent blockquote | underline superscript subscript | link | removeformat'
+        ],
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+            });
+        }
+    });
+}
