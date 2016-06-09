@@ -7,11 +7,11 @@
             this.id = id;
             this.update({
                 body: body,
-                posts: posts,
                 user: user,
                 date_posted: date_posted,
                 date_updated: date_updated
             });
+            this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
@@ -34,12 +34,12 @@
 
                 var data = {
                     body: this.body,
-                    date_updated: this.date_udpated
+                    date_updated: Date.parse(this.date_updated).toString('u').replace("Z", "")
                 };
 
-                if (!this.id > 0) {
+                if (this.id === null || this.id === 0) {
                     console.log("New post; add extra data");
-                    data.date_posted = this.date_updated;
+                    data.date_posted = data.date_updated;
                     data.user = this.user.id;
                     data.section = this.section.id;
                     data.parent = this.parent;
@@ -47,9 +47,10 @@
                     console.log("Update to existing post; keep it simple but add Id to API path");
                     url += "/" + this.id;
                 }
-
+                console.log(data);
                 var d = $q.defer();
                 $http.post(url, data).then(function (result) {
+                    console.log(result.data);
                     post.update(result.data);
                     d.resolve(post);
                 });
@@ -60,7 +61,6 @@
                 this.user = User.transformer(data.user);
                 this.date_posted = Date.parse(data.date_posted);
                 this.date_updated = Date.parse(data.date_updated);
-                this.posts = angular.isArray(data.posts) ? Post.transformer(data.posts) : [];
             }
         };
 

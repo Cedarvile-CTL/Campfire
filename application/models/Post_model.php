@@ -120,4 +120,20 @@ class Post_model extends CI_Model
             }
         }
     }
+
+    public function save($post_id, $data)
+    {
+        if ($post_id > 0)
+        {
+            $this->db->where('id', $post_id);
+            $this->db->update('Post', $data);
+        }
+        else
+        {
+            $this->db->insert('Post', $data);
+            $post_id = $this->db->insert_id();
+        }
+        
+        return $this->get($post_id);
+    }
 }
