@@ -4,10 +4,39 @@
 }
 .post {
   position: relative;
+  clear: both;
+}
+.post:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.post .body {
+  clear: both;
+}
+.post .body:after {
+  content: "";
+  clear: both;
+  display: block;
 }
 .post .body p {
   padding: 0;
   margin-bottom: 10px;
+}
+.post .post-display {
+  clear: both;
+}
+.post .post-display:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.post .post-options li {
+  margin-right: 10px;
+}
+.post .post-reply-btn {
+  float: left;
+  margin-right: 10px;
 }
 .post .post-user {
   margin-bottom: 10px;
@@ -66,5 +95,13 @@
 .thread.active .thread-label .btn-floating {
   position: relative;
   top: 22px;
+}
+.list-inline:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.list-inline li {
+  float: left;
 }
 /*# sourceMappingURL=base.css.map */

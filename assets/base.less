@@ -1,3 +1,27 @@
+// MIXINGS =====
+.bbox() {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.clearfix() {
+  &:after {
+    content:"";
+    clear:both;
+    display: block;
+  }
+}
+.row() {
+  clear:both;
+  .clearfix;
+}
+.col(@size:auto) {
+  width:@size;
+  float:left;
+  .bbox;
+}
+
+
 @color-grey-lighten-2: #e0e0e0;
 @color-deep-orange: #ff5722;
 @color-green-accent-3: #00e676;
@@ -11,9 +35,16 @@
 
 .post {
   position: relative;
+  .row;
   .body {
+    .row;
     p { padding:0; margin-bottom:10px; }
   }
+  .post-display { .row; }
+  .post-options {
+    li { margin-right:10px; }
+  }
+  .post-reply-btn { float:left; margin-right:10px; }
   .post-user { margin-bottom:10px; }
 }
 
@@ -68,4 +99,9 @@
       }
     }
   }
+}
+
+.list-inline {
+  .clearfix;
+  li { float:left; }
 }
