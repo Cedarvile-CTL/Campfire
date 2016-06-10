@@ -33,7 +33,11 @@
             }
         };
         vm.delete = function(id, e) {
-            // console.log("Deleting post " + id);
+            console.log("Deleting post " + id);
+            vm.post.delete().then(function () {
+                $("#post-" + id).remove();
+            });
+            
         };
         vm.reply = function(id, e) {
             vm.loading = true;

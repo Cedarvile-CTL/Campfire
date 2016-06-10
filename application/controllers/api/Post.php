@@ -27,6 +27,12 @@ class Post extends Main {
         $this->_output_result("");
     }
 
+    public function delete($post_id)
+    {
+        $this->Post_model->delete($post_id);
+        $this->_output_result("");
+    }
+
     public function get($post_id=0)
     {
         $post = $this->Post_model->get($post_id);

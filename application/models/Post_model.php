@@ -7,6 +7,12 @@ class Post_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    public function delete($post_id)
+    {
+        $this->db->where('id', $post_id);
+        $this->db->delete('Post');
+    }
 
     public function get($post_id=0)
     {

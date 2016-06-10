@@ -52,6 +52,13 @@
                 });
                 return d.promise;
             },
+            delete: function() {
+                var d = $q.defer();
+                $http.get('api/post/delete/' + this.id).then(function (result) {
+                    d.resolve(result);
+                });
+                return d.promise;
+            },
             save: function(form_data) {
                 var post = this;
                 angular.forEach(form_data, function(val, key){
