@@ -10,30 +10,42 @@
             },
             restrict: "E",
             templateUrl: "./client/dev/post/view.html",
-            controller: ["$scope", "Post", PostCtrl],
+            controller: ["$scope", "$interval", "Post", "User", PostCtrl],
             controllerAs: "post"
         };
     });
 
-    function PostCtrl($scope, Post) {
+    function PostCtrl($scope, $interval, Post, User) {
         var vm = this;
 
         vm.edit = function(id, e) {
-            var postItem = $(e.target).closest(".post");
-            var postId = "#" + postItem.attr("id");
-            tinyMCEInit(postId + "-body");
+            vm.loading = true;
             vm.editing = true;
+            vm.interval = $interval(vm.checkForEditableArea, 250);
+        };
+        vm.checkForEditableArea = function(){
+            var postId = "#post-" + vm.post.id;
+            var elem = $(postId + "-body");
+            if (elem.length > 0) {
+                $interval.cancel(vm.interval);
+                tinyMCEInit("#" + elem.attr("id"));
+                vm.loading = false;
+            }
         };
         vm.delete = function(id, e) {
             // console.log("Deleting post " + id);
         };
         vm.reply = function(id, e) {
-            // console.log("Replying to post " + id);
+            vm.loading = true;
+            vm.post.addReply().then(function(result){
+                vm.hasPosts = vm.post.hasPosts = true;
+                vm.loading = false;
+            });
         };
         vm.save = function(e) {
             e.preventDefault();
-            var postItem = $(e.target).closest(".post");
-            var postId = "#" + postItem.attr("id");
+            vm.loading = true;
+            var postId = "#post-" + vm.post.id;
             var data = {
                 body: $(postId + "-body").val(),
                 date_updated: Date.today().setTimeToNow()
@@ -42,6 +54,8 @@
                 angular.forEach(vm.post, function(val, key){
                     vm[key] = val;
                 });
+                vm.loading = false;
+                vm.editing = false;
             });
         };
         vm.toggleVisibility = function(id, e) {
@@ -52,9 +66,14 @@
             angular.forEach(vm.post, function(val, key){
                 vm[key] = val;
             });
+            vm.loading = false;
             activateMaterialize("Post directive: " + vm.id);
+            if (vm.editing) {
+                vm.edit();
+            }
         };
 
         vm.initialize();
     }
+
 })();

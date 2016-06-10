@@ -8,10 +8,17 @@ class Post_model extends CI_Model
         parent::__construct();
     }
 
-    public function get($post_id)
+    public function get($post_id=0)
     {
         $this->db->where('id', $post_id);
         $post = cfr('Post_details', 'row');
+
+        if ($post)
+        {
+            $this->load->model('user_model');
+            $post->user = $this->user_model->objectify($post);
+        }
+
         return $post;
     }
 

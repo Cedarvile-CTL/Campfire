@@ -3,18 +3,23 @@
 
     angular.module('campfire-client').factory('Post', function ($q, $http, User) {
 
-        var Post = function (id, body, posts, user, date_posted, date_updated) {
-            this.id = id;
+        var Post = function (id, body, posts, user, date_posted, date_updated, parent, section, thread) {
             this.update({
+                id: id,
                 body: body,
                 user: user,
                 date_posted: date_posted,
                 date_updated: date_updated
             });
+            this.parent = parent;
+            this.section = section;
+            this.thread = thread;
             this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
+            this.hasPosts = this.posts.length > 0 ? true : false;
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
+            console.log(this);
         };
 
         Post.prototype = {
@@ -23,6 +28,30 @@
                 "date_posted", "date_updated",
                 "section", "parent"
             ],
+            addReply: function() {
+                var d = $q.defer();
+                var post = this;
+                var newPost = new Post(
+                    null,
+                    "",
+                    [],
+                    User.activeUser,
+                    Date.today().setTimeToNow(),
+                    Date.today().setTimeToNow(),
+                    post.id,
+                    post.section,
+                    post.thread
+                );
+                console.log(newPost);
+                newPost.save({
+                    body: ""
+                }).then(function (result) {
+                    result.editing = true;
+                    post.posts.unshift(result);
+                    d.resolve(result);
+                });
+                return d.promise;
+            },
             save: function(form_data) {
                 var post = this;
                 angular.forEach(form_data, function(val, key){
@@ -38,27 +67,34 @@
                 };
 
                 if (this.id === null || this.id === 0) {
-                    console.log("New post; add extra data");
+                    // console.log("New post; add extra data");
                     data.date_posted = data.date_updated;
                     data.user = this.user.id;
-                    data.section = this.section.id;
+                    data.section = this.section;
                     data.parent = this.parent;
+                    data.thread = this.thread;
                 } else {
-                    console.log("Update to existing post; keep it simple but add Id to API path");
+                    // console.log("Update to existing post; keep it simple but add Id to API path");
                     url += "/" + this.id;
                 }
-                console.log(data);
+                // console.log(data);
                 var d = $q.defer();
+                post.loading = true;
                 $http.post(url, data).then(function (result) {
-                    console.log(result.data);
                     post.update(result.data);
                     d.resolve(post);
+                    post.loading = false;
                 });
                 return d.promise;
             },
             update: function(data) {
+                this.id = data.id;
                 this.body = data.body;
-                this.user = User.transformer(data.user);
+                if (data.user instanceof User) {
+                    this.user = data.user;
+                } else {
+                    this.user = User.transformer(data.user);
+                }
                 this.date_posted = Date.parse(data.date_posted);
                 this.date_updated = Date.parse(data.date_updated);
             }
@@ -91,7 +127,10 @@
                     data.posts,
                     data.user,
                     data.date_posted,
-                    data.date_updated
+                    data.date_updated,
+                    data.parent,
+                    data.section,
+                    data.thread
                 );
             }
             return new Post();

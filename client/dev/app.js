@@ -38,11 +38,12 @@
 
 function activateMaterialize(source) {
     $('.collapsible').collapsible();
-    console.log("Loaded Materialize JS in " + source);
+    // console.log("Loaded Materialize JS in " + source);
 }
 
 function tinyMCEInit(selector) {
-    console.log("Activating TinyMC on " + selector);
+    // console.log($(selector));
+    console.log("Activating TinyMCE on " + selector);
     tinymce.init({
         selector:selector,
         menubar: false,

@@ -13,20 +13,6 @@
             this.accessLevel = accessLevel;
         };
 
-        User.activeUser = new User(
-            1337970,
-            "philschanely",
-            "Phil",
-            "Schanely",
-            "philschanely@cedarville.edu",
-            "Phil Schanely",
-            {
-                id: 1,
-                name: "Super Admin",
-                order: 1
-            }
-        );
-
         User.prototype = {
             
         };
@@ -65,6 +51,20 @@
             }
             return new User();
         };
+
+        User.activeUser = new User(
+            1337970,
+            "philschanely",
+            "Phil",
+            "Schanely",
+            "philschanely@cedarville.edu",
+            "Phil Schanely",
+            {
+                id: 1,
+                name: "Super Admin",
+                order: 1
+            }
+        );
 
         User.transformer = function (data) {
             if (angular.isArray(data)) {

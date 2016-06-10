@@ -27,7 +27,7 @@ class Post extends Main {
         $this->_output_result("");
     }
 
-    public function get($post_id)
+    public function get($post_id=0)
     {
         $post = $this->Post_model->get($post_id);
         if ($post)
