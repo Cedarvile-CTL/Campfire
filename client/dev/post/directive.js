@@ -23,6 +23,9 @@
             vm.editing = true;
             vm.interval = $interval(vm.checkForEditableArea, 250);
         };
+        vm.cancelDelete = function(e) {
+            e.preventDefault();
+        };
         vm.checkForEditableArea = function(){
             var postId = "#post-" + vm.post.id;
             var elem = $(postId + "-body");
@@ -33,11 +36,10 @@
             }
         };
         vm.delete = function(id, e) {
-            console.log("Deleting post " + id);
+            e.preventDefault();
             vm.post.delete().then(function () {
-                $("#post-" + id).remove();
+                $scope.$emit("post:delete", { post: vm.post });
             });
-            
         };
         vm.reply = function(id, e) {
             vm.loading = true;
@@ -59,7 +61,8 @@
                     vm[key] = val;
                 });
                 vm.loading = false;
-                vm.editing = false;
+                vm.editing = vm.post.editing = false;
+                Materialize.toast("Post saved successfully.", 3000);
             });
         };
         vm.toggleVisibility = function(id, e) {
@@ -74,6 +77,19 @@
             activateMaterialize("Post directive: " + vm.id);
             if (vm.editing) {
                 vm.edit();
+            }
+
+            $('.modal-trigger').leanModal();
+
+            $scope.$on("post:delete", vm.childDeleted);
+        };
+
+        vm.childDeleted = function(e, data) {
+            if (_.includes(vm.post.posts, data.post))
+            {
+                e.stopPropagation();
+                _.pull(vm.post.posts, data.post);
+                Materialize.toast("Post deleted successfully.", 3000);
             }
         };
 

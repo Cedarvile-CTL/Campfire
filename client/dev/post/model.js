@@ -19,7 +19,7 @@
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
-            console.log(this);
+            // console.log(this);
         };
 
         Post.prototype = {
@@ -42,7 +42,7 @@
                     post.section,
                     post.thread
                 );
-                console.log(newPost);
+                // console.log(newPost);
                 newPost.save({
                     body: ""
                 }).then(function (result) {
