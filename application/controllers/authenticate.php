@@ -35,7 +35,7 @@ class Authenticate extends CI_Controller {
     {
         $this->dso->page_title = 'Log in';
         $this->dso->page_id = 'page-login'; 
-	$this->dso->auth_in_app = FALSE;
+	    $this->dso->auth_in_app = FALSE;
         $this->dso->login_error = FALSE;
         $this->dso->crumbs = '';
         $referral = $this->input->get('ref') 

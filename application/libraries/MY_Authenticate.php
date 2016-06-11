@@ -29,7 +29,7 @@ class MY_Authenticate extends CI_Authenticate {
     
     public function check_for_auth($app_prefix=NULL, $login_url=NULL, $force=NULL)
     {
-        ep('Trying to log in user');
+//        ep('Trying to log in user');
         $userID = parent::check_for_auth($app_prefix, $login_url, $force);
         $user = $this->CI->user_model->validate($userID);
         if ($user == FALSE)

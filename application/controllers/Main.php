@@ -8,7 +8,7 @@ class Main extends CI_Controller {
         parent::__construct();
         ENVIRONMENT == 'development' 
             ? $this->output->enable_profiler(TRUE) : TRUE;
-        #$this->authenticate->check_for_auth();
+        $this->authenticate->check_for_auth();
     }
     
     public function index()

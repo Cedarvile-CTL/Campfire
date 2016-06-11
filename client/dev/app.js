@@ -33,7 +33,7 @@
             });
     })
     .value('$', window.$);
-
+ 
 })();
 
 function activateMaterialize(source) {
