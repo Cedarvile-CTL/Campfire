@@ -41,4 +41,4 @@ JOIN Access_Level ON User.access_level = Access_Level.id;
 
 CREATE OR REPLACE VIEW Post_Details AS
   SELECT * FROM Post
-    JOIN User_Info ON Post.user = User_Info.personID;
+    JOIN Person_Info ON Post.user = Person_Info.personID;
