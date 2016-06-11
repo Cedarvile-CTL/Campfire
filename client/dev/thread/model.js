@@ -39,7 +39,7 @@
 
         Thread.get = function(threadId) {
             var d = $q.defer();
-            $http.get('api/thread/get/' + threadId).then(function (result) {
+            $http.get('/apps/campfire/api/thread/get/' + threadId).then(function (result) {
                 var data = Forum.transformer(result.data);
                 d.resolve(data);
             });
@@ -48,7 +48,7 @@
 
         Thread.getList = function(options) {
             var d = $q.defer();
-            $http.get('api/thread/get_list', options).then(function (result) {
+            $http.get('/apps/campfire/api/thread/get_list', options).then(function (result) {
                 var data = Thread.transformer(result.data);
                 d.resolve(data);
             });
@@ -57,7 +57,7 @@
         
         Thread.getPosts = function(threadId) {
             var d = $q.defer();
-            $http.get('api/thread/get_posts/' + threadId).then(function (result) {
+            $http.get('/apps/campfire/api/thread/get_posts/' + threadId).then(function (result) {
                 var data = Post.transformer(result.data);
                 d.resolve(data);
             });

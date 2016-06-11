@@ -46,7 +46,7 @@
             },
             delete: function() {
                 var d = $q.defer();
-                $http.get('api/post/delete/' + this.id).then(function (result) {
+                $http.get('/apps/campfire/api/post/delete/' + this.id).then(function (result) {
                     d.resolve(result);
                 });
                 return d.promise;
@@ -58,7 +58,7 @@
                         post[key] = val;
                     }
                 });
-                var url = 'api/post/save';
+                var url = '/apps/campfire/api/post/save';
 
                 var data = {
                     body: this.body,
@@ -115,7 +115,7 @@
 
         Post.get = function(postId) {
             var d = $q.defer();
-            $http.get('api/post/get/' + postId).then(function (result) {
+            $http.get('/apps/campfire/api/post/get/' + postId).then(function (result) {
                 var data = Post.transformer(result.data);
                 d.resolve(data);
             });
@@ -124,7 +124,7 @@
 
         Post.getList = function(options) {
             var d = $q.defer();
-            $http.get('api/post/get_list', options).then(function (result) {
+            $http.get('/apps/campfire/api/post/get_list', options).then(function (result) {
                 var data = Post.transformer(result.data);
                 d.resolve(data);
             });

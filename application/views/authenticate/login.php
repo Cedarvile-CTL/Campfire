@@ -7,7 +7,7 @@
         <p class="white-text">You must log in to use this application. Enter your Cedarville University credentials below.</p>
     <?php endif; ?>
     </div>
-    <form action="{base_url}authenticate/login" method="post">
+    <form action="{base_url}authenticate/login?ref={referral}" method="post">
         <ul>
             <li class="row">
                 <div class="input-field col s12">

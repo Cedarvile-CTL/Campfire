@@ -9,7 +9,7 @@
                 thread: "="
             },
             restrict: "E",
-            templateUrl: "./client/dev/thread/view.html",
+            templateUrl: "/apps/campfire/client/dev/thread/view.html",
             controller: ["$scope", "Thread", ThreadCtrl],
             controllerAs: "thread"
         }; 

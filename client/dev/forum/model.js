@@ -18,7 +18,7 @@
 
         Forum.get = function(forumId) {
             var d = $q.defer();
-            $http.get('api/forum/get/' + forumId).then(function (result) {
+            $http.get('/apps/campfire/api/forum/get/' + forumId).then(function (result) {
                 var data = Forum.transformer(result.data);
                 d.resolve(data);
             });
@@ -27,7 +27,7 @@
 
         Forum.getList = function(options) {
             var d = $q.defer();
-            $http.get('api/forum/get_list', options).then(function (result) {
+            $http.get('/apps/campfire/api/forum/get_list', options).then(function (result) {
                 var data = Forum.transformer(result.data);
                 d.resolve(data);
             });

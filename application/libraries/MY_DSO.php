@@ -20,5 +20,7 @@ class MY_DSO extends CI_DSO {
         $this->base_url = base_url();
         $this->hasJavaScripts = FALSE;
         $this->querystring = $_SERVER['QUERY_STRING'];
+        $this->forums_page_class = '';
+        $this->admin_page_class = '';
     }
 }

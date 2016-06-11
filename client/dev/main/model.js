@@ -13,7 +13,7 @@
 
         Main.getForumsForVersion = function(versionID) {
             var d = $q.defer();
-            $http.get('api/forum/all_for_version/' + versionID).then(function (result) {
+            $http.get('/apps/campfire/api/forum/all_for_version/' + versionID).then(function (result) {
                 var data = Forum.transformer(result.data);
                 d.resolve(data);
             });

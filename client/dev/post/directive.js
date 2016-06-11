@@ -9,7 +9,7 @@
                 post: "="
             },
             restrict: "E",
-            templateUrl: "./client/dev/post/view.html",
+            templateUrl: "/apps/campfire/client/dev/post/view.html",
             controller: ["$scope", "$interval", "Post", "User", PostCtrl],
             controllerAs: "post"
         };
