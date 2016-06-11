@@ -22,6 +22,18 @@
                     console.log("Updated thread", thread);
                 });
                 return d.promise;
+            },
+            addPost: function(sectionId) {
+                var d = $q.defer();
+                var thread = this;
+                var newPost = Post.new(null, sectionId, thread.id);
+                newPost.save({ body: "<p>New post</p>"}).then(function(result){
+                    result.editing = true;
+                    result.isNew = true;
+                    thread.posts.unshift(result);
+                    d.resolve(result);
+                });
+                return d.promise;
             }
         };
 

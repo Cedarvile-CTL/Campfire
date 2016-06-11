@@ -44,12 +44,10 @@
 .thread .thread-label {
   font-weight: 600;
 }
-.thread .thread-label .btn-floating {
-  transition: 0.5s top linear;
-  float: right;
-  margin-top: 4px;
+.thread .btn-add-post {
+  margin: 10px 20px;
 }
-.thread .thread-label .btn-floating i {
+.thread .btn-add-post i {
   width: inherit;
   margin-right: 0;
   line-height: 2.6rem;
@@ -91,10 +89,6 @@
 }
 .thread.active .thread-label {
   background-color: #e0e0e0;
-}
-.thread.active .thread-label .btn-floating {
-  position: relative;
-  top: 22px;
 }
 .list-inline:after {
   content: "";

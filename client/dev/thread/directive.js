@@ -18,13 +18,44 @@
     function ThreadCtrl($scope, Thread) {
         var vm = this;
 
+        vm.sectionId = 1;
+
         vm.posts = [];
-        vm.has_posts = false;
+        vm.hasPosts = false;
+        vm.loading = false;
+
+        vm.addPost = function(e) {
+            console.log("Clicked to add a post");
+            var threadElement = $(e.target).closest(".thread");
+            if (threadElement.hasClass("active")) {
+                e.stopPropagation(e);
+            }
+            vm.loading = true;
+            vm.thread.addPost(vm.sectionId).then(function(result){
+                vm.hasPosts = true;
+                vm.loading = false;
+                // scrollTo("#post-" + result.id);
+            });
+        };
+        
+        vm.childDeleted = function(e, data) {
+            if (_.includes(vm.posts, data.post)) {
+                e.stopPropagation();
+                _.pull(vm.posts, data.post);
+                var msg = "Post deleted successfully.";
+                if (data.isNew) {
+                    msg = "Post cancelled.";
+                }
+                Materialize.toast(msg, 3000);
+            }
+        };
 
         vm.getPosts = function() {
+            console.log("Clicked to get all posts for thread");
             vm.thread.getPosts().then(function(result){
                 vm.posts = result;
-                vm.has_posts = vm.posts.length > 0;
+                vm.hasPosts = vm.posts.length > 0;
+                console.log(vm.hasPosts);
             });
         };
         
@@ -34,6 +65,8 @@
             vm.label = vm.thread.label;
             vm.description = vm.thread.description;
             vm.posts = vm.thread.posts;
+            
+            $scope.$on("post:delete", vm.childDeleted);
         };
 
         vm.initialize();

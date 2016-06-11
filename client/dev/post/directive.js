@@ -23,6 +23,15 @@
             vm.editing = true;
             vm.interval = $interval(vm.checkForEditableArea, 250);
         };
+        vm.cancel = function(e) {
+            e.preventDefault();
+            console.log("Canceling save");
+            vm.editing = vm.post.editing = false;
+            if (vm.post.isNew) {
+                console.log("New item... delete it.");
+                vm.delete(e);
+            }
+        };
         vm.cancelDelete = function(e) {
             e.preventDefault();
         };
@@ -36,9 +45,12 @@
             }
         };
         vm.delete = function(id, e) {
-            e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
+            var isNew = vm.post.isNew;
             vm.post.delete().then(function () {
-                $scope.$emit("post:delete", { post: vm.post });
+                $scope.$emit("post:delete", { post: vm.post, isNew:isNew });
             });
         };
         vm.reply = function(id, e) {
@@ -85,11 +97,14 @@
         };
 
         vm.childDeleted = function(e, data) {
-            if (_.includes(vm.post.posts, data.post))
-            {
+            if (_.includes(vm.post.posts, data.post)) {
                 e.stopPropagation();
                 _.pull(vm.post.posts, data.post);
-                Materialize.toast("Post deleted successfully.", 3000);
+                var msg = "Post deleted successfully.";
+                if (data.isNew) {
+                    msg = "Post cancelled.";
+                }
+                Materialize.toast(msg, 3000);
             }
         };
 

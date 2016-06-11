@@ -1,11 +1,20 @@
 <li class="thread">
     <div class="collapsible-header thread-label" ng-click="thread.getPosts($event)">
         {{thread.label}}
-        <a class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
     </div>
     <div class="collapsible-body thread-body">
         <div ng-bind-html="thread.description" class="description"></div>
-        <ul ng-show="thread.has_posts" class="collection posts">
+
+        <button class="btn-add-post btn-floating btn-small waves-effect waves-light"
+                ng-click="thread.addPost($event)">
+            <i class="material-icons">add</i>
+        </button>
+
+        <div ng-show="thread.loading" class="progress">
+            <div class="indeterminate"></div>
+        </div>
+
+        <ul ng-show="thread.hasPosts" class="collection posts">
             <campfire-post post="post" ng-repeat="post in thread.posts track by post.id"></campfire-post>
         </ul>
     </div>

@@ -51,11 +51,10 @@
 .thread {
   .thread-label {
     font-weight:600;
-    .btn-floating {
-      transition:0.5s top linear;
-      float:right; margin-top:4px;
-      i { width:inherit; margin-right:0; line-height: 2.6rem; }
-    }
+  }
+  .btn-add-post {
+    margin:10px 20px;
+    i { width:inherit; margin-right:0; line-height: 2.6rem; }
   }
   .description {
     padding:10px 20px;
@@ -93,10 +92,6 @@
   &.active {
     .thread-label {
       background-color: @color-standard-light-grey;
-      .btn-floating {
-        position: relative;
-        top:22px;
-      }
     }
   }
 }

@@ -19,6 +19,7 @@
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
+            this.isNew = false;
             // console.log(this);
         };
 
@@ -31,22 +32,13 @@
             addReply: function() {
                 var d = $q.defer();
                 var post = this;
-                var newPost = new Post(
-                    null,
-                    "",
-                    [],
-                    User.activeUser,
-                    Date.today().setTimeToNow(),
-                    Date.today().setTimeToNow(),
-                    post.id,
-                    post.section,
-                    post.thread
-                );
+                var newPost = Post.new(post.id, post.section, post.thread);
                 // console.log(newPost);
                 newPost.save({
                     body: ""
                 }).then(function (result) {
                     result.editing = true;
+                    result.isNew = true;
                     post.posts.unshift(result);
                     d.resolve(result);
                 });
@@ -105,6 +97,20 @@
                 this.date_posted = Date.parse(data.date_posted);
                 this.date_updated = Date.parse(data.date_updated);
             }
+        };
+        
+        Post.new = function (parent, section, thread) {
+            return new Post(
+                null,
+                "",
+                [],
+                User.activeUser,
+                Date.today().setTimeToNow(),
+                Date.today().setTimeToNow(),
+                parent,
+                section,
+                thread
+            );
         };
 
         Post.get = function(postId) {
