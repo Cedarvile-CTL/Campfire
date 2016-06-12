@@ -20,6 +20,18 @@
             return d.promise;
         };
 
+        Main.getForumsForActiveSection = function() {
+            var d = $q.defer();
+            $http.get('/apps/campfire/api/forum/all_for_section/').then(function (result) {
+                var data = [];
+                if (result.data) {
+                    data = Forum.transformer(result.data);
+                }
+                d.resolve(data);
+            });
+            return d.promise;
+        };
+
         return Main;
     });
 })();

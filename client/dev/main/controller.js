@@ -12,10 +12,14 @@
 
         vm.label = "Forums";
         vm.forums = [];
+        vm.hasForums = false;
 
         var initialize = function () {
-            Main.getForumsForVersion(vm.courseVersion.id).then(function(result){
+            Main.getForumsForActiveSection().then(function(result){
                 vm.forums = result;
+                if (vm.forums.length>1) {
+                    vm.hasForums = true;
+                }
             });
         };
 
