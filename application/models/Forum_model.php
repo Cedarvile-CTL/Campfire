@@ -8,8 +8,12 @@ class Forum_model extends CI_Model
         parent::__construct();
     }
     
-    public function get($forum_id)
+    public function get($forum_id, $enforce_active_section=TRUE)
     {
+        if ($enforce_active_section)
+        {
+            $this->db->version = $this->session->version;
+        }
         $this->db->where('id', $forum_id);
         $forum = cfr('Forum', 'row');
         return $forum;
