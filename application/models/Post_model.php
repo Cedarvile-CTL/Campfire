@@ -28,8 +28,12 @@ class Post_model extends CI_Model
         return $post;
     }
 
-    public function get_for_thread($thread_id)
+    public function get_for_thread($thread_id, $enforce_active_section=TRUE)
     {
+        if ($enforce_active_section)
+        {
+            $this->db->where('section', $this->session->section);
+        }
         $this->db->where('thread', $thread_id);
         return $this->get_list();
     }
@@ -134,8 +138,13 @@ class Post_model extends CI_Model
         }
     }
 
-    public function save($post_id, $data)
+    public function save($post_id, $data, $enforce_active_section=TRUE)
     {
+        if ($enforce_active_section)
+        {
+            $data['section'] = $this->session->section;
+        }
+
         if ($post_id > 0)
         {
             $this->db->where('id', $post_id);

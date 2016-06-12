@@ -18,8 +18,6 @@
     function ThreadCtrl($scope, Thread) {
         var vm = this;
 
-        vm.sectionId = 1;
-
         vm.posts = [];
         vm.hasPosts = false;
         vm.loading = false;
@@ -34,7 +32,6 @@
             vm.thread.addPost(vm.sectionId).then(function(result){
                 vm.hasPosts = true;
                 vm.loading = false;
-                // scrollTo("#post-" + result.id);
             });
         };
         
@@ -51,11 +48,9 @@
         };
 
         vm.getPosts = function() {
-            console.log("Clicked to get all posts for thread");
             vm.thread.getPosts().then(function(result){
                 vm.posts = result;
                 vm.hasPosts = vm.posts.length > 0;
-                console.log(vm.hasPosts);
             });
         };
         

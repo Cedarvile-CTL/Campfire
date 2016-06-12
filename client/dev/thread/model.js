@@ -19,15 +19,14 @@
                 Thread.getPosts(thread.id).then(function(result){
                     thread.posts = result;
                     d.resolve(result);
-                    console.log("Updated thread", thread);
                 });
                 return d.promise;
             },
-            addPost: function(sectionId) {
+            addPost: function() {
                 var d = $q.defer();
                 var thread = this;
-                var newPost = Post.new(null, sectionId, thread.id);
-                newPost.save({ body: "<p>New post</p>"}).then(function(result){
+                var newPost = Post.new(null, null, thread.id);
+                newPost.save({ body: "" }).then(function(result){
                     result.editing = true;
                     result.isNew = true;
                     thread.posts.unshift(result);
@@ -58,7 +57,11 @@
         Thread.getPosts = function(threadId) {
             var d = $q.defer();
             $http.get('/apps/campfire/api/thread/get_posts/' + threadId).then(function (result) {
-                var data = Post.transformer(result.data);
+                var data = [];
+                if (result.data !== null)
+                {
+                    data = Post.transformer(result.data);
+                }
                 d.resolve(data);
             });
             return d.promise;
