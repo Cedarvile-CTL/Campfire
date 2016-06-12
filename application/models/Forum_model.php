@@ -20,6 +20,17 @@ class Forum_model extends CI_Model
         return $this->get_list();
     }
 
+    public function get_for_section($section_id)
+    {
+        $this->load->model('Section_model');
+        $section = $this->Section_model->get($section_id);
+        if ($section)
+        {
+            return $this->get_for_version($section->versionID);
+        }
+        return array();
+    }
+
     public function get_for_version($version_id)
     {
         $this->db->where('course_version', $version_id);

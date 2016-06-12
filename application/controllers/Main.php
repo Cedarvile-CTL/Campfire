@@ -20,13 +20,16 @@ class Main extends CI_Controller {
             redirect(base_url('main/error/section'));
         }
 
+        $this->load->model('Section_model');
+
         // Look up course and section
-        $actual_section = NULL;
-        // TODO: search for section in section model
+        $actual_section = $this->Section_model->get(NULL, $course . '/' . $section);
         if ($actual_section===NULL)
         {
             redirect(base_url('main/error/section'));
         }
+
+        $this->session->section = $actual_section->sectionID;
 
         show_view('ng-view', $this->dso->all);
     }

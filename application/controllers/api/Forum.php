@@ -26,6 +26,21 @@ class Forum extends Main {
         $forums = $this->Forum_model->get_for_version($version_id);
         $this->_output_result($forums);
     }
+
+    public function all_for_section($section_id=NULL)
+    {
+        if ($section_id || $this->session->section)
+        {
+            $section_id = $section_id === NULL ? $this->session->section : $section_id;
+            $forums = $this->Forum_model->get_for_section($section_id);
+        }
+        else
+        {
+            $forums = array();
+        }
+
+        $this->_output_result($forums);
+    }
     
     public function get($forum_id)
     {

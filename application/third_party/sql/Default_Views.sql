@@ -10,8 +10,9 @@ CREATE OR REPLACE VIEW Warehouse_Course AS
 
 
 CREATE OR REPLACE VIEW Thorin_Section AS
-	SELECT *
-	FROM Thorin.Section_Details;
+	SELECT d.*,
+	   CONCAT(d.dptCode, d.number, '/', d.year, d.semesterID, LPAD(d.sectionNumber, 2, '0')) AS `section_uri`
+	FROM Thorin.Section_Details as d;
 
 -- --------
 
