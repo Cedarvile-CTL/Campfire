@@ -31,7 +31,15 @@ class Main extends CI_Controller {
 
         $this->session->section = $actual_section->sectionID;
 
-        show_view('ng-view', $this->dso->all);
+        show_view('client/main', $this->dso->all);
+    }
+
+    public function forum($forum_id)
+    {
+        $this->_ensure_section_data();
+
+        $this->dso->forum_id = $forum_id;
+        show_view('client/forum', $this->dso->all);
     }
     
     public function error($type)
@@ -49,5 +57,28 @@ class Main extends CI_Controller {
         }
         
         show_view('error', $this->dso->all);
+    }
+
+    private function _ensure_section_data()
+    {
+        if (!$this->session->section)
+        {
+            redirect(base_url('main/error/section'));
+        }
+
+//        ep('Section detected.');
+
+        if (!$this->session->version)
+        {
+            $this->load->model('Section_model');
+            $section = $this->Section_model->get($this->session->section);
+            if (!$section)
+            {
+                redirect(base_url('main/error/section'));
+            }
+            $this->session->version = $section->versionID;
+        }
+
+//        ep('Version found for section.');
     }
 }

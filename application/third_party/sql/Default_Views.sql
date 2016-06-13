@@ -17,6 +17,14 @@ CREATE OR REPLACE VIEW Thorin_Section AS
 -- --------
 
 
+CREATE OR REPLACE VIEW Thorin_Version AS
+	SELECT v.*,
+	  (SELECT COUNT(id) FROM Forum WHERE course_version = v.versionID) AS `num_forums`
+	FROM Thorin.Course_Version_Info as v;
+
+-- --------
+
+
 CREATE OR REPLACE VIEW Warehouse_Person AS 
     SELECT warehouse.Person.redwoodID as personID, 
         warehouse.Person.firstName, 

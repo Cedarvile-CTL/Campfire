@@ -7,30 +7,30 @@
     ]);
 
     app.config(function ($routeProvider) {
-        $routeProvider
-            .when('/', {
-                controller: 'mainCtrl',
-                controllerAs: 'main',
-                templateUrl: '/apps/campfire/client/dev/main/view.html'
-            })
-            .when('/forum/:forumId/', {
-                controller: 'forumCtrl',
-                controllerAs: 'forum',
-                templateUrl: '/apps/campfire/client/dev/forum/view.html'
-            })
-            .when('/thread/:threadId/', {
-                controller: 'threadCtrl',
-                controllerAs: 'thread',
-                templateUrl: '/apps/campfire/client/dev/thread/view.html'
-            })
-            .when('/post/:postId/', {
-                controller: 'postCtrl',
-                controllerAs: 'post',
-                templateUrl: '/apps/campfire/client/dev/post/view.html'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+        // $routeProvider
+        //     .when('/', {
+        //         controller: 'mainCtrl',
+        //         controllerAs: 'main',
+        //         templateUrl: '/apps/campfire/client/dev/main/view.html'
+        //     })
+        //     .when('/forum/:forumId/', {
+        //         controller: 'forumCtrl',
+        //         controllerAs: 'forum',
+        //         templateUrl: '/apps/campfire/client/dev/forum/view.html'
+        //     })
+        //     .when('/thread/:threadId/', {
+        //         controller: 'threadCtrl',
+        //         controllerAs: 'thread',
+        //         templateUrl: '/apps/campfire/client/dev/thread/view.html'
+        //     })
+        //     .when('/post/:postId/', {
+        //         controller: 'postCtrl',
+        //         controllerAs: 'post',
+        //         templateUrl: '/apps/campfire/client/dev/post/view.html'
+        //     })
+        //     .otherwise({
+        //         redirectTo: '/'
+        //     });
     })
     .value('$', window.$);
 

@@ -9,11 +9,17 @@
         Forum
     ) {
         var vm = this;
+        vm.forumId = null;
         vm.forum = {};
         vm.hasThreads = false;
 
+        $scope.init = function(forumId) {
+            vm.forumId = forumId;
+            vm.initialize();
+        };
+
         vm.initialize = function () {
-            Forum.get($routeParams.forumId).then(function(result){
+            Forum.get(vm.forumId).then(function(result){
                 vm.forum = result;
                 vm.hasThreads = vm.forum.threads.length > 1 ? true : false;
             });
@@ -22,6 +28,6 @@
 
         vm.getPosts = function(e){};
 
-        vm.initialize();
+        // vm.initialize();
     });
 })();

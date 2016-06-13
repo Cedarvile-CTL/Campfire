@@ -17,7 +17,7 @@
         var initialize = function () {
             Main.getForumsForActiveSection().then(function(result){
                 vm.forums = result;
-                if (vm.forums.length>1) {
+                if (vm.forums.length>0) {
                     vm.hasForums = true;
                 }
             });
