@@ -15,21 +15,25 @@ class Main extends CI_Controller {
 
         $this->authenticate->check_for_auth();
 
-        if (!$this->session->section)
+        if (!$this->dso->is_admin)
         {
-            redirect(base_url('api/main/error/section'));
-        }
-
-        if (!$this->session->version)
-        {
-            $this->load->model('Section_model');
-            $section = $this->Section_model->get($this->session->section);
-            if (!$section)
+            if (!$this->session->section)
             {
                 redirect(base_url('api/main/error/section'));
             }
-            $this->session->version = $section->versionID;
+
+            if (!$this->session->version)
+            {
+                $this->load->model('Section_model');
+                $section = $this->Section_model->get($this->session->section);
+                if (!$section)
+                {
+                    redirect(base_url('api/main/error/section'));
+                }
+                $this->session->version = $section->versionID;
+            }
         }
+
     }
 
     public function index()

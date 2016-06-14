@@ -17,8 +17,10 @@
                 <a href="#/" class="brand-logo">Campfire</a>
                 {auth_in_app?}
                 <ul class="right hide-on-med-and-down">
-                    <li class="{forums_page_class}"><a href="#/">Forums</a></li>
-                    <li class="{admin_page_class}"><a href="#/admin">Administration</a></li>
+                    {is_admin?}
+                    <li class="{forums_page_class}"><a href="{base_url}main/index">Forums</a></li>
+                    <li class="{admin_page_class}"><a href="{base_url}admin/index">Administration</a></li>
+                    {/is_admin?}
                     <li><a href="{base_url}authenticate/logout">Logout</a></li>
                 </ul>
                 {/auth_in_app?}

@@ -6,7 +6,7 @@
  * Local wrapper for core authenticate class. Customize values set in the 
  * constructor function for this application.
  *
- * @package    App_name
+ * @package    Campfire
  * @subpackage Library
  * @author     Phil Schanely <philschanely@cedarville.edu>
  */
@@ -24,7 +24,7 @@ class MY_Authenticate extends CI_Authenticate {
         // Local settings --------
         
         // Session prefix for all authenctication values
-        $this->prefix = 'app_name';        
+        $this->prefix = 'campfire';
     }
     
     public function check_for_auth($app_prefix=NULL, $login_url=NULL, $force=NULL)
@@ -40,6 +40,13 @@ class MY_Authenticate extends CI_Authenticate {
         else
         {
             $this->CI->dso->user = $user;
+            $this->CI->dso->is_admin =
+                $user->access_level == ACCESSLEVEL_ADMIN || $user->access_level == ACCESSLEVEL_SUPERADMIN
+                ? TRUE
+                : FALSE;
+            $this->CI->dso->is_superadmin = $user->access_level == ACCESSLEVEL_SUPERADMIN
+                ? TRUE
+                : FALSE;
             $this->CI->dso->auth_in_app = TRUE;
         }
         return $user;

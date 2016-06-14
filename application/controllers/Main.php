@@ -46,6 +46,12 @@ class Main extends CI_Controller {
     {
         switch($type)
         {
+            case 'access':
+                $this->dso->msg = "<p>You do not have sufficient access level privileges to use this feature..</p>";
+                $this->dso->actions = [
+                    ['path'=>base_url('authenticate/logout'), 'label'=>'Logout of Campfire'],
+                    ['path'=>'http://moodle.cedarville.edu', 'label'=>'Go to Moodle']
+                ];
             case 'section':
             default:
                 $this->dso->msg = "<p>You must link to campfire from a valid section of a course at Cedarville University. Contact your professor for help with this issue.</p>";
