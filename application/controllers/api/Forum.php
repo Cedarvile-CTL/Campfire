@@ -53,4 +53,18 @@ class Forum extends Main {
         }
         $this->_output_result($forum);
     }
+
+    public function save($forum_id=0)
+    {
+        $postdata = file_get_contents("php://input");
+        $request = (array) json_decode($postdata);
+        $forum = $this->Forum_model->save($forum_id, $request);
+
+        $this->_output_result($forum);
+    }
+
+    public function delete($forum_id)
+    {
+        $this->Forum_model->delete($forum_id);
+    }
 }

@@ -5,15 +5,60 @@
 
         var forums = [];
 
-        var Forum = function (id, label, description, threads) {
-            this.id = id;
-            this.label = label;
-            this.description = description;
+        var Forum = function (id, label, description, version, threads) {
+            this.update({
+                id: id,
+                label: label,
+                description: description,
+                version: version
+            });
             this.threads = Thread.transformer(threads);
+            this.loading = false;
         };
 
         Forum.prototype = {
+            modelProps: [
+                'id', 'label', 'description', 'version'
+            ],
+            save: function(form_data) {
+                var forum = this;
+                angular.forEach(form_data, function(val, key){
+                    if (_.includes(forum.modelProps, key)) {
+                        forum[key] = val;
+                    }
+                });
 
+                var url = '/apps/campfire/api/forum/save';
+
+                var data = {
+                    label: this.label,
+                    description: this.description
+                };
+
+                if (this.id === null || this.id === 0) {
+                    console.log("New forum");
+                    data.version = this.version;
+                } else {
+                    console.log("Edit forum");
+                    url += "/" + this.id;
+                }
+
+                var d = $q.defer();
+                forum.loading = true;
+                $http.post(url, data).then(function (result) {
+                    forum.update(result.data);
+                    forum.loading = false;
+                    d.resolve(forum);
+                });
+                return d.promise;
+            },
+            update: function(data) {
+                this.id = data.id;
+                this.id = data.id;
+                this.label = data.label;
+                this.description = data.description;
+                this.version = data.version;
+            }
         };
 
         Forum.get = function(forumId) {
@@ -41,6 +86,7 @@
                     data.id,
                     data.label,
                     data.description,
+                    data.version,
                     data.threads
                 );
             }

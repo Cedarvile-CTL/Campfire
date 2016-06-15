@@ -46,7 +46,7 @@ class Version_model extends CI_Model
                 $version_forums = array();
                 foreach ($forums as $forum)
                 {
-                    if ($forum->course_version == $version->versionID)
+                    if ($forum->version == $version->versionID)
                     {
                         $version_forums[] = $forum;
                     }

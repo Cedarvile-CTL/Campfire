@@ -37,7 +37,7 @@ class Forum_model extends CI_Model
 
     public function get_for_version($version_id)
     {
-        $this->db->where('course_version', $version_id);
+        $this->db->where('version', $version_id);
         return $this->get_list();
     }
 
@@ -45,5 +45,30 @@ class Forum_model extends CI_Model
     {
         $forums = cfr('Forum');
         return $forums;
+    }
+
+    public function save($forum_id, $data)
+    {
+        if ($forum_id > 0)
+        {
+            $this->db->where('id', $forum_id);
+            $this->db->update('Forum', $data);
+        }
+        else
+        {
+            $this->db->insert('Forum', $data);
+            $forum_id = $this->db->insert_id();
+        }
+
+        return $this->get($forum_id, FALSE);
+    }
+
+    public function delete($forum_id)
+    {
+        if ($forum_id)
+        {
+            $this->db->where('id', $forum_id);
+            $this->db->delete('Forum');
+        }
     }
 }

@@ -19,7 +19,7 @@ CREATE OR REPLACE VIEW Thorin_Section AS
 
 CREATE OR REPLACE VIEW Thorin_Version AS
 	SELECT v.*,
-	  (SELECT COUNT(id) FROM Forum WHERE course_version = v.versionID) AS `num_forums`
+	  (SELECT COUNT(id) FROM Forum WHERE version = v.versionID) AS `num_forums`
 	FROM Thorin.Course_Version_Info as v;
 
 -- --------
