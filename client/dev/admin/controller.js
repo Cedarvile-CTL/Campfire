@@ -54,7 +54,6 @@ angular.module('campfire-client')
 
         vm.deleteForum = function(e) {
             e.preventDefault();
-            console.log("Deleting forum " + vm.activeForum);
             if (vm.activeForum > 0) {
                 var version = _.find(vm.versions, { id: vm.activeVersion });
                 if (version) {
@@ -62,10 +61,10 @@ angular.module('campfire-client')
                     vm.activeForum = 0;
                     vm.activeVersion = 0;
                 } else {
-                    console.log("No matching version found.");
+                    // console.log("No matching version found.");
                 }
             } else {
-                console.log("No active forum. ", vm.activeForum);
+                // console.log("No active forum. ", vm.activeForum);
             }
         };
 

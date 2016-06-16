@@ -1,4 +1,4 @@
-<div ng-controller="adminCtrl as admin" class="container">
+<div ng-controller="adminCtrl as admin" class="page-admin container">
     <h2>Course Versions</h2>
     <p>Choose a course version in which to manage forums.</p>
     <div ng-show="admin.loading" class="progress">
@@ -13,20 +13,25 @@
         </form>
     </div>
     <ul ng-show="admin.hasVersions" class="collapsible popout" data-collapsible="accordion">
-        <li ng-repeat="version in admin.versions | filter:admin.filterPhrase" id="version-{{version.id}}">
+        <li ng-repeat="version in admin.versions | filter:admin.filterPhrase"
+            id="version-{{version.id}}" class="version row">
             <div class="collapsible-header">
-                {{version.courseCode}} {{version.courseName}} ({{version.name}}) <small>{{version.programName}}</small>
-                <span class="badge">{{version.numForums}} forums</span>
+                <span class="col s8 m9 l10">
+                    {{version.courseCode}} {{version.courseName}} ({{version.name}})
+                    <small>{{version.programName}}</small>
+                </span>
+                <span class="col s4 m3 l2 right-align">{{version.numForums}} forums</span>
             </div>
             <div class="collapsible-body">
                 <button data-target="modal-add-forum" ng-click="admin.addForum($event, version.id)"
-                        class="btn-floating btn-small waves-effect waves-light light-green modal-trigger">
+                        class="btn-floating btn-small waves-effect waves-light light-green modal-trigger btn-add-forum">
                     <i class="material-icons">add</i>
                 </button>
                 <ul ng-show="version.hasForums" class="collection">
-                    <li ng-repeat="forum in version.forums track by forum.id" class="collection-item">
-                        <a href="admin/forum/{{forum.id}}">{{forum.label}}</a>
-                        <ul class="forum-options">
+                    <li ng-repeat="forum in version.forums track by forum.id"
+                        class="collection-item row forum">
+                        <a href="/apps/campfire/admin/forum/{{forum.id}}" class="col s7 m8 l9">{{forum.label}}</a>
+                        <ul class="forum-options col s5 m4 l3 right-align">
                             <button ng-click="admin.editForum($event, forum)"
                                     class="btn-floating btn waves-effect waves-light amber">
                                 <i class="material-icons">edit</i>
@@ -66,6 +71,7 @@
                 <input type="hidden" id="edit-forum-id" name="forumId" ng-model="admin.activeForum" />
             </div>
             <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</button>
                 <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>
             </div>
         </div>

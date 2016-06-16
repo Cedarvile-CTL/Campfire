@@ -2,6 +2,27 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+.page-admin .version .collapsible-header:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.page-admin .version .collapsible-body:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.page-admin .btn-add-forum {
+  position: relative;
+  top: -30px;
+  left: -20px;
+  margin-bottom: -35px;
+  opacity: 0;
+  transition: 0.5s opacity linear;
+}
+.page-admin .active .btn-add-forum {
+  opacity: 1;
+}
 .post {
   position: relative;
   clear: both;
