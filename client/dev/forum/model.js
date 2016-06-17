@@ -12,7 +12,7 @@
                 description: description,
                 version: version
             });
-            this.threads = Thread.transformer(threads);
+            this.threads = threads ? Thread.transformer(threads) : [];
             this.loading = false;
         };
 
@@ -54,16 +54,18 @@
             },
             update: function(data) {
                 this.id = data.id;
-                this.id = data.id;
                 this.label = data.label;
                 this.description = data.description;
                 this.version = data.version;
             }
         };
 
-        Forum.get = function(forumId) {
+        Forum.get = function(forumId, isAdmin) {
+            isAdmin = typeof isAdmin !== 'undefined' ? isAdmin : false;
+            var isAdminParam = isAdmin ? '1' : '0';
             var d = $q.defer();
-            $http.get('/apps/campfire/api/forum/get/' + forumId).then(function (result) {
+            var url = '/apps/campfire/api/forum/get/' + forumId + '/' + isAdminParam;
+            $http.get(url).then(function (result) {
                 var data = Forum.transformer(result.data);
                 d.resolve(data);
             });

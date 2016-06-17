@@ -71,7 +71,7 @@
                 <input type="hidden" id="edit-forum-id" name="forumId" ng-model="admin.activeForum" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</button>
+                <button type="button" class="modal-action modal-close waves-effect waves-amber btn-flat">Cancel</button>
                 <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>
             </div>
         </div>

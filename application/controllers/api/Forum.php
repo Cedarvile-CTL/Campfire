@@ -42,11 +42,11 @@ class Forum extends Main {
         $this->_output_result($forums);
     }
     
-    public function get($forum_id)
+    public function get($forum_id, $is_admin=0)
     {
         $this->load->model('Thread_model');
 
-        $forum = $this->Forum_model->get($forum_id);
+        $forum = $this->Forum_model->get($forum_id, !$is_admin);
         if ($forum)
         {
             $forum->threads = $this->Thread_model->get_for_forum($forum_id);

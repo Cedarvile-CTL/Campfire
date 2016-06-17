@@ -47,7 +47,17 @@
             }
         };
 
+        vm.edit = function (e) {
+            if (!vm.adminEditing) {
+                return false;
+            }
+            $scope.$emit("thread:edit", { thread: vm.thread });
+        };
+
         vm.getPosts = function() {
+            if (vm.adminEditing) {
+                return false;
+            }
             vm.thread.getPosts().then(function(result){
                 vm.posts = result;
                 vm.hasPosts = vm.posts.length > 0;
@@ -60,6 +70,9 @@
             vm.label = vm.thread.label;
             vm.description = vm.thread.description;
             vm.posts = vm.thread.posts;
+            vm.adminEditing = vm.thread.adminEditing;
+
+            console.log(vm.adminEditing);
             
             $scope.$on("post:delete", vm.childDeleted);
         };

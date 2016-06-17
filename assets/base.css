@@ -23,6 +23,9 @@
 .page-admin .active .btn-add-forum {
   opacity: 1;
 }
+.page-manage-forum .btn-edit-forum {
+  margin-top: 40px;
+}
 .post {
   position: relative;
   clear: both;

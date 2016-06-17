@@ -5,23 +5,18 @@
 
         var threads = [];
 
-        var Thread = function (id, label, description, posts) {
-            this.id = id;
-            this.label = label;
-            this.description = description;
+        var Thread = function (id, label, description, forum, posts) {
+            this.update({
+                id: id,
+                label: label,
+                description: description, 
+                forum: forum
+            });
             this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
+            this.adminEditing = false;
         };
 
         Thread.prototype = {
-            getPosts: function() {
-                var thread = this;
-                var d = $q.defer();
-                Thread.getPosts(thread.id).then(function(result){
-                    thread.posts = result;
-                    d.resolve(result);
-                });
-                return d.promise;
-            },
             addPost: function() {
                 var d = $q.defer();
                 var thread = this;
@@ -33,13 +28,65 @@
                     d.resolve(result);
                 });
                 return d.promise;
+            },
+            getPosts: function() {
+                var thread = this;
+                var d = $q.defer();
+                Thread.getPosts(thread.id).then(function(result){
+                    thread.posts = result;
+                    d.resolve(result);
+                });
+                return d.promise;
+            },
+            modelProps: [
+                'id', 'label', 'description', 'forum'
+            ],
+            save: function(form_data) {
+                var thread = this;
+                angular.forEach(form_data, function(val, key){
+                    if (_.includes(thread.modelProps, key)) {
+                        thread[key] = val;
+                    }
+                });
+
+                var url = '/apps/campfire/api/thread/save';
+
+                var data = {
+                    label: this.label,
+                    description: this.description
+                };
+
+                if (this.id === null || this.id === 0) {
+                    console.log("New thread");
+                    data.forum = this.forum;
+                } else {
+                    console.log("Edit thread");
+                    url += "/" + this.id;
+                }
+
+                console.log("Data sent for save: ", data);
+
+                var d = $q.defer();
+                thread.loading = true;
+                $http.post(url, data).then(function (result) {
+                    thread.update(result.data);
+                    thread.loading = false;
+                    d.resolve(forum);
+                });
+                return d.promise;
+            },
+            update: function(data) {
+                this.id = data.id;
+                this.label = data.label;
+                this.description = data.description;
+                this.forum = data.forum;
             }
         };
 
         Thread.get = function(threadId) {
             var d = $q.defer();
             $http.get('/apps/campfire/api/thread/get/' + threadId).then(function (result) {
-                var data = Forum.transformer(result.data);
+                var data = Thread.transformer(result.data);
                 d.resolve(data);
             });
             return d.promise;
@@ -74,6 +121,7 @@
                     data.id,
                     data.label,
                     data.description,
+                    data.forum, 
                     data.posts
                 );
             }

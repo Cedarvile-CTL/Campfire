@@ -18,10 +18,16 @@ class Admin extends CI_Controller {
 
     public function index()
     {
-        $this->load->model('Forum_model');
-
-        $this->dso->page_title = 'Campfire';
+        $this->dso->page_title = 'Campfire Administration';
 
         show_view('client/admin', $this->dso->all);
+    }
+
+    public function forum($forum_id)
+    {
+        $this->load->model('Forum_model');
+        $this->dso->page_title = 'Manage Forum | Campfire Administration';
+        $this->dso->forum = $this->Forum_model->get($forum_id, FALSE);
+        show_view('client/forum/manage', $this->dso->all);
     }
 }

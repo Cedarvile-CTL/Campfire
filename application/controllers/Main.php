@@ -39,7 +39,7 @@ class Main extends CI_Controller {
         $this->_ensure_section_data();
 
         $this->dso->forum_id = $forum_id;
-        show_view('client/forum', $this->dso->all);
+        show_view('client/forum/view', $this->dso->all);
     }
     
     public function error($type)
