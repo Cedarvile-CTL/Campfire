@@ -103,11 +103,18 @@
             var d = $q.defer();
             $http.get('/apps/campfire/api/thread/get_posts/' + threadId).then(function (result) {
                 var data = [];
-                if (result.data !== null)
-                {
+                if (result.data !== null) {
                     data = Post.transformer(result.data);
                 }
                 d.resolve(data);
+            });
+            return d.promise;
+        };
+
+        Thread.delete = function (threadId) {
+            var d = $q.defer();
+            $http.get('/apps/campfire/api/thread/delete/' + threadId).then(function (result) {
+                d.resolve(result.data);
             });
             return d.promise;
         };

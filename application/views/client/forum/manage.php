@@ -74,4 +74,15 @@
             </div>
         </div>
     </form>
+
+    <div id="modal-delete-thread" class="modal">
+        <div class="modal-content">
+            <h4>Are you sure?</h4>
+            <p>Are you sure you want to delete this thread? You cannot undo this action and the thread will be removed permanently.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" ng-click="forum.cancelDeleteThread($event)" class="modal-action modal-close waves-effect waves-green btn-flat">Oops! Nevermind.</a>
+            <a href="#" ng-click="forum.deleteThread($event)" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, delete it!</a>
+        </div>
+    </div>
 </div>

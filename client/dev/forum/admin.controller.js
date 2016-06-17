@@ -42,6 +42,7 @@
                 activateMaterialize("Forum controller");
             });
             $scope.$on("thread:edit", vm.editThread);
+            $scope.$on("thread:delete", vm.confirmDeleteThread);
         };
 
         vm.editForum = function() {
@@ -58,6 +59,16 @@
                 data.thread.description
             );
             $("#modal-edit-thread").openModal();
+        };
+
+        vm.confirmDeleteThread = function(e, data) {
+            vm.activeThreadId = data.thread.id;
+            $("#modal-delete-thread").openModal();
+        };
+
+        vm.deleteThread = function(e) {
+            vm.forum.deleteThread(vm.activeThreadId);
+            vm.activeThreadId = 0;
         };
 
         vm.addThread = function(e) {

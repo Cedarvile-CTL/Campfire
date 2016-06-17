@@ -60,4 +60,10 @@ class Thread extends Main {
 
         $this->_output_result($thread);
     }
+
+    public function delete($thread_id)
+    {
+        $this->Thread_model->delete($thread_id);
+        $this->_output_result("");
+    }
 }

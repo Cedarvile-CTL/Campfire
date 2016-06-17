@@ -8,6 +8,12 @@ class Thread_model extends CI_Model
         parent::__construct();
     }
 
+    public function delete($thread_id)
+    {
+        $this->db->where('id', $thread_id);
+        $this->db->delete('Thread');
+    }
+
     public function get($thread_id)
     {
         $this->db->where('id', $thread_id);

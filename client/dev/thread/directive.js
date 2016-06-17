@@ -53,6 +53,13 @@
             $scope.$emit("thread:edit", { thread: vm.thread });
         };
 
+        vm.delete = function (e) {
+            if (!vm.adminEditing) {
+                return false;
+            }
+            $scope.$emit("thread:delete", { thread: vm.thread });
+        };
+
         vm.getPosts = function() {
             if (vm.adminEditing) {
                 return false;

@@ -20,6 +20,13 @@
             modelProps: [
                 'id', 'label', 'description', 'version'
             ],
+            deleteThread: function(threadId){
+                var forum = this;
+                var thread = _.find(this.threads, { id: threadId });
+                Thread.delete(threadId).then(function(result){
+                    _.pull(forum.threads, thread);
+                });
+            },
             updateThreads: function(thread) {
                 var matchingThread = _.find(this.threads, thread);
                 if (matchingThread) {

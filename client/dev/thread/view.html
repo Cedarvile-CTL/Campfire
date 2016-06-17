@@ -5,11 +5,20 @@
     <div class="collapsible-body thread-body">
         <div ng-bind-html="thread.description" class="description"></div>
 
-        <button ng-show="thread.adminEditing"
-                class="btn-edit-thread btn-floating btn-small waves-effect waves-light amber"
-                ng-click="thread.edit($event)">
-            <i class="material-icons">edit</i>
-        </button>
+        <div class="admin-options" ng-show="thread.adminEditing">
+            <button class="btn-edit-thread btn-floating btn-small waves-effect waves-light amber"
+                    ng-click="thread.edit($event)">
+                <i class="material-icons">edit</i>
+            </button>
+            <button class="btn-clone-thread btn-floating btn-small waves-effect waves-light"
+                    ng-click="thread.clone($event)">
+                <i class="material-icons">content_copy</i>
+            </button>
+            <button class="btn-delete-thread btn-floating btn-small waves-effect waves-light red"
+                    ng-click="thread.delete($event)">
+                <i class="material-icons">delete</i>
+            </button>
+        </div>
 
         <button ng-hide="thread.adminEditing" class="btn-add-post btn-floating btn-small waves-effect waves-light"
                 ng-click="thread.addPost($event)">
