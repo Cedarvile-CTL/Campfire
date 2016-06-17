@@ -111,6 +111,9 @@
 .thread .thread-body > .posts {
   margin: 10px 20px;
 }
+.thread .admin-options {
+  margin: 10px 20px;
+}
 .thread.active .thread-label {
   background-color: #e0e0e0;
 }
