@@ -64,14 +64,12 @@
                     url += "/" + this.id;
                 }
 
-                console.log("Data sent for save: ", data);
-
                 var d = $q.defer();
                 thread.loading = true;
                 $http.post(url, data).then(function (result) {
                     thread.update(result.data);
                     thread.loading = false;
-                    d.resolve(forum);
+                    d.resolve(thread);
                 });
                 return d.promise;
             },

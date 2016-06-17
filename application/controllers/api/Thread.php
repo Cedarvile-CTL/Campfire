@@ -51,4 +51,13 @@ class Thread extends Main {
 
         $this->_output_result($posts);
     }
+
+    public function save($thread_id=0)
+    {
+        $postdata = file_get_contents("php://input");
+        $request = (array) json_decode($postdata);
+        $thread = $this->Thread_model->save($thread_id, $request);
+
+        $this->_output_result($thread);
+    }
 }

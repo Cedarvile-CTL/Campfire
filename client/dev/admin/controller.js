@@ -81,7 +81,6 @@ angular.module('campfire-client')
                 id: vm.activeForum,
                 version: vm.activeForum
             });
-            vm.activeVersion = 0;
             vm.setupEditForumModal();
         };
 

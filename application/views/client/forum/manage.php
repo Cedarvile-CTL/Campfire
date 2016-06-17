@@ -65,6 +65,8 @@
                         <label ng-class="{'active' : forum.isThreadDescriptionActive}" for="description">Description</label>
                     </div>
                 </div>
+                <input type="hidden" id="edit-thread-forum" name="forum" ng-model="forum.activeThreadForum" />
+                <input type="hidden" id="edit-thread-id" name="id" ng-model="forum.activeThreadId" />
             </div>
             <div class="modal-footer">
                 <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>

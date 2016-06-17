@@ -6,7 +6,7 @@
 
     angular.module('campfire-client').controller('forumAdminCtrl', function (
         $routeParams, $scope,
-        Forum
+        Forum, Thread
     ) {
         var vm = this;
         vm.loading = false;
@@ -16,6 +16,12 @@
         vm.isLabelActive = false;
         vm.isDescriptionActive = false;
         vm.adminEditing = true;
+        vm.isThreadLabelActive = false;
+        vm.isThreadDescriptionActive = false;
+        vm.activeThreadId = 0;
+        vm.activeThreadLabel = "";
+        vm.activeThreadDescription = "";
+        vm.activeThreadForum = 0;
 
         $scope.init = function(forumId) {
             vm.forumId = forumId;
@@ -26,17 +32,16 @@
             vm.loading = true;
             Forum.get(vm.forumId, vm.adminEditing).then(function(result){
                 vm.forum = result;
-                vm.hasThreads = vm.forum.threads.length > 1 ? true : false;
+                vm.hasThreads = vm.forum.threads.length > 1;
                 vm.loading = false;
                 if (vm.hasThreads) {
                     angular.forEach(vm.forum.threads, function(thread, key) {
-                        console.log(thread);
                         thread.adminEditing = vm.adminEditing;
                     });
                 }
                 activateMaterialize("Forum controller");
             });
-            $scope.$on("thread:edit", vm.openThreadEditor);
+            $scope.$on("thread:edit", vm.editThread);
         };
 
         vm.editForum = function() {
@@ -45,8 +50,19 @@
             $("#modal-edit-forum").openModal();
         };
 
-        vm.openThreadEditor = function(e, data) {
-            console.log("Editing thread: ", data.thread);
+        vm.editThread = function(e, data) {
+            vm.setupEditThreadModal(
+                data.thread.forum,
+                data.thread.id,
+                data.thread.label,
+                data.thread.description
+            );
+            $("#modal-edit-thread").openModal();
+        };
+
+        vm.addThread = function(e) {
+            vm.setupEditThreadModal(vm.forumId);
+            $("#modal-edit-thread").openModal();
         };
         
         vm.saveForum = function(e) {
@@ -57,7 +73,36 @@
             });
         };
 
+        vm.saveThread = function(e) {
+            e.preventDefault();
+            var thread;
+            if (vm.activeThreadId > 0) {
+                thread = _.find(vm.forum.threads, { id: vm.activeThreadId });
+                thread.adminEditing = vm.adminEditing;
+            } else {
+                thread = new Thread(null);
+                thread.adminEditing = vm.adminEditing;
+            }
+            thread.save({
+                label: vm.activeThreadLabel,
+                description: vm.activeThreadDescription,
+                forum: vm.activeThreadForum
+            }).then(function(result){
+                vm.forum.updateThreads(result);
+                $scope.$broadcast("thread:updated", result);
+            });
+        };
+
         vm.getPosts = function(e){};
+
+        vm.setupEditThreadModal = function(forumId, threadId, label, description) {
+            vm.activeThreadForum = (forumId === undefined) ? 0 : forumId;
+            vm.activeThreadId = (threadId === undefined) ? 0 : threadId;
+            vm.activeThreadLabel = (label === undefined) ? '' : label;
+            vm.activeThreadDescription = (description === undefined) ? '' : description;
+            vm.isThreadLabelActive = vm.activeThreadLabel.length > 0;
+            vm.isThreadDescriptionActive = vm.activeThreadDescription.length > 0;
+        };
 
         // vm.initialize();
     });

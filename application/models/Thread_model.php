@@ -10,6 +10,7 @@ class Thread_model extends CI_Model
 
     public function get($thread_id)
     {
+        $this->db->where('id', $thread_id);
         $thread = cfr('Thread', 'row');
         return $thread;
     }
@@ -21,6 +22,7 @@ class Thread_model extends CI_Model
 
     public function get_for_forum($forum_id)
     {
+        $this->db->order_by('label');
         $this->db->where('forum', $forum_id);
         return $this->get_list();
     }
@@ -29,6 +31,23 @@ class Thread_model extends CI_Model
     {
         $threads = cfr('Thread');
         return $threads;
+    }
+
+    public function save($thread_id, $data)
+    {
+
+        if ($thread_id > 0)
+        {
+            $this->db->where('id', $thread_id);
+            $this->db->update('Thread', $data);
+        }
+        else
+        {
+            $this->db->insert('Thread', $data);
+            $thread_id = $this->db->insert_id();
+        }
+
+        return $this->get($thread_id);
     }
 
     public function sort($sort_terms)

@@ -20,6 +20,26 @@
             modelProps: [
                 'id', 'label', 'description', 'version'
             ],
+            updateThreads: function(thread) {
+                var matchingThread = _.find(this.threads, thread);
+                if (matchingThread) {
+                    matchingThread.update(thread);
+                } else {
+                    this.threads.push(thread);
+                }
+                this.threads = _.sortBy(this.threads, "label");
+            },
+            getThreads: function() {
+                var d = $q.defer();
+                var forum = this;
+                forum.loading = true;
+                Thread.getList({
+                    forum: forum.id
+                }).then(function(result){
+                    forum.threads = Thread.transformer(result.data);
+                });
+                return d.promise;
+            },
             save: function(form_data) {
                 var forum = this;
                 angular.forEach(form_data, function(val, key){

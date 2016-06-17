@@ -23,7 +23,6 @@
         vm.loading = false;
 
         vm.addPost = function(e) {
-            console.log("Clicked to add a post");
             var threadElement = $(e.target).closest(".thread");
             if (threadElement.hasClass("active")) {
                 e.stopPropagation(e);
@@ -66,15 +65,24 @@
         
         vm.initialize = function () {
             activateMaterialize("Thread directive");
-            vm.id = vm.thread.id;
-            vm.label = vm.thread.label;
-            vm.description = vm.thread.description;
-            vm.posts = vm.thread.posts;
-            vm.adminEditing = vm.thread.adminEditing;
+            vm.setThreadValues(vm.thread);
 
-            console.log(vm.adminEditing);
-            
             $scope.$on("post:delete", vm.childDeleted);
+            $scope.$on("thread:updated", vm.updateThread);
+        };
+
+        vm.setThreadValues = function(data) {
+            vm.id = data.id;
+            vm.label = data.label;
+            vm.description = data.description;
+            vm.posts = data.posts;
+            vm.adminEditing = data.adminEditing;
+        };
+
+        vm.updateThread = function(e, data){
+            if (data.id === vm.thread.id) {
+                vm.setThreadValues(data);
+            }
         };
 
         vm.initialize();
