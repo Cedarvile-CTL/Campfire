@@ -60,6 +60,13 @@
             $scope.$emit("thread:delete", { thread: vm.thread });
         };
 
+        vm.clone = function (e) {
+            if (!vm.adminEditing) {
+                return false;
+            }
+            $scope.$emit("thread:clone", { thread: vm.thread });
+        };
+
         vm.getPosts = function() {
             if (vm.adminEditing) {
                 return false;

@@ -42,6 +42,7 @@
                 activateMaterialize("Forum controller");
             });
             $scope.$on("thread:edit", vm.editThread);
+            $scope.$on("thread:clone", vm.cloneThread);
             $scope.$on("thread:delete", vm.confirmDeleteThread);
         };
 
@@ -59,6 +60,11 @@
                 data.thread.description
             );
             $("#modal-edit-thread").openModal();
+        };
+
+        vm.cloneThread = function(e, data) {
+            vm.forum.cloneThread(data.thread);
+            vm.hasThreads = true;
         };
 
         vm.confirmDeleteThread = function(e, data) {

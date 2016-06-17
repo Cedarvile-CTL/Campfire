@@ -20,6 +20,14 @@
             modelProps: [
                 'id', 'label', 'description', 'version'
             ],
+            cloneThread: function(thread) {
+                var forum = this;
+                var clone = new Thread(null, thread.label, thread.description, thread.forum);
+                clone.save().then(function(result){
+                    result.adminEditing = true;
+                    forum.threads.push(result);
+                });
+            },
             deleteThread: function(threadId){
                 var forum = this;
                 var thread = _.find(this.threads, { id: threadId });
