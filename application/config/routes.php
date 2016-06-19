@@ -51,6 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'main';
 $route['([a-zA-Z]{3,4}[0-9]{4})\/*([0-9]{0,4}[a-zA-Z]{0,2}[0-9]{0,3})'] = 'main/index/$1/$2';
-$route['([a-zA-Z]{3,4}[0-9]{4})\/*([0-9]{0,4}[a-zA-Z]{0,2}[0-9]{0,3})\/forum\/([0-9]+)'] = 'main/forum/$3';
+$route['([a-zA-Z]{3,4}[0-9]{4})\/*([0-9]{0,4}[a-zA-Z]{0,2}[0-9]{0,3})\/forum\/([0-9]+)'] = 'main/index/$1/$2/$3';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

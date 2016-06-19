@@ -3,11 +3,11 @@
     <ul ng-show="main.hasForums" class="row">
         <li class="forum card hoverable" ng-repeat="forum in main.forums">
             <div class="card-content">
-                <h2 class="card-title label"><a ng-href="forum/{{forum.id}}">{{forum.label}}</a></h2>
+                <h2 class="card-title label"><a ng-href="/apps/campfire/main/forum/{{forum.id}}">{{forum.label}}</a></h2>
                 <div ng-bind-html="forum.description" class="description"></div>
             </div>
             <div class="card-action">
-                <a href="forum/{{forum.id}}">Go to forum &raquo;</a>
+                <a href="/apps/campfire/main/forum/{{forum.id}}">Go to forum &raquo;</a>
             </div>
         </li>
     </ul>

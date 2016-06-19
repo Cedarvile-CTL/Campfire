@@ -89,3 +89,9 @@ define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 define('ACCESSLEVEL_REGULAR', 3);
 define('ACCESSLEVEL_ADMIN', 2);
 define('ACCESSLEVEL_SUPERADMIN', 1);
+
+define('SERVER_DATE_STR', 'Y-m-d H:i:s');
+
+define('ACADEMICROLE_STU', 1);
+define('ACADEMICROLE_TA', 2);
+define('ACADEMICROLE_PROF', 3);

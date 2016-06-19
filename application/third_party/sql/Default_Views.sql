@@ -8,6 +8,12 @@ CREATE OR REPLACE VIEW Warehouse_Course AS
 
 -- --------
 
+CREATE OR REPLACE VIEW Warehouse_Roles AS
+  SELECT *
+  FROM warehouse.Academic_Role;
+
+-- SELECT * FROM Warehouse_Roles;
+
 
 CREATE OR REPLACE VIEW Thorin_Section AS
 	SELECT d.*,
@@ -21,6 +27,16 @@ CREATE OR REPLACE VIEW Thorin_Version AS
 	SELECT v.*,
 	  (SELECT COUNT(id) FROM Forum WHERE version = v.versionID) AS `num_forums`
 	FROM Thorin.Course_Version_Info as v;
+
+-- --------
+
+
+
+CREATE OR REPLACE VIEW User_IN_Section AS
+	SELECT Thorin.Person_IN_Section.personID AS `user`,
+	  Thorin.Person_IN_Section.sectionID AS `section`,
+	  Thorin.Person_IN_Section.roleID AS `role`
+	FROM Thorin.Person_IN_Section;
 
 -- --------
 

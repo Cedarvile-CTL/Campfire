@@ -14,6 +14,11 @@ class Admin extends CI_Controller {
         {
             redirect('main/error/access');
         }
+
+        $this->session->user->section_role = NULL;
+        $this->dso->user = $this->session->user;
+
+        $this->_get_user_role_for_view();
     }
 
     public function index()
@@ -29,5 +34,14 @@ class Admin extends CI_Controller {
         $this->dso->page_title = 'Manage Forum | Campfire Administration';
         $this->dso->forum = $this->Forum_model->get($forum_id, FALSE);
         show_view('client/forum/manage', $this->dso->all);
+    }
+
+    private function _get_user_role_for_view()
+    {
+        $this->dso->user_role = $this->session->user->accessLevel->id == ACCESSLEVEL_SUPERADMIN
+            ? 'Super Admin'
+            : ($this->session->user->accessLevel->id == ACCESSLEVEL_ADMIN
+                ? 'Admin'
+                : 'Regular Access');
     }
 }

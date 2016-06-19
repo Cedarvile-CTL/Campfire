@@ -23,8 +23,24 @@ class MY_Authenticate extends CI_Authenticate {
         
         // Local settings --------
         
-        // Session prefix for all authenctication values
+        // Session prefix for all authentication values
         $this->prefix = 'campfire';
+        $this->auth_groups = FALSE;
+    }
+
+    public function campfire_login($data, $view, $redirect_to, $user)
+    {
+        $valid_user = $this->CI->user_model->validate($user->ID);
+        if ($valid_user == FALSE)
+        {
+            $this->CI->user_model->add_user($user->ID);
+        }
+        else
+        {
+            $this->CI->user_model->log_user_access($user->ID);
+        }
+
+        redirect(base_url($redirect_to), 'refresh');
     }
     
     public function check_for_auth($app_prefix=NULL, $login_url=NULL, $force=NULL)
@@ -39,7 +55,7 @@ class MY_Authenticate extends CI_Authenticate {
         }
         else
         {
-            $this->CI->dso->user = $user;
+            // NOTE: user_model.validate() adds user to the session.
             $this->CI->dso->is_admin =
                 $user->access_level == ACCESSLEVEL_ADMIN || $user->access_level == ACCESSLEVEL_SUPERADMIN
                 ? TRUE

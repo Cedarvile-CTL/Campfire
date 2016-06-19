@@ -23,6 +23,7 @@
                     {/is_admin?}
                     <li><a href="{base_url}authenticate/logout">Logout</a></li>
                 </ul>
+                <span class="right">{user.firstName} {user.lastName} ({user_role})</span>
                 {/auth_in_app?}
             </div>
         </div>
