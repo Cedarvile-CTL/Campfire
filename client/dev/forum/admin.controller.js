@@ -32,13 +32,14 @@
             vm.loading = true;
             Forum.get(vm.forumId, vm.adminEditing).then(function(result){
                 vm.forum = result;
-                vm.hasThreads = vm.forum.threads.length > 1;
+                vm.hasThreads = vm.forum.threads.length > 0;
                 vm.loading = false;
                 if (vm.hasThreads) {
                     angular.forEach(vm.forum.threads, function(thread, key) {
                         thread.adminEditing = vm.adminEditing;
                     });
                 }
+                console.log(vm.forum);
                 activateMaterialize("Forum controller");
             });
             $scope.$on("thread:edit", vm.editThread);

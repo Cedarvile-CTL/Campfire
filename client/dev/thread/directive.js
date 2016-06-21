@@ -44,6 +44,7 @@
                 }
                 Materialize.toast(msg, 3000);
             }
+            vm.hasPosts = vm.posts.length > 0;
         };
 
         vm.edit = function (e) {
@@ -72,7 +73,7 @@
                 return false;
             }
             vm.thread.getPosts().then(function(result){
-                vm.posts = result;
+                vm.posts = vm.thread.posts;
                 vm.hasPosts = vm.posts.length > 0;
             });
         };
@@ -83,6 +84,7 @@
 
             $scope.$on("post:delete", vm.childDeleted);
             $scope.$on("thread:updated", vm.updateThread);
+            $scope.$on("post:cancelnew", vm.cancelAddPost);
         };
 
         vm.setThreadValues = function(data) {

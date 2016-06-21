@@ -49,6 +49,11 @@ class Thread extends Main {
             return $posts;
         }
 
+        if (!$posts)
+        {
+            $posts = [];
+        }
+
         $this->_output_result($posts);
     }
 

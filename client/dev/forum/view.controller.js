@@ -21,7 +21,7 @@
         vm.initialize = function () {
             Forum.get(vm.forumId).then(function(result){
                 vm.forum = result;
-                vm.hasThreads = vm.forum.threads.length > 1 ? true : false;
+                vm.hasThreads = vm.forum.threads.length > 0 ? true : false;
             });
             activateMaterialize("Forum controller");
         };

@@ -24,7 +24,13 @@
                 newPost.save({ body: "" }).then(function(result){
                     result.editing = true;
                     result.isNew = true;
-                    thread.posts.unshift(result);
+                    console.log(thread.posts);
+                    if (thread.posts.length > 0) {
+                        thread.posts.unshift(result);
+                    } else {
+                        thread.posts.push(result);
+                    }
+
                     d.resolve(result);
                 });
                 return d.promise;

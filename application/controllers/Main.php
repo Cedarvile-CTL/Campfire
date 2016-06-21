@@ -105,9 +105,10 @@ class Main extends CI_Controller {
 
     private function _get_user_role_for_view()
     {
+        $this->dso->user = $this->session->user;
         $this->dso->user_role = $this->session->user->section_role == ACADEMICROLE_PROF
             ? 'Professor'
-            : ($this->session->user->section_role == ACADEMICROLE_TA || $this->user->role->id < ACCESSLEVEL_REGULAR
+            : ($this->session->user->section_role == ACADEMICROLE_TA || $this->session->user->accessLevel->id < ACCESSLEVEL_REGULAR
                 ? 'Assistant'
                 : 'Student/Participant');
     }

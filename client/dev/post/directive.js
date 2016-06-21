@@ -25,10 +25,8 @@
         };
         vm.cancel = function(e) {
             e.preventDefault();
-            console.log("Canceling save");
             vm.editing = vm.post.editing = false;
             if (vm.post.isNew) {
-                console.log("New item... delete it.");
                 vm.delete(e);
             }
         };
