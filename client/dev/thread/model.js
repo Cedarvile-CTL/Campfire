@@ -1,16 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').factory('Thread', function ($q, $http, Post) {
+    angular.module('campfire-client').factory('Thread', function ($q, $http, Post, Scale) {
 
         var threads = [];
 
-        var Thread = function (id, label, description, forum, posts) {
+        var Thread = function (id, label, description, forum, posts, scale) {
             this.update({
                 id: id,
                 label: label,
                 description: description, 
-                forum: forum
+                forum: forum,
+                scale: scale
             });
             this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
             this.adminEditing = false;
@@ -84,6 +85,7 @@
                 this.label = data.label;
                 this.description = data.description;
                 this.forum = data.forum;
+                this.scale = Scale.transformer(data.scale);
             }
         };
 
@@ -133,7 +135,8 @@
                     data.label,
                     data.description,
                     data.forum, 
-                    data.posts
+                    data.posts,
+                    data.scale
                 );
             }
             return new Thread();

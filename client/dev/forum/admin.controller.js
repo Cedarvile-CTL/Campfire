@@ -39,7 +39,6 @@
                         thread.adminEditing = vm.adminEditing;
                     });
                 }
-                console.log(vm.forum);
                 activateMaterialize("Forum controller");
             });
             $scope.$on("thread:edit", vm.editThread);
