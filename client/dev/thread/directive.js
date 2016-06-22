@@ -22,6 +22,15 @@
         vm.hasPosts = false;
         vm.loading = false;
 
+        vm.scaleTypeCredit = 1;
+        vm.scaleTypeNumeric = 2;
+        vm.scaleId = null;
+        vm.scaleLabel = "";
+        vm.scaleMaxPoints = "";
+        vm.scaleType = "";
+        vm.isScaleMaxPointsActive = vm.scaleLabel.length > 0;
+        vm.isScaleLabelActive = vm.scaleMaxPoints.length > 0;
+
         vm.addPost = function(e) {
             var threadElement = $(e.target).closest(".thread");
             if (threadElement.hasClass("active")) {
@@ -52,6 +61,19 @@
                 return false;
             }
             $scope.$emit("thread:edit", { thread: vm.thread });
+        };
+
+        vm.editScale = function () {
+            if (!vm.thread.scale) {
+                vm.thread.scale = new Scale();
+            }
+            vm.setupEditScaleModal(
+                vm.thread.scale.id,
+                vm.thread.scale.label,
+                vm.thread.scale.maxPoints,
+                vm.thread.scale.scaleType
+            );
+            $("#modal-edit-scale-" + vm.thread.id).openModal();
         };
 
         vm.delete = function (e) {
@@ -99,6 +121,15 @@
             if (data.id === vm.thread.id) {
                 vm.setThreadValues(data);
             }
+        };
+
+        vm.setupEditScaleModal = function(scaleId, label, maxPoints, scaleType) {
+            vm.scaleId = (scaleId === undefined) ? 0 : scaleId;
+            vm.scaleLabel = (label === undefined) ? '' : label;
+            vm.scaleMaxPoints = (maxPoints === undefined) ? '' : maxPoints;
+            vm.scaleType = (scaleType === undefined) ? '' : scaleType;
+            vm.isScaleMaxPointsActive = vm.scaleLabel.length > 0;
+            vm.isScaleLabelActive = vm.scaleMaxPoints.length > 0;
         };
 
         vm.initialize();

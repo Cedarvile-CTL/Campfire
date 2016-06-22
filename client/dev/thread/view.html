@@ -1,11 +1,11 @@
-<li class="thread">
+<li id="thread-{{thread.id}}" class="thread">
     <div class="collapsible-header thread-label" ng-click="thread.getPosts($event)">
         {{thread.label}}
     </div>
     <div class="collapsible-body thread-body">
         <div ng-bind-html="thread.description" class="description"></div>
 
-        <div class="admin-options" ng-show="thread.adminEditing">
+        <div ng-show="thread.adminEditing" class="admin-options">
             <button class="btn-edit-thread btn-floating btn-small waves-effect waves-light amber"
                     ng-click="thread.edit($event)">
                 <i class="material-icons">edit</i>
@@ -17,6 +17,10 @@
             <button class="btn-delete-thread btn-floating btn-small waves-effect waves-light red"
                     ng-click="thread.delete($event)">
                 <i class="material-icons">delete</i>
+            </button>
+            <button class="right btn-edit-scale btn waves-effect waves-light"
+                    ng-click="thread.editScale($event)">
+                <i class="material-icons">edit</i>Grading Scale: {{TBD}}
             </button>
         </div>
 
@@ -33,4 +37,47 @@
             <campfire-post post="post" ng-repeat="post in thread.posts track by post.id"></campfire-post>
         </ul>
     </div>
+    <form ng-submit="thread.saveScale()">
+        <div id="modal-edit-scale-{{thread.id}}" class="modal">
+            <div class="modal-content">
+                <h2>Edit a Grading Scale</h2>
+                <div class="row">
+                        <div class="col s8 input-field">
+                            <input id="edit-scale-label" type="text" class="validate" ng-model="thread.scaleLabel">
+                            <label ng-class="{'active' : thread.isLabelActive}" for="edit-scale-label"
+                                   data-error="You must provide a label for this scale" data-success="Looks good!">Label</label>
+                        </div>
+
+                        <div class="col s4 input-field">
+                            <input id="edit-scale-maxPoints" type="number" class="validate" ng-model="thread.scaleMaxPoints">
+                            <label ng-class="{'active' : scale.isMaxPointsActive}" for="edit-scale-maxPoints"
+                                   data-error="You must provide a positive integer between 1 and 100 for this scale." data-success="Looks good!">Max. Points</label>
+                        </div>
+                    <div class="col s12">
+                        <p>Scale type:</p>
+                        <ul class="list-inline">
+                            <li style="margin-right:20px">
+                                <input name="group1" type="radio" id="scale-{{thread.scaleId}}-type-credit"
+                                       ng-model="thread.scaleType" ng-value="thread.scaleTypeCredit" />
+                                <label for="scale-{{thread.scaleId}}-type-credit">Credit/No Credit</label>
+                            </li>
+                            <li>
+                                <input name="group1" type="radio" id="scale-{{thread.scaleId}}-type-numeric"
+                                       ng-model="thread.scaleType" ng-value="thread.scaleTypeNumeric"/>
+                                <label for="scale-{{thread.scaleId}}-type-numeric">Numeric</label>
+                            </li>
+                            <!--<li>-->
+                            <!--<input class="with-gap" name="group1" type="radio" id="test3"  />-->
+                            <!--<label for="test3">Green</label>-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-amber btn-flat">Cancel</button>
+                <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>
+            </div>
+        </div>
+    </form>
 </li>

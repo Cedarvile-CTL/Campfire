@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('campfire-client').factory('Post', function ($q, $http, User) {
+    angular.module('campfire-client').factory('Post', function ($q, $http, User, Scale) {
 
         var Post = function (id, body, posts, user, date_posted, date_updated, parent, section, thread) {
             this.update({
@@ -20,7 +20,7 @@
             this.notMine = !this.isMine;
             this.editing = false;
             this.isNew = false;
-            // console.log(this);
+            this.scale = new Scale();
         };
 
         Post.prototype = {

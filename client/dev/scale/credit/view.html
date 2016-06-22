@@ -1,0 +1,8 @@
+<div class="scale-credit right">
+    <a class="dropdown-button btn" href="#" data-activates="scale-{{vm.post.id}}">Score: {{vm.scale.score}}</a>
+    <ul id="scale-{{vm.post.id}}" class="dropdown-content">
+        <li><a href="#!" ng-click="vm.setScore('NONE', $event)"><i class="tiny material-icons">check_box_outline_blank</i> Not graded</a></li>
+        <li><a href="#!" ng-click="vm.setScore('MAX', $event)"><i class="tiny material-icons">check_box</i> Credit ({{vm.scale.maxPoints}})</a></li>
+        <li><a href="#!" ng-click="vm.setScore('MIN', $event)"><i class="tiny material-icons">indeterminate_check_box</i> No credit (0)</a></li>
+    </ul>
+</div>

@@ -6,6 +6,14 @@
     <span ng-show="post.isNew" class="new badge post-new">
         <i class="material-icons small star"></i>
     </span>
+
+    <div ng-show="post.scale.graderViewing" class="grading-scale">
+        <campfire-scale-credit post="post.post"></campfire-scale-credit>
+        <campfire-scale-numeric postId="post.id" scale="post.scale"></campfire-scale-numeric>
+        <campfire-scale-custom postId="post.id" scale="post.scale"></campfire-scale-custom>
+    </div>
+    <div ng-show="post.scale.studentViewing" class="score">{{post.score.value}}</div>
+
     <div ng-hide="post.editing" class="post-display">
         <div ng-bind-html="post.body" class="body"></div>
         <button class="waves-effect waves-light btn-floating post-reply-btn" ng-click="post.reply(post.id, $event)">

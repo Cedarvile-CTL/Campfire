@@ -34,7 +34,7 @@
     })
     .value('$', window.$);
 
-})();
+})(); 
 
 function activateMaterialize(source) {
     $('.collapsible').collapsible();
