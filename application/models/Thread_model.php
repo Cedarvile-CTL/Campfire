@@ -18,6 +18,7 @@ class Thread_model extends CI_Model
     {
         $this->db->where('id', $thread_id);
         $thread = cfr('Thread_details', 'row');
+        $this->objectify($thread);
         return $thread;
     }
 
