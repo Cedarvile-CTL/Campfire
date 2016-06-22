@@ -33,7 +33,13 @@ class Main extends CI_Controller {
                 $this->session->version = $section->versionID;
             }
         }
-
+        
+        // Get the user's role in this section
+        $this->session->user->section_role = $this->user_model->get_role_in_section(
+            $this->session->user->id,
+            $this->session->section,
+            TRUE
+        );
     }
 
     public function index()
