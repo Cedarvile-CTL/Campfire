@@ -52,7 +52,8 @@ class Thread_model extends CI_Model
             'id' => $thread->scale,
             'label' => $thread->scale_label,
             'maxPoints' => $thread->max_points,
-            'scaleType' => (object) array(
+            'version' => $thread->version,
+            'type' => (object) array(
                 'id'=>$thread->scale_type,
                 'label'=>$thread->scale_type_label
             )
