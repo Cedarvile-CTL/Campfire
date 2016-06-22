@@ -36,7 +36,26 @@ class Thread_model extends CI_Model
     public function get_list()
     {
         $threads = cfr('Thread_details');
+
+        foreach($threads as &$thread)
+        {
+            $this->objectify($thread);
+        }
+
         return $threads;
+    }
+
+    public function objectify($thread)
+    {
+        $thread->scale = (object) array(
+            'id' => $thread->scale,
+            'label' => $thread->scale_label,
+            'maxPoints' => $thread->max_points,
+            'scaleType' => (object) array(
+                'id'=>$thread->scale_type,
+                'label'=>$thread->scale_type_label
+            )
+        );
     }
 
     public function save($thread_id, $data)

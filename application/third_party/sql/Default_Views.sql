@@ -73,9 +73,11 @@ CREATE OR REPLACE VIEW Thread_Details AS
     Scale.label as scale_label,
     Scale.description as scale_description,
     Scale.max_points,
-    Scale_Type.label as scale_type_label
+    Scale_Type.label as scale_type_label,
+    Forum.version
 
   FROM Thread
+    JOIN Forum ON Thread.forum = Forum.id
     LEFT JOIN Scale ON Thread.scale = Scale.id
     LEFT JOIN Scale_Type ON Scale.scale_type = Scale_Type.id;
 
