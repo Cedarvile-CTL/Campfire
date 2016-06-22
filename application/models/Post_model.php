@@ -21,8 +21,7 @@ class Post_model extends CI_Model
 
         if ($post)
         {
-            $this->load->model('user_model');
-            $post->user = $this->user_model->objectify($post);
+            $this->objectify($post);
         }
 
         return $post;
@@ -72,6 +71,12 @@ class Post_model extends CI_Model
             }
         }
         return $posts;
+    }
+
+    public function objectify(&$post)
+    {
+        $this->load->model('user_model');
+        $post->user = $this->user_model->objectify($post);
     }
 
     public function sort($sort_terms)
@@ -156,6 +161,38 @@ class Post_model extends CI_Model
             $post_id = $this->db->insert_id();
         }
         
+        return $this->get($post_id);
+    }
+
+    public function save_score($post_id, $score)
+    {
+        // Ensure provide score is legitimate for this post and thread
+        $post = $this->get($post_id);
+        $this->load->model('Thread_model');
+        $scale = $this->Scale_model->get_for_thread($post->thread);
+        if ($scale)
+        {
+            
+        }
+        
+        // Store data
+        $data = array(
+            'score'=>$score,
+            'date_scored'=> date(SERVER_DATE_STR),
+            'grader'=>$this->session->user->id
+        );
+
+        // Attempt to update first
+        $this->db->where('post', $post_id);
+        $this->db->update('Post_Score', $data);
+
+        // If none were updated, add a score instead
+        if ($this->db->affected_rows() < 1)
+        {
+            $this->db->insert('Post_Score', $data);
+        }
+
+        // Return the updated post
         return $this->get($post_id);
     }
 }

@@ -1,10 +1,7 @@
--- --------
 
 CREATE OR REPLACE VIEW Warehouse_Course AS 
 	SELECT * 
 	FROM warehouse.Course;
-	
--- SELECT * FROM Warehouse_Course ORDER BY dptCode ASC, number ASC;
 
 -- --------
 
@@ -12,8 +9,7 @@ CREATE OR REPLACE VIEW Warehouse_Roles AS
   SELECT *
   FROM warehouse.Academic_Role;
 
--- SELECT * FROM Warehouse_Roles;
-
+-- --------
 
 CREATE OR REPLACE VIEW Thorin_Section AS
 	SELECT d.*,
@@ -22,15 +18,12 @@ CREATE OR REPLACE VIEW Thorin_Section AS
 
 -- --------
 
-
 CREATE OR REPLACE VIEW Thorin_Version AS
 	SELECT v.*,
 	  (SELECT COUNT(id) FROM Forum WHERE version = v.versionID) AS `num_forums`
 	FROM Thorin.Course_Version_Info as v;
 
 -- --------
-
-
 
 CREATE OR REPLACE VIEW User_IN_Section AS
 	SELECT Thorin.Person_IN_Section.personID AS `user`,
@@ -40,7 +33,6 @@ CREATE OR REPLACE VIEW User_IN_Section AS
 
 -- --------
 
-
 CREATE OR REPLACE VIEW Warehouse_Person AS 
     SELECT warehouse.Person.redwoodID as personID, 
         warehouse.Person.firstName, 
@@ -49,10 +41,7 @@ CREATE OR REPLACE VIEW Warehouse_Person AS
         warehouse.Person.email 
     FROM warehouse.Person;
 
--- SELECT * FROM Warehouse_Person ORDER BY lastName ASC, firstName ASC;
-
 -- --------
-
 
 CREATE OR REPLACE VIEW User_Info AS
     SELECT Warehouse_Person.*,
@@ -63,7 +52,38 @@ CREATE OR REPLACE VIEW User_Info AS
 JOIN Warehouse_Person ON User.id = Warehouse_Person.personID
 JOIN Access_Level ON User.access_level = Access_Level.id;
 
+-- --------
 
 CREATE OR REPLACE VIEW Post_Details AS
-  SELECT * FROM Post
-    JOIN Person_Info ON Post.user = Person_Info.personID;
+  SELECT Post.*,
+    Person_Info.*,
+    Post_Score.score,
+    Post_Score.grader,
+    Post_Score.date_scored
+
+  FROM Post
+    JOIN Person_Info ON Post.user = Person_Info.personID
+    LEFT JOIN Post_Score ON Post.id = Post_Score.post;
+
+-- --------
+
+CREATE OR REPLACE VIEW Thread_Details AS
+  SELECT Thread.*,
+    Scale.scale_type,
+    Scale.label as scale_label,
+    Scale.description as scale_description,
+    Scale.max_points,
+    Scale_Type.label as scale_type_label
+
+  FROM Thread
+    LEFT JOIN Scale ON Thread.scale = Scale.id
+    LEFT JOIN Scale_Type ON Scale.scale_type = Scale_Type.id;
+
+-- --------
+
+CREATE OR REPLACE VIEW Scale_Details AS
+  SELECT Scale.*,
+    Scale_Type.label as scale_type_label
+
+  FROM Thread
+    JOIN Scale_Type ON Scale.scale_type = Scale_Type.id;
