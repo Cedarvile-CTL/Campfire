@@ -51,4 +51,17 @@ class Post extends Main {
         
         $this->_output_result($post);
     }
+
+    public function save_score($post_id, $score)
+    {
+        $result = FALSE;
+
+        if ($this->session->user->section_role >= ACADEMICROLE_TA
+            || $this->session->user->accessLevel->id <= ACCESSLEVEL_ADMIN)
+        {
+            $result = $this->Post_model->save_score($post_id, $score);
+        }
+
+        $this->_output_result($result);
+    }
 }
