@@ -15,7 +15,7 @@
             this.studentViewing = false;
             this.graderViewing = true;
             this.score = Scale.notGraded;
-            this.maxPoints = this.maxPoints ? this.maxPoints : 1;
+            this.maxPoints = this.maxPoints ? Number(this.maxPoints) : 1;
 
             this.max = "MAX";
             this.min = "MIN";

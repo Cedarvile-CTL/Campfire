@@ -42,6 +42,10 @@
                 vm.loading = false;
             });
         };
+
+        vm.cancelScaleEdit = function() {
+            vm.setupEditScaleModal();
+        };
         
         vm.childDeleted = function(e, data) {
             if (_.includes(vm.posts, data.post)) {
@@ -124,12 +128,20 @@
         };
 
         vm.setupEditScaleModal = function(scaleId, label, maxPoints, scaleType) {
-            vm.scaleId = (scaleId === undefined) ? 0 : scaleId;
-            vm.scaleLabel = (label === undefined) ? '' : label;
-            vm.scaleMaxPoints = (maxPoints === undefined) ? '' : maxPoints;
-            vm.scaleType = (scaleType === undefined) ? '' : scaleType;
-            vm.isScaleMaxPointsActive = vm.scaleLabel.length > 0;
-            vm.isScaleLabelActive = vm.scaleMaxPoints.length > 0;
+            vm.scaleId = (scaleId === undefined || scaleId === null)
+                ? 0 : scaleId;
+            vm.scaleLabel = (label === undefined || label === null)
+                ? '' : label;
+            vm.scaleMaxPoints = (maxPoints === undefined || maxPoints === null)
+                ? '' : maxPoints;
+            vm.scaleType = (scaleType === undefined || scaleType === null)
+                ? '' : scaleType;
+            vm.isScaleMaxPointsActive = vm.scaleMaxPoints > 0;
+            vm.isScaleLabelActive = vm.scaleLabel.length > 0;
+        };
+
+        vm.saveScale = function() {
+
         };
 
         vm.initialize();

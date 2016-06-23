@@ -44,13 +44,13 @@
                 <div class="row">
                         <div class="col s8 input-field">
                             <input id="edit-scale-label" type="text" class="validate" ng-model="thread.scaleLabel">
-                            <label ng-class="{'active' : thread.isLabelActive}" for="edit-scale-label"
+                            <label ng-class="{'active' : thread.isScaleLabelActive}" for="edit-scale-label"
                                    data-error="You must provide a label for this scale" data-success="Looks good!">Label</label>
                         </div>
 
                         <div class="col s4 input-field">
                             <input id="edit-scale-maxPoints" type="number" class="validate" ng-model="thread.scaleMaxPoints">
-                            <label ng-class="{'active' : scale.isMaxPointsActive}" for="edit-scale-maxPoints"
+                            <label ng-class="{'active' : thread.isScaleMaxPointsActive}" for="edit-scale-maxPoints"
                                    data-error="You must provide a positive integer between 1 and 100 for this scale." data-success="Looks good!">Max. Points</label>
                         </div>
                     <div class="col s12">
@@ -75,8 +75,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="modal-action modal-close waves-effect waves-amber btn-flat">Cancel</button>
-                <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>
+                <button ng-click="thread.cancelScaleEdit($event)" type="button"
+                        class="modal-action modal-close waves-effect waves-amber btn-flat">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="modal-action modal-close waves-effect waves-green btn-flat">
+                    Save
+                </button>
             </div>
         </div>
     </form>
