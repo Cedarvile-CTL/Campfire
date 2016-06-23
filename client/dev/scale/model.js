@@ -24,12 +24,12 @@
 
         Scale.prototype = {
             update: function(data) {
-                this.id = data.id;
+                this.id = Number(data.id);
                 this.type = data.type;
                 this.label = data.label;
                 this.description = data.description;
-                this.maxPoints = data.maxPoints;
-                this.version = data.version;
+                this.maxPoints = Number(data.maxPoints);
+                this.version = Number(data.version);
             },
             setScore: function(score) {
                 console.log("Model received score: ", score);
@@ -53,21 +53,22 @@
                 var data = {
                     label: formData.label,
                     max_points: formData.maxPoints,
-                    scale_type: formData.type
+                    scale_type: formData.type,
+                    version: scale.version
                 };
 
                 if (formData.id === null || formData.id === 0) {
                     console.log("New Scale");
-                    data.saveScaleToThread = true;
-                    data.version = scale.version;
                 } else {
                     console.log("Edit scale");
-                    data.saveScaleToThread = false;
                     url += "/" + formData.id;
                 }
 
+                console.log(url, data);
+
                 var d = $q.defer();
                 $http.post(url, data).then(function (result) {
+                    console.log(result.data);
                     scale.update(result.data);
                     d.resolve(scale);
                 });

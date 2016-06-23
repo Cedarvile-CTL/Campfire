@@ -75,7 +75,7 @@
                 vm.thread.scale.id,
                 vm.thread.scale.label,
                 vm.thread.scale.maxPoints,
-                vm.thread.scale.scaleType
+                vm.thread.scale.type.id
             );
             $("#modal-edit-scale-" + vm.thread.id).openModal();
         };
@@ -144,7 +144,7 @@
             vm.thread.scale.save({
                 id: vm.scaleId,
                 label: vm.scaleLabel,
-                maxPoints: vm.maxPoints,
+                maxPoints: vm.scaleMaxPoints,
                 type: vm.scaleType
             });
 
