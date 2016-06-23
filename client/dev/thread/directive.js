@@ -135,13 +135,13 @@
             vm.scaleMaxPoints = (maxPoints === undefined || maxPoints === null)
                 ? '' : maxPoints;
             vm.scaleType = (scaleType === undefined || scaleType === null)
-                ? '' : scaleType;
+                ? 1 : Number(scaleType);
             vm.isScaleMaxPointsActive = vm.scaleMaxPoints > 0;
             vm.isScaleLabelActive = vm.scaleLabel.length > 0;
         };
 
         vm.saveScale = function() {
-
+            console.log(vm.scaleType, vm.scaleMaxPoints, vm.scaleLabel);
         };
 
         vm.initialize();

@@ -25,7 +25,6 @@
         Scale.prototype = {
             update: function(data) {
                 this.id = data.id;
-                this.id = data.id;
                 this.type = data.type;
                 this.label = data.label;
                 this.description = data.description;
