@@ -10,17 +10,19 @@
             },
             restrict: "E",
             templateUrl: "/apps/campfire/client/dev/thread/view.html",
-            controller: ["$scope", "Thread", ThreadCtrl],
+            controller: ["$scope", "$timeout", "Thread", "Scale", ThreadCtrl],
             controllerAs: "thread"
         }; 
     });
 
-    function ThreadCtrl($scope, Thread) {
+    function ThreadCtrl($scope, $timeout, Thread, Scale) {
         var vm = this;
 
         vm.posts = [];
         vm.hasPosts = false;
         vm.loading = false;
+
+        vm.versionScales = [];
 
         vm.scaleTypeCredit = 1;
         vm.scaleTypeNumeric = 2;
@@ -104,6 +106,14 @@
             });
         };
         
+        vm.getVersionScales = function(e) {
+            e.preventDefault();
+            Scale.getVersionScales(vm.thread.version).then(function(result){
+                vm.versionScales = result;
+                console.log(vm.versionScales);
+            });
+        };
+        
         vm.initialize = function () {
             activateMaterialize("Thread directive");
             vm.setThreadValues(vm.thread);
@@ -111,6 +121,11 @@
             $scope.$on("post:delete", vm.childDeleted);
             $scope.$on("thread:updated", vm.updateThread);
             $scope.$on("post:cancelnew", vm.cancelAddPost);
+
+            $timeout(function() {
+                $("#thread-" + vm.thread.id + " a.dropdown-button").dropdown({});
+            }, 500);
+
         };
 
         vm.setThreadValues = function(data) {
@@ -119,12 +134,19 @@
             vm.description = data.description;
             vm.posts = data.posts;
             vm.adminEditing = data.adminEditing;
+            vm.scale = data.scale;
         };
 
         vm.updateThread = function(e, data){
             if (data.id === vm.thread.id) {
                 vm.setThreadValues(data);
             }
+        };
+
+        vm.updateScale = function(scaleId, e) {
+            vm.thread.updateScale(scaleId, true).then(function(result){
+                vm.scale = vm.thread.scale;
+            });
         };
 
         vm.setupEditScaleModal = function(scaleId, label, maxPoints, scaleType) {

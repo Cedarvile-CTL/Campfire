@@ -5,7 +5,7 @@
 
         var threads = [];
 
-        var Thread = function (id, label, description, forum, posts, scale) {
+        var Thread = function (id, label, description, forum, posts, scale, version) {
             this.update({
                 id: id,
                 label: label,
@@ -13,6 +13,7 @@
                 forum: forum,
                 scale: scale
             });
+            this.version = version;
             this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
             this.adminEditing = false;
         };
@@ -87,12 +88,17 @@
                 this.forum = data.forum;
                 this.scale = Scale.transformer(data.scale);
             },
-            updateScale: function(scaleId){
+            updateScale: function(scaleId, syncToThread){
+                syncToThread = syncToThread === undefined ? false : true;
                 var d = $q.defer();
-                $http.get('/apps/campfire/api/thread/update_scale/' + this.id + '/' + scaleId)
+                var thread = this;
+                $http.post('/apps/campfire/api/thread/update_scale/' + this.id + '/' + scaleId)
                     .then(function (result) {
                         console.log("Saved scale to thread.");
-                        d.resolve(result);
+                        if (syncToThread) {
+                            thread.scale = Scale.transformer(result.data);
+                        }
+                        d.resolve(result.data);
                     });
                 return d.promise;
             }
@@ -145,7 +151,8 @@
                     data.description,
                     data.forum, 
                     data.posts,
-                    data.scale
+                    data.scale,
+                    data.version
                 );
             }
             return new Thread();

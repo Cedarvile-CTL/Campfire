@@ -53,7 +53,7 @@ class Scale_model extends CI_Model
             foreach ($scales as &$scale)
             {
                 // Map items to each corresponding scale
-                $scale->items;
+                $scale->items = [];
             }
         }
         return $scales;

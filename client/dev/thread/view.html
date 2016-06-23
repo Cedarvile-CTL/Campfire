@@ -18,10 +18,25 @@
                     ng-click="thread.delete($event)">
                 <i class="material-icons">delete</i>
             </button>
-            <button class="right btn-edit-scale btn waves-effect waves-light"
-                    ng-click="thread.editScale($event)">
-                <i class="material-icons">edit</i>Grading Scale: {{TBD}}
-            </button>
+            <div class="scale-options right">
+                Grading Scale:
+                <a class="dropdown-button btn" href="#"
+                   ng-click="thread.getVersionScales($event)"
+                   data-activates="thread-{{thread.id}}-scale-options">
+                    {{thread.scale.label}}
+                </a>
+                <ul id="thread-{{thread.id}}-scale-options" class="dropdown-content">
+                    <li ng-repeat="scale in thread.versionScales track by scale.id">
+                        <a href="#!" ng-click="thread.updateScale(scale.id, $event)">
+                            {{scale.label}}
+                        </a>
+                    </li>
+                </ul>
+                <button class="btn-edit-scale btn-floating waves-effect waves-light amber"
+                        ng-click="thread.editScale($event)">
+                    <i class="material-icons">edit</i>
+                </button>
+            </div>
         </div>
 
         <button ng-hide="thread.adminEditing" class="btn-add-post btn-floating btn-small waves-effect waves-light"

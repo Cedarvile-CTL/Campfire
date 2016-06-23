@@ -104,11 +104,13 @@ class Thread_model extends CI_Model
 
     public function update_scale($thread_id, $scale_id)
     {
+        $this->load->model('Scale_model');
+
         $this->db->where('id', $thread_id);
         $this->db->update('Thread', array(
             'scale'=>$scale_id
         ));
 
-        return $this->db->affected_rows();
+        return $this->Scale_model->get($scale_id);
     }
 }

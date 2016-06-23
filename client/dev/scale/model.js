@@ -100,6 +100,16 @@
             return new Scale();
         };
 
+        Scale.getVersionScales = function(versionId) {
+            var d = $q.defer();
+            $http.get('/apps/campfire/api/scale/all_for_version/' + versionId)
+                .then(function (result) {
+                    var data = Scale.transformer(result.data);
+                    d.resolve(data);
+                });
+            return d.promise;
+        };
+
         Scale.notGraded = "Not graded";
 
         Scale.transformer = function (data) {
