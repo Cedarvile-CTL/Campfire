@@ -61,7 +61,11 @@ class Scale_model extends CI_Model
 
     public function objectify(&$scale)
     {
-        
+        $scale->maxPoints = $scale->max_points;
+        $scale->type = (object) array(
+            'id'=>$scale->scale_type,
+            'label'=>$scale->scale_type_label
+        );
     }
 
     public function save($scale_id, $data)

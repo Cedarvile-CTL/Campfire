@@ -4,6 +4,12 @@ require_once("application/controllers/api/Main.php");
 
 class Scale extends Main {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Scale_model');
+    }
+
     public function index()
     {
         $this->_output_result("Thread Ready for requests");
