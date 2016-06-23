@@ -141,7 +141,13 @@
         };
 
         vm.saveScale = function() {
-            console.log(vm.scaleType, vm.scaleMaxPoints, vm.scaleLabel);
+            vm.thread.scale.save({
+                id: vm.scaleId,
+                label: vm.scaleLabel,
+                maxPoints: vm.maxPoints,
+                type: vm.scaleType
+            });
+
         };
 
         vm.initialize();

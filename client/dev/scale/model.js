@@ -45,6 +45,33 @@
                         break;
                 }
                 console.log(this.score);
+            },
+            save: function (formData) {
+                var scale = this;
+                var url = '/apps/campfire/api/scale/save';
+
+                var data = {
+                    label: formData.label,
+                    max_points: formData.maxPoints,
+                    scale_type: formData.type
+                };
+
+                if (formData.id === null || formData.id === 0) {
+                    console.log("New Scale");
+                    data.saveScaleToThread = true;
+                    data.version = scale.version;
+                } else {
+                    console.log("Edit scale");
+                    data.saveScaleToThread = false;
+                    url += "/" + formData.id;
+                }
+
+                var d = $q.defer();
+                $http.post(url, data).then(function (result) {
+                    scale.update(result.data);
+                    d.resolve(scale);
+                });
+                return d.promise;
             }
         };
 
