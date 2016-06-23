@@ -33,6 +33,17 @@ class Scale_model extends CI_Model
         return $scale;
     }
 
+    public function get_all()
+    {
+        return $this->get_list();
+    }
+
+    public function get_for_version($version_id)
+    {
+        $this->db->where('version', $version_id);
+        return $this->get_list();
+    }
+
     public function get_list()
     {
         $scales = cfr('Scale_details');
