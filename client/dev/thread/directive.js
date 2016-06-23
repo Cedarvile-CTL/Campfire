@@ -146,8 +146,9 @@
                 label: vm.scaleLabel,
                 maxPoints: vm.scaleMaxPoints,
                 type: vm.scaleType
+            }).then(function(result){
+                vm.thread.updateScale(result.id);
             });
-
         };
 
         vm.initialize();

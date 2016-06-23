@@ -86,6 +86,15 @@
                 this.description = data.description;
                 this.forum = data.forum;
                 this.scale = Scale.transformer(data.scale);
+            },
+            updateScale: function(scaleId){
+                var d = $q.defer();
+                $http.get('/apps/campfire/api/thread/update_scale/' + this.id + '/' + scaleId)
+                    .then(function (result) {
+                        console.log("Saved scale to thread.");
+                        d.resolve(result);
+                    });
+                return d.promise;
             }
         };
 
