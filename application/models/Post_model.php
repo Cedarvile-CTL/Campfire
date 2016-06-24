@@ -3,9 +3,12 @@
 class Post_model extends CI_Model
 {
 
+    var $scale;
+
     public function __construct()
     {
         parent::__construct();
+        $this->scale = NULL;
     }
     
     public function delete($post_id)
@@ -29,6 +32,10 @@ class Post_model extends CI_Model
 
     public function get_for_thread($thread_id, $enforce_active_section=TRUE)
     {
+        // Get the thread's scale
+        $this->load->model('Scale_model');
+        $this->scale = $this->Scale_model->get_for_thread($thread_id);
+
         if ($enforce_active_section)
         {
             $this->db->where('section', $this->session->section);
@@ -67,9 +74,12 @@ class Post_model extends CI_Model
             $this->load->model('user_model');
             foreach ($posts as &$post)
             {
-                $post->user = $this->user_model->objectify($post);
+                $this->objectify($post);
             }
         }
+
+        $this->scale = NULL;
+
         return $posts;
     }
 
@@ -77,6 +87,7 @@ class Post_model extends CI_Model
     {
         $this->load->model('user_model');
         $post->user = $this->user_model->objectify($post);
+        $post->scale = $this->scale ? $this->scale : NULL;
     }
 
     public function sort($sort_terms)
