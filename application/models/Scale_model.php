@@ -67,8 +67,9 @@ class Scale_model extends CI_Model
             'id'=>$scale->scale_type,
             'label'=>$scale->scale_type_label
         );
-        $scale->graderViewing = FALSE;
-        $scale->authorViewing = FALSE;
+        $scale->graderViewing =
+            $this->session->user->section_role >= ACADEMICROLE_TA
+            || $this->session->user->section_role <= ACCESSLEVEL_ADMIN;
     }
 
     public function save($scale_id, $data)
