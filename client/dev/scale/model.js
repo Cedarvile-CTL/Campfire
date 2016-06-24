@@ -12,9 +12,10 @@
                 maxPoints: maxPoints,
                 version: version
             });
+            
             this.authorViewing = authorViewing;
             this.graderViewing = graderViewing;
-            
+
             this.score = Scale.notGraded;
             this.maxPoints = this.maxPoints ? Number(this.maxPoints) : 1;
 

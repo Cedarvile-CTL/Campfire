@@ -88,7 +88,11 @@ class Post_model extends CI_Model
         $this->load->model('user_model');
         $post->user = $this->user_model->objectify($post);
         $post->scale = $this->scale ? $this->scale : NULL;
-        $post->authorViewing = $this->session->user->id == $post->user;
+        $post->authorViewing = $this->session->user->id == $post->user->id;
+        if ($post->scale)
+        {
+            $post->scale->authorViewing = $post->authorViewing;
+        }
     }
 
     public function sort($sort_terms)
