@@ -24,8 +24,8 @@
 
         Scale.prototype = {
             update: function(data) {
-                this.id = Number(data.id);
-                this.type = data.type;
+                this.id = data.id ? Number(data.id) : 0;
+                this.type = data.type ? data.type : { id: 1 };
                 this.label = data.label;
                 this.description = data.description;
                 this.maxPoints = Number(data.maxPoints);

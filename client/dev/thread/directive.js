@@ -45,6 +45,10 @@
             });
         };
 
+        vm.addScale = function() {
+            vm.editScale(true);
+        };
+
         vm.cancelScaleEdit = function() {
             vm.setupEditScaleModal();
         };
@@ -69,9 +73,12 @@
             $scope.$emit("thread:edit", { thread: vm.thread });
         };
 
-        vm.editScale = function () {
-            if (!vm.thread.scale) {
+        vm.editScale = function (newScale) {
+            newScale = newScale === undefined ? false : newScale;
+            console.log(newScale, vm.thread.scale);
+            if (newScale || !vm.thread.scale) {
                 vm.thread.scale = new Scale();
+                vm.thread.scale.version = vm.thread.version;
             }
             vm.setupEditScaleModal(
                 vm.thread.scale.id,
@@ -144,32 +151,34 @@
         };
 
         vm.updateScale = function(scaleId, e) {
-            vm.thread.updateScale(scaleId, true).then(function(result){
+            vm.thread.updateScale(scaleId).then(function(result){
                 vm.scale = vm.thread.scale;
             });
         };
 
         vm.setupEditScaleModal = function(scaleId, label, maxPoints, scaleType) {
-            vm.scaleId = (scaleId === undefined || scaleId === null)
-                ? 0 : scaleId;
-            vm.scaleLabel = (label === undefined || label === null)
-                ? '' : label;
-            vm.scaleMaxPoints = (maxPoints === undefined || maxPoints === null)
-                ? '' : maxPoints;
-            vm.scaleType = (scaleType === undefined || scaleType === null)
-                ? 1 : Number(scaleType);
+            vm.scaleId = (scaleId === undefined || scaleId === null) ? 0 : scaleId;
+            vm.scaleLabel = (label === undefined || label === null) ? '' : label;
+            vm.scaleMaxPoints = (maxPoints === undefined || maxPoints === null) ? '' : maxPoints;
+            vm.scaleType = (scaleType === undefined || scaleType === null) ? 1 : Number(scaleType);
             vm.isScaleMaxPointsActive = vm.scaleMaxPoints > 0;
             vm.isScaleLabelActive = vm.scaleLabel.length > 0;
         };
 
         vm.saveScale = function() {
+            console.log("Saveing a scale from thread Ctrl");
             vm.thread.scale.save({
                 id: vm.scaleId,
                 label: vm.scaleLabel,
                 maxPoints: vm.scaleMaxPoints,
                 type: vm.scaleType
             }).then(function(result){
-                vm.thread.updateScale(result.id);
+                console.log("Updating scale on thread.");
+                vm.thread.updateScale(result.id).then(function(result){
+                    console.log("Updated:", vm.thread.scale);
+                    vm.scale = vm.thread.scale;
+                });
+
             });
         };
 

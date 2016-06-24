@@ -26,6 +26,7 @@
                     {{thread.scale.label}}
                 </a>
                 <ul id="thread-{{thread.id}}-scale-options" class="dropdown-content">
+                    <li><a href="#!" ng-click="thread.addScale()">Add new scale...</a></li>
                     <li ng-repeat="scale in thread.versionScales track by scale.id">
                         <a href="#!" ng-click="thread.updateScale(scale.id, $event)">
                             {{scale.label}}

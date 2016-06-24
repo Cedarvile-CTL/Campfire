@@ -87,17 +87,17 @@
                 this.description = data.description;
                 this.forum = data.forum;
                 this.scale = Scale.transformer(data.scale);
+                if (this.scale.label === undefined) {
+                    this.scale.label = "Select scale...";
+                }
             },
-            updateScale: function(scaleId, syncToThread){
-                syncToThread = syncToThread === undefined ? false : true;
+            updateScale: function(scaleId){
                 var d = $q.defer();
                 var thread = this;
                 $http.post('/apps/campfire/api/thread/update_scale/' + this.id + '/' + scaleId)
                     .then(function (result) {
                         console.log("Saved scale to thread.");
-                        if (syncToThread) {
-                            thread.scale = Scale.transformer(result.data);
-                        }
+                        thread.scale = Scale.transformer(result.data);
                         d.resolve(result.data);
                     });
                 return d.promise;
