@@ -42,7 +42,11 @@
                         this.score = 0;
                         break;
                     default: // this.none
-                        this.score = Scale.notGraded;
+                        if (score === undefined || score === null || score === "") {
+                            this.score = Scale.notGraded;
+                        } else {
+                            this.score = score;
+                        }
                         break;
                 }
             },
@@ -63,8 +67,6 @@
                     console.log("Edit scale");
                     url += "/" + formData.id;
                 }
-
-                console.log(url, data);
 
                 var d = $q.defer();
                 $http.post(url, data).then(function (result) {
