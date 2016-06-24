@@ -27,7 +27,7 @@ class Scale_model extends CI_Model
         $scale = false;
         if ($thread)
         {
-            $scale = $this->get($thread->scale);
+            $scale = $this->get($thread->scale->id);
         }
 
         return $scale;
