@@ -23,12 +23,11 @@
             $interval(function(){
                 console.log("Checking...");
                 $(".dropdown-button").dropdown({
-                        constrain_width: false,
-                        hover: true,
-                        alignment: 'right',
-                        belowOrigin: true
-                    }
-                );
+                    constrain_width: false,
+                    hover: true,
+                    alignment: 'right',
+                    belowOrigin: true
+                });
             }, 500, 1);
         };
 

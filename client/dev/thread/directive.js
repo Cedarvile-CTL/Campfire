@@ -130,7 +130,10 @@
             $scope.$on("post:cancelnew", vm.cancelAddPost);
 
             $timeout(function() {
-                $("#thread-" + vm.thread.id + " a.dropdown-button").dropdown({});
+                $("#thread-" + vm.thread.id + " a.dropdown-button").dropdown({
+                    constrain_width: false,
+                    alignment: 'right'
+                });
             }, 500);
 
         };
@@ -166,14 +169,12 @@
         };
 
         vm.saveScale = function() {
-            console.log("Saveing a scale from thread Ctrl");
             vm.thread.scale.save({
                 id: vm.scaleId,
                 label: vm.scaleLabel,
                 maxPoints: vm.scaleMaxPoints,
                 type: vm.scaleType
             }).then(function(result){
-                console.log("Updating scale on thread.");
                 vm.thread.updateScale(result.id).then(function(result){
                     console.log("Updated:", vm.thread.scale);
                     vm.scale = vm.thread.scale;
