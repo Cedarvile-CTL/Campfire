@@ -3,7 +3,7 @@
 
     angular.module('campfire-client').factory('Scale', function ($q, $http, User) {
 
-        var Scale = function (id, type, label, description, maxPoints, version) {
+        var Scale = function (id, type, label, description, maxPoints, version, authorViewing, graderViewing) {
             this.update({
                 id: id,
                 type: type,
@@ -12,8 +12,9 @@
                 maxPoints: maxPoints,
                 version: version
             });
-            this.studentViewing = false;
-            this.graderViewing = true;
+            this.authorViewing = authorViewing;
+            this.graderViewing = graderViewing;
+            
             this.score = Scale.notGraded;
             this.maxPoints = this.maxPoints ? Number(this.maxPoints) : 1;
 
@@ -94,7 +95,9 @@
                     data.label,
                     data.description,
                     data.maxPoints,
-                    data.version
+                    data.version,
+                    data.authorViewing,
+                    data.graderViewing
                 );
             }
             return new Scale();

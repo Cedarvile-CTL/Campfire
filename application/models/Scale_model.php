@@ -67,6 +67,8 @@ class Scale_model extends CI_Model
             'id'=>$scale->scale_type,
             'label'=>$scale->scale_type_label
         );
+        $scale->graderViewing = FALSE;
+        $scale->authorViewing = FALSE;
     }
 
     public function save($scale_id, $data)

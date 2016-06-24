@@ -3,7 +3,7 @@
 
     angular.module('campfire-client').factory('Post', function ($q, $http, User, Scale) {
 
-        var Post = function (id, body, posts, user, date_posted, date_updated, parent, section, thread) {
+        var Post = function (id, body, posts, user, date_posted, date_updated, parent, section, thread, scale) {
             this.update({
                 id: id,
                 body: body,
@@ -20,7 +20,7 @@
             this.notMine = !this.isMine;
             this.editing = false;
             this.isNew = false;
-            this.scale = new Scale();
+            this.scale = Scale.transformer(scale);
         };
 
         Post.prototype = {
@@ -143,7 +143,8 @@
                     data.date_updated,
                     data.parent,
                     data.section,
-                    data.thread
+                    data.thread,
+                    data.scale
                 );
             }
             return new Post();
