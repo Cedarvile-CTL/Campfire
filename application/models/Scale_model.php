@@ -70,8 +70,8 @@ class Scale_model extends CI_Model
         );
         $scale->graderViewing =
             $this->session->user->section_role >= ACADEMICROLE_TA
-            || $this->session->user->section_role <= ACCESSLEVEL_ADMIN;
-        $scale->authoerViewing = FALSE; // TO BE SET AT POST LEVEL
+            || $this->session->user->accessLevel->id <= ACCESSLEVEL_ADMIN;
+        $scale->authorViewing = FALSE; // TO BE SET AT POST LEVEL
     }
 
     public function save($scale_id, $data)

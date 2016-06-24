@@ -28,7 +28,7 @@
             $scope.$emit("scale:setScore", vm.post.scale.score);
         };
 
-        vm.initialize();
+        vm.initialize(); 
     }
 
 })();

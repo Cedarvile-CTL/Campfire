@@ -65,6 +65,9 @@
 .post .post-user {
   margin-bottom: 10px;
 }
+.post .scale-numeric {
+  padding: 0;
+}
 .thread .thread-label {
   font-weight: 600;
 }

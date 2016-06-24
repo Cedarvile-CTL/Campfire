@@ -22,6 +22,9 @@
         vm.isNumericScale = false;
         vm.isCustomScale = false;
 
+        vm.graderViewing = false;
+        vm.studentViewing = false;
+
         vm.edit = function(id, e) {
             vm.loading = true;
             vm.editing = true;
@@ -93,6 +96,8 @@
                 vm[key] = val;
             });
             vm.loading = false;
+            vm.graderViewing = vm.post.scale.graderViewing;
+            vm.authorViewing = vm.post.authorViewing;
             activateMaterialize("Post directive: " + vm.id);
             if (vm.editing) {
                 vm.edit();
@@ -104,10 +109,10 @@
             vm.isNumericScale = Number(vm.scale.type.id) === Scale.numericScale;
             vm.isCustomScale = Number(vm.scale.type.id) === Scale.customScale;
 
-            console.log(vm.isCreditScale, vm.isNumericScale, vm.isCustomScale);
+            console.log(vm.post);
 
             $scope.$on("post:delete", vm.childDeleted);
-            $scope.$on("scale:setScore", vm.saveScore);
+            $scope.$on("scale:setScore", vm.saveScore); 
         };
 
         vm.childDeleted = function(e, data) {

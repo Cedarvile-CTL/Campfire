@@ -7,13 +7,13 @@
         <i class="material-icons small star"></i>
     </span>
 
-    <div ng-show="post.scale.graderViewing" class="grading-scale">
+    <div ng-show="post.graderViewing" class="grading-scale">
         <campfire-scale-credit ng-show="post.isCreditScale" post="post.post"></campfire-scale-credit>
         <campfire-scale-numeric ng-show="post.isNumericScale" post="post.post"></campfire-scale-numeric>
         <campfire-scale-custom ng-show="post.isCustomScale" post="post.post"></campfire-scale-custom>
     </div>
 
-    <div ng-show="post.scale.studentViewing" class="score">{{post.score.value}}</div>
+    <div ng-show="post.authorViewing" class="score">Score: {{post.score}}</div>
 
     <div ng-hide="post.editing" class="post-display">
         <div ng-bind-html="post.body" class="body"></div>
