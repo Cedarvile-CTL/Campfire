@@ -32,8 +32,8 @@
         };
 
         vm.setScore = function(score, e) {
-            console.log(score);
             vm.post.scale.setScore(score);
+            $scope.$emit("scale:setScore", vm.post.scale.score);
         };
 
 

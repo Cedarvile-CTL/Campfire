@@ -75,6 +75,11 @@
                 Materialize.toast("Post saved successfully.", 3000);
             });
         };
+
+        vm.saveScore = function(e, score) {
+            vm.post.saveScore(score);
+        };
+
         vm.toggleVisibility = function(id, e) {
             // console.log("Toggling visibility of post " + id);
         };
@@ -92,6 +97,7 @@
             $('.modal-trigger').leanModal();
 
             $scope.$on("post:delete", vm.childDeleted);
+            $scope.$on("scale:setScore", vm.saveScore);
         };
 
         vm.childDeleted = function(e, data) {

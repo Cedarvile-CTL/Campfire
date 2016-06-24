@@ -12,7 +12,7 @@
                 maxPoints: maxPoints,
                 version: version
             });
-            
+
             this.authorViewing = authorViewing;
             this.graderViewing = graderViewing;
 
@@ -34,7 +34,6 @@
                 this.version = Number(data.version);
             },
             setScore: function(score) {
-                console.log("Model received score: ", score);
                 switch (score) {
                     case this.max:
                         this.score = this.maxPoints;
@@ -46,7 +45,6 @@
                         this.score = Scale.notGraded;
                         break;
                 }
-                console.log(this.score);
             },
             save: function (formData) {
                 var scale = this;

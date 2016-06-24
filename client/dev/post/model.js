@@ -87,6 +87,13 @@
                 });
                 return d.promise;
             },
+            saveScore: function(score) {
+                var d = $q.defer();
+                $http.post('/apps/campfire/api/post/save_score/' + this.id + '/' + score).then(function (result) {
+                    d.resolve(result.data);
+                });
+                return d.promise;
+            },
             update: function(data) {
                 this.id = data.id;
                 this.body = data.body;

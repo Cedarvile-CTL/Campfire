@@ -19,11 +19,14 @@ class Post_model extends CI_Model
 
     public function get($post_id=0)
     {
+        $this->load->model('Scale_model');
+
         $this->db->where('id', $post_id);
         $post = cfr('Post_details', 'row');
 
         if ($post)
         {
+            $this->scale = $this->Scale_model->get_for_thread($post->thread);
             $this->objectify($post);
         }
 
@@ -182,13 +185,14 @@ class Post_model extends CI_Model
 
     public function save_score($post_id, $score)
     {
+        $this->load->model('Scale_model');
+        
         // Ensure provide score is legitimate for this post and thread
         $post = $this->get($post_id);
-        $this->load->model('Thread_model');
         $scale = $this->Scale_model->get_for_thread($post->thread);
         if ($scale)
         {
-            
+            $score = $score <= $scale->max_points ? $score : $scale->max_points;
         }
         
         // Store data
@@ -205,6 +209,7 @@ class Post_model extends CI_Model
         // If none were updated, add a score instead
         if ($this->db->affected_rows() < 1)
         {
+            $data['post'] = $post_id;
             $this->db->insert('Post_Score', $data);
         }
 
