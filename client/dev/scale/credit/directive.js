@@ -21,7 +21,6 @@
         vm.initialize = function () {
             vm.scale = vm.post.scale;
             $interval(function(){
-                console.log("Checking...");
                 $(".dropdown-button").dropdown({
                     constrain_width: false,
                     hover: true,

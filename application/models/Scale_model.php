@@ -23,6 +23,7 @@ class Scale_model extends CI_Model
 
     public function get_for_thread($thread_id)
     {
+        $this->load->model('Thread_model');
         $thread = $this->Thread_model->get($thread_id);
         $scale = false;
         if ($thread)

@@ -1,1 +1,5 @@
-<div>Numeric Scale</div>
+<p class="scale-numeric right range-field">
+    Score:
+    <input type="range" id="scale-{{vm.post.id}}" min="0" max="{{vm.scale.maxPoints}}"
+           ng-model="vm.score" ng-change="vm.setScore($event)" />
+</p>

@@ -10,13 +10,17 @@
             },
             restrict: "E",
             templateUrl: "/apps/campfire/client/dev/post/view.html",
-            controller: ["$scope", "$interval", "Post", "User", PostCtrl],
+            controller: ["$scope", "$interval", "Post", "Scale", "User", PostCtrl],
             controllerAs: "post"
         };
     });
 
-    function PostCtrl($scope, $interval, Post, User) {
+    function PostCtrl($scope, $interval, Post, Scale, User) {
         var vm = this;
+
+        vm.isCreditScale = false;
+        vm.isNumericScale = false;
+        vm.isCustomScale = false;
 
         vm.edit = function(id, e) {
             vm.loading = true;
@@ -95,6 +99,12 @@
             }
 
             $('.modal-trigger').leanModal();
+
+            vm.isCreditScale = Number(vm.scale.type.id) === Scale.creditScale;
+            vm.isNumericScale = Number(vm.scale.type.id) === Scale.numericScale;
+            vm.isCustomScale = Number(vm.scale.type.id) === Scale.customScale;
+
+            console.log(vm.isCreditScale, vm.isNumericScale, vm.isCustomScale);
 
             $scope.$on("post:delete", vm.childDeleted);
             $scope.$on("scale:setScore", vm.saveScore);

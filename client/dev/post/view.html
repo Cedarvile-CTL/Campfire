@@ -8,10 +8,11 @@
     </span>
 
     <div ng-show="post.scale.graderViewing" class="grading-scale">
-        <campfire-scale-credit post="post.post"></campfire-scale-credit>
-        <campfire-scale-numeric postId="post.id" scale="post.scale"></campfire-scale-numeric>
-        <campfire-scale-custom postId="post.id" scale="post.scale"></campfire-scale-custom>
+        <campfire-scale-credit ng-show="post.isCreditScale" post="post.post"></campfire-scale-credit>
+        <campfire-scale-numeric ng-show="post.isNumericScale" post="post.post"></campfire-scale-numeric>
+        <campfire-scale-custom ng-show="post.isCustomScale" post="post.post"></campfire-scale-custom>
     </div>
+
     <div ng-show="post.scale.studentViewing" class="score">{{post.score.value}}</div>
 
     <div ng-hide="post.editing" class="post-display">

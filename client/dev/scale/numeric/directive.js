@@ -6,20 +6,26 @@
             replace:true,
             scope: {},
             bindToController: {
-                scale: "="
+                post: "="
             },
             restrict: "E",
             templateUrl: "/apps/campfire/client/dev/scale/numeric/view.html",
-            controller: ["$scope", "User", ScaleNumericCtrl],
-            controllerAs: "scale"
+            controller: ["$scope", "$interval", "User", ScaleNumericCtrl],
+            controllerAs: "vm"
         };
     });
 
-    function ScaleNumericCtrl($scope, User) {
+    function ScaleNumericCtrl($scope, $interval, User) {
         var vm = this;
 
         vm.initialize = function () {
+            vm.scale = vm.post.scale;
+            vm.score = vm.post.scale.score; 
+        };
 
+        vm.setScore = function(e) {
+            vm.post.scale.setScore(vm.score);
+            $scope.$emit("scale:setScore", vm.post.scale.score);
         };
 
         vm.initialize();

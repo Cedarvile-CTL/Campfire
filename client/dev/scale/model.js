@@ -77,15 +77,11 @@
                 return d.promise;
             }
         };
-
-        // Post.get = function(postId) {
-        //     var d = $q.defer();
-        //     $http.get('/apps/campfire/api/post/get/' + postId).then(function (result) {
-        //         var data = Post.transformer(result.data);
-        //         d.resolve(data);
-        //     });
-        //     return d.promise;
-        // };
+        
+        Scale.notGraded = "Not graded";
+        Scale.creditScale = 1;
+        Scale.numericScale = 2;
+        Scale.customScale = 3;
 
         // static methods
         Scale.build = function (data) {
@@ -113,8 +109,6 @@
                 });
             return d.promise;
         };
-
-        Scale.notGraded = "Not graded";
 
         Scale.transformer = function (data) {
             if (angular.isArray(data)) {
