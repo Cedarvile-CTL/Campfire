@@ -3,20 +3,20 @@
         <img src="http://placehold.it/100x100?text=Profile" class="circle" />
         {{post.user.name}} | {{post.date_posted | date}} {{post.date_posted | date : 'shortTime' }}
     </div>
-    <span ng-show="post.isNew" class="new badge post-new">
-        <i class="material-icons small star"></i>
-    </span>
+    <div ng-show="post.isNew" class="chip post-new green accent-4 white-text">
+        <i class="material-icons small">star</i> New
+    </div>
+    <div ng-show="post.authorViewing" class="chip blue white-text score">
+        Score: {{post.score}}
+        <small>{{post.date_scored | date}} by {{post.grader}}</small>
+    </div>
 
-    <div ng-show="post.graderViewing" class="grading-scale">
+    <div ng-show="post.graderViewing" class="grading-scale right">
         <campfire-scale-credit ng-show="post.isCreditScale" post="post.post"></campfire-scale-credit>
         <campfire-scale-numeric ng-show="post.isNumericScale" post="post.post"></campfire-scale-numeric>
         <campfire-scale-custom ng-show="post.isCustomScale" post="post.post"></campfire-scale-custom>
     </div>
 
-    <div ng-show="post.authorViewing" class="chip blue white-text score">
-        Score: {{post.score}}
-        <small>{{post.date_scored | date}} by {{post.grader}}</small>
-    </div>
 
     <div ng-hide="post.editing" class="post-display">
         <div ng-bind-html="post.body" class="body"></div>

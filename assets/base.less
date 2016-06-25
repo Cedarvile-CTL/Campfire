@@ -76,7 +76,12 @@
   .post-user { margin-bottom:10px; }
   .scale-numeric {
     padding:0;
-
+    input[type=range] {
+      width:70%;
+      margin-left:10px;
+      position: relative;
+      top:-5px;
+    }
   }
 }
 
@@ -96,6 +101,7 @@
     margin:10px 0 0;
     border:1px solid @color-standard-light-grey;
     border-left-width:4px;
+    overflow: visible;
     .posts {
       border-color:darken(@color-standard-light-grey,10%);
       .posts {

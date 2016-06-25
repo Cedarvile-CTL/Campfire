@@ -68,6 +68,12 @@
 .post .scale-numeric {
   padding: 0;
 }
+.post .scale-numeric input[type=range] {
+  width: 70%;
+  margin-left: 10px;
+  position: relative;
+  top: -5px;
+}
 .thread .thread-label {
   font-weight: 600;
 }
@@ -89,6 +95,7 @@
   margin: 10px 0 0;
   border: 1px solid #e0e0e0;
   border-left-width: 4px;
+  overflow: visible;
 }
 .thread .posts .posts {
   border-color: #c7c7c7;
