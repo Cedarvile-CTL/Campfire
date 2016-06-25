@@ -109,8 +109,6 @@
             vm.isNumericScale = Number(vm.scale.type.id) === Scale.numericScale;
             vm.isCustomScale = Number(vm.scale.type.id) === Scale.customScale;
 
-            console.log(vm.post);
-
             $scope.$on("post:delete", vm.childDeleted);
             $scope.$on("scale:setScore", vm.saveScore); 
         };

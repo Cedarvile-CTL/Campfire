@@ -3,7 +3,11 @@
 
     angular.module('campfire-client').factory('Post', function ($q, $http, User, Scale) {
 
-        var Post = function (id, body, posts, user, date_posted, date_updated, parent, section, thread, scale, authorViewing, score) {
+        var Post = function (
+            id, body, posts, user, date_posted, date_updated,
+            parent, section, thread, scale, authorViewing,
+            score, date_scored, grader
+        ) {
             this.update({
                 id: id,
                 body: body,
@@ -24,6 +28,9 @@
             this.scale = Scale.transformer(scale);
             this.scale.setScore(this.score);
             this.authorViewing = authorViewing;
+            this.date_scored = Date.parse(date_scored);
+            this.grader = grader;
+            // TODO: Load grader's user data from API.
         };
 
         Post.prototype = {
@@ -156,7 +163,9 @@
                     data.thread,
                     data.scale,
                     data.authorViewing,
-                    data.score
+                    data.score,
+                    data.date_scored,
+                    data.grader
                 );
             }
             return new Post();

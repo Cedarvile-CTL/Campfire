@@ -13,7 +13,10 @@
         <campfire-scale-custom ng-show="post.isCustomScale" post="post.post"></campfire-scale-custom>
     </div>
 
-    <div ng-show="post.authorViewing" class="chip blue white-text score">Score: {{post.score}}</div>
+    <div ng-show="post.authorViewing" class="chip blue white-text score">
+        Score: {{post.score}}
+        <small>{{post.date_scored | date}} by {{post.grader}}</small>
+    </div>
 
     <div ng-hide="post.editing" class="post-display">
         <div ng-bind-html="post.body" class="body"></div>
