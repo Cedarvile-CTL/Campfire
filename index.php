@@ -98,6 +98,7 @@ switch (ENVIRONMENT)
  * Include the path if the folder is not in the same directory
  * as this file.
  */
+    #$system_path = '/data/library/ci_system';
     $system_path = '/Users/philschanely/Sites/ctl2/library/ci_system';
     
 /*

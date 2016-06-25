@@ -14,22 +14,22 @@ CREATE OR REPLACE VIEW Warehouse_Roles AS
 CREATE OR REPLACE VIEW Thorin_Section AS
 	SELECT d.*,
 	   CONCAT(d.dptCode, d.number, '/', d.year, d.semesterID, LPAD(d.sectionNumber, 2, '0')) AS `section_uri`
-	FROM Thorin.Section_Details as d;
+	FROM thorin.Section_Details as d;
 
 -- --------
 
 CREATE OR REPLACE VIEW Thorin_Version AS
 	SELECT v.*,
 	  (SELECT COUNT(id) FROM Forum WHERE version = v.versionID) AS `num_forums`
-	FROM Thorin.Course_Version_Info as v;
+	FROM thorin.Course_Version_Info as v;
 
 -- --------
 
 CREATE OR REPLACE VIEW User_IN_Section AS
-	SELECT Thorin.Person_IN_Section.personID AS `user`,
-	  Thorin.Person_IN_Section.sectionID AS `section`,
-	  Thorin.Person_IN_Section.roleID AS `role`
-	FROM Thorin.Person_IN_Section;
+	SELECT thorin.Person_IN_Section.personID AS `user`,
+	  thorin.Person_IN_Section.sectionID AS `section`,
+	  thorin.Person_IN_Section.roleID AS `role`
+	FROM thorin.Person_IN_Section;
 
 -- --------
 
@@ -43,7 +43,7 @@ CREATE OR REPLACE VIEW Warehouse_Person AS
 
 -- --------
 
-CREATE OR REPLACE VIEW User_Info AS
+CREATE OR REPLACE VIEW Person_Info AS
     SELECT Warehouse_Person.*,
         User.access_level,
         Access_Level.name as access_level_name,
@@ -87,5 +87,5 @@ CREATE OR REPLACE VIEW Scale_Details AS
   SELECT Scale.*,
     Scale_Type.label as scale_type_label
 
-  FROM Thread
+  FROM Scale
     JOIN Scale_Type ON Scale.scale_type = Scale_Type.id;

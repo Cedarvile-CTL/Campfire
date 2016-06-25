@@ -58,17 +58,17 @@ class Main extends CI_Controller {
         {
             case 'access':
                 $this->dso->msg = "<p>You do not have sufficient access level privileges to use this feature..</p>";
-                $this->dso->actions = [
-                    ['path'=>base_url('authenticate/logout'), 'label'=>'Logout of Campfire'],
-                    ['path'=>'http://moodle.cedarville.edu', 'label'=>'Go to Moodle']
-                ];
+                $this->dso->actions = array(
+                    array('path'=>base_url('authenticate/logout'), 'label'=>'Logout of Campfire'),
+                    array('path'=>'http://moodle.cedarville.edu', 'label'=>'Go to Moodle')
+                );
             case 'section':
             default:
                 $this->dso->msg = "<p>You must link to campfire from a valid section of a course at Cedarville University. Contact your professor for help with this issue.</p>";
-                $this->dso->actions = [
-                    ['path'=>base_url('authenticate/logout'), 'label'=>'Logout of Campfire'],
-                    ['path'=>'http://moodle.cedarville.edu', 'label'=>'Go to Moodle']
-                ];
+                $this->dso->actions = array(
+                    array('path'=>base_url('authenticate/logout'), 'label'=>'Logout of Campfire'),
+                    array('path'=>'http://moodle.cedarville.edu', 'label'=>'Go to Moodle')
+                );
                 break;
         }
         

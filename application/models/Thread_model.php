@@ -81,7 +81,7 @@ class Thread_model extends CI_Model
         $sort_term_array = explode(',', $sort_terms);
         if (empty($sort_term_array))
         {
-            $sort_terms_array = [''];
+            $sort_terms_array = array('');
         }
         foreach ($sort_terms_array as $term)
         {

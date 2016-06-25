@@ -51,7 +51,7 @@ class Thread extends Main {
 
         if (!$posts)
         {
-            $posts = [];
+            $posts = array();
         }
 
         $this->_output_result($posts);

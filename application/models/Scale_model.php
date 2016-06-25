@@ -55,7 +55,7 @@ class Scale_model extends CI_Model
             {
                 // Map items to each corresponding scale
                 $this->objectify($scale);
-                $scale->items = [];
+                $scale->items = array();
             }
         }
         return $scales;

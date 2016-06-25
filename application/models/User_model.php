@@ -101,18 +101,18 @@ class User_model extends CI_Model {
 
     public function objectify($source)
     {
-        $person_props = [
+        $person_props = array(
             'firstName'=>'firstName',
             'lastName'=>'lastName',
             'username'=>'username',
             'email'=>'email',
             'personID'=>'id'
-        ];
-        $role_props = [
+        );
+        $role_props = array(
             'access_level'=>'id',
             'access_level_name'=>'name',
             'access_level_order'=>'order'
-        ];
+        );
         $person = new stdClass();
         foreach ($person_props as $prop=>$new_prop)
         {
