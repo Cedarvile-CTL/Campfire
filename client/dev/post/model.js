@@ -25,6 +25,7 @@
             this.notMine = !this.isMine;
             this.editing = false;
             this.isNew = false;
+            // TODO: Establish logic for marking posts as read on scroll.
             this.scale = Scale.transformer(scale);
             this.scale.setScore(this.score);
             this.authorViewing = authorViewing;
