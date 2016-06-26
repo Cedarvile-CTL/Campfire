@@ -16,10 +16,10 @@
                     which obtains the posts's score percentage. This is multiplied by
                     the post's weight according to the expected post count for the forum.
                     All these values are added together for the posts in his forum to
-                    obtain the score here.">Total Score</th>
+                    obtain the score here.">Weighted Score</th>
             <th class="tooltipped" data-position="top" data-delay="50"
                 data-tooltip="The score from the previous column is capped
-                    to this forum's maximum score.">Capped Score</th>
+                    to this forum's maximum score.">Capped Weighted Score</th>
         </tr>
         {score_data}
         <tr>
