@@ -10,6 +10,7 @@ class Forum_model extends CI_Model
     
     public function get($forum_id, $enforce_active_section=TRUE)
     {
+        // TODO: Determine use of these next few lines.
         if ($enforce_active_section)
         {
             $this->db->version = $this->session->version;
@@ -45,6 +46,34 @@ class Forum_model extends CI_Model
     {
         $forums = cfr('Forum');
         return $forums;
+    }
+
+    public function get_score_data($forum_id, $enforce_active_section=TRUE)
+    {
+        if ($enforce_active_section)
+        {
+            $section = $this->session->section;
+        }
+
+        $sql = 'SELECT personID, firstName, lastName,
+                SUM(score) AS score_sum,
+                COUNT(id) AS post_num,
+                ROUND(SUM(forum_points), 2) AS forum_points_ttl,
+                IF (
+                    SUM(forum_points)>Post_Score_Data.forum_max_points,
+                    Post_Score_Data.forum_max_points,
+                    ROUND(SUM(forum_points), 2)
+                ) AS forum_points_ttl_cap 
+            FROM post_score_data ';
+        $sql .= "WHERE section = {$section} AND forum = {$forum_id} ";
+        $sql .= 'GROUP BY personID';
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result();
+
+        return $result;
+
     }
 
     public function save($forum_id, $data)

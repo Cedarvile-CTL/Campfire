@@ -57,12 +57,17 @@ class Main extends CI_Controller {
         $this->_ensure_section_data();
         $this->_get_user_role_for_view();
 
-        if ($this->session->user->section_role)
+        if (! $this->dso->is_grader)
         {
-
+            redirect(base_url('error/access'));
         }
 
+        $this->load->model('Forum_model');
+
         $this->dso->forum_id = $forum_id;
+
+        $this->dso->score_data = $this->Forum_model->get_score_data($forum_id);
+
         show_view('client/forum/view_grades', $this->dso->all);
     }
     

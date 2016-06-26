@@ -6,32 +6,29 @@
     <table>
         <tr>
             <th>Participant</th>
-            <th># Posts</th>
-            <th>% Posts</th>
-            <th>Sum of Scores</th>
-            <th>Raw Average</th>
-            <th>Weighted Average</th>
+            <th>Num. Posts</th>
+            <th class="tooltipped" data-position="top" data-delay="50"
+                data-tooltip="Raw sum of scores for all scored posts">
+                Sum of Scores
+            </th>
+            <th class="tooltipped" data-position="top" data-delay="50"
+                data-tooltip="Each score post is divided by that post's maximum points,
+                    which obtains the posts's score percentage. This is multiplied by
+                    the post's weight according to the expected post count for the forum.
+                    All these values are added together for the posts in his forum to
+                    obtain the score here.">Total Score</th>
+            <th class="tooltipped" data-position="top" data-delay="50"
+                data-tooltip="The score from the previous column is capped
+                    to this forum's maximum score.">Capped Score</th>
         </tr>
-        {forum.posts_data}
+        {score_data}
         <tr>
-            <td>{user.firstName} {user.lastName}</td>
-            <th>{num_posts}</th>
-            <th>{perc_posts}</th>
-            <th>{score_sum}</th>
-            <th>{score_avg}</th>
-            <th>{score_weighted}</th>
+            <td>{firstName} {lastName}</td>
+            <td>{post_num}</td>
+            <td>{score_sum}</td>
+            <td>{forum_points_ttl}</td>
+            <td>{forum_points_ttl_cap}</td>
         </tr>
-        {/forum.posts_data}
+        {/score_data}
     </table>
-
-    <h2>Individual Threads</h2>
-    {threads}
-    <h3>Thread #</h3>
-    <table>
-        {posts_data}
-
-
-        {/posts_data}
-    </table>
-    {/threads}
 </div>
