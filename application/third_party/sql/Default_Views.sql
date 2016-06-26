@@ -89,3 +89,24 @@ CREATE OR REPLACE VIEW Scale_Details AS
 
   FROM Scale
     JOIN Scale_Type ON Scale.scale_type = Scale_Type.id;
+
+-- --------
+
+CREATE OR REPLACE VIEW Post_Score_Data AS
+  SELECT Post.id,
+    Person_Info.*,
+    Post.thread, Thread.forum, Post.section,
+    Post_Score.score, Scale.max_points,
+    (Post_Score.score/Scale.max_points * 100) AS score_perc,
+    Forum.num_posts,
+    Forum.max_points as forum_max_points,
+    (1/Forum.num_posts) * (Post_Score.score/Scale.max_points) AS forum_posts_perc,
+    (1/Forum.num_posts) * (Post_Score.score/Scale.max_points) * Forum.max_points AS forum_points
+  FROM Post
+    JOIN Person_Info ON Post.user = Person_Info.personID
+    JOIN Thread ON Post.thread = Thread.id
+    JOIN Forum ON Thread.forum = Forum.id
+    JOIN Post_Score ON Post.id = Post_Score.post
+    JOIN Scale ON Thread.scale = Scale.id;
+
+-- SELECT * FROM Post_Score_Data;
