@@ -51,6 +51,20 @@ class Main extends CI_Controller {
         $this->dso->forum_id = $forum_id;
         show_view('client/forum/view', $this->dso->all);
     }
+
+    public function forum_grades($forum_id)
+    {
+        $this->_ensure_section_data();
+        $this->_get_user_role_for_view();
+
+        if ($this->session->user->section_role)
+        {
+
+        }
+
+        $this->dso->forum_id = $forum_id;
+        show_view('client/forum/view_grades', $this->dso->all);
+    }
     
     public function error($type)
     {
@@ -108,8 +122,15 @@ class Main extends CI_Controller {
         $this->dso->user = $this->session->user;
         $this->dso->user_role = $this->session->user->section_role == ACADEMICROLE_PROF
             ? 'Professor'
-            : ($this->session->user->section_role == ACADEMICROLE_TA || $this->session->user->accessLevel->id < ACCESSLEVEL_REGULAR
+            : ($this->session->user->section_role == ACADEMICROLE_TA
+                || $this->session->user->accessLevel->id < ACCESSLEVEL_REGULAR
                 ? 'Assistant'
                 : 'Student/Participant');
+
+        $this->dso->is_grader =
+            $this->session->user->section_role > ACADEMICROLE_STU
+            || $this->session->user->accessLevel->id < ACCESSLEVEL_REGULAR
+            ? TRUE
+            : FALSE;
     }
 }
