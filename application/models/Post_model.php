@@ -28,7 +28,7 @@ class Post_model extends CI_Model
         $this->load->model('Scale_model');
 
         $this->db->where('id', $post_id);
-        $post = cfr('Post_details', 'row');
+        $post = cfr('Post_Details', 'row');
 
         if ($post)
         {
@@ -77,7 +77,7 @@ class Post_model extends CI_Model
 
     public function get_list()
     {
-        $posts = cfr('Post_details');
+        $posts = cfr('Post_Details');
 
         $this->_load_read_posts();
 
@@ -239,9 +239,12 @@ class Post_model extends CI_Model
         $read_posts = cfr('Viewed_Post');
         $simple_posts = array();
 
-        foreach ($read_posts as $post)
+        if (!empty($read_posts))
         {
-            $simple_posts[] = $post->post;
+            foreach ($read_posts as $post)
+            {
+                $simple_posts[] = $post->post;
+            }
         }
 
         $this->read_posts = $simple_posts;

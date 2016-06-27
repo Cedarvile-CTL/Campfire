@@ -11,7 +11,7 @@ class Scale_model extends CI_Model
     public function get($scale_id=0)
     {
         $this->db->where('id', $scale_id);
-        $scale = cfr('Scale_details', 'row');
+        $scale = cfr('Scale_Details', 'row');
 
         if ($scale)
         {
@@ -47,7 +47,7 @@ class Scale_model extends CI_Model
 
     public function get_list()
     {
-        $scales = cfr('Scale_details');
+        $scales = cfr('Scale_Details');
         if (!empty($scales))
         {
             // Load all the scale items
@@ -57,6 +57,10 @@ class Scale_model extends CI_Model
                 $this->objectify($scale);
                 $scale->items = array();
             }
+        }
+        else
+        {
+            $scales = array();
         }
         return $scales;
     }

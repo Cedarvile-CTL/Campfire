@@ -64,7 +64,7 @@ class Forum_model extends CI_Model
                     Post_Score_Data.forum_max_points,
                     ROUND(SUM(forum_points), 2)
                 ) AS forum_points_ttl_cap 
-            FROM post_score_data ';
+            FROM Post_Score_Data ';
         $sql .= "WHERE section = {$section} AND forum = {$forum_id} ";
         $sql .= 'GROUP BY personID';
 

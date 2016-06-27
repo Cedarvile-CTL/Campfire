@@ -17,7 +17,7 @@ class Thread_model extends CI_Model
     public function get($thread_id)
     {
         $this->db->where('id', $thread_id);
-        $thread = cfr('Thread_details', 'row');
+        $thread = cfr('Thread_Details', 'row');
         $this->objectify($thread);
         return $thread;
     }
@@ -36,7 +36,7 @@ class Thread_model extends CI_Model
 
     public function get_list()
     {
-        $threads = cfr('Thread_details');
+        $threads = cfr('Thread_Details');
 
         foreach($threads as &$thread)
         {
