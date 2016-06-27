@@ -19,7 +19,7 @@
 
         User.get = function(userId) {
             var d = $q.defer();
-            $http.get('api/user/get/' + userId).then(function (result) {
+            $http.get('/apps/campfire/api/user/get/' + userId).then(function (result) {
                 var data = User.transformer(result.data);
                 d.resolve(data);
             });
@@ -28,7 +28,7 @@
 
         User.getList = function(options) {
             var d = $q.defer();
-            $http.get('api/user/get_list', options).then(function (result) {
+            $http.get('/apps/campfire/api/user/get_list', options).then(function (result) {
                 var data = User.transformer(result.data);
                 d.resolve(data);
             });
@@ -52,19 +52,24 @@
             return new User();
         };
 
-        User.activeUser = new User(
-            1337970,
-            "philschanely",
-            "Phil",
-            "Schanely",
-            "philschanely@cedarville.edu",
-            "Phil Schanely",
-            {
-                id: 1,
-                name: "Super Admin",
-                order: 1
+        User.activeUser = null;
+
+        User.loadActiveUser = function() {
+            console.log("Requested to load user");
+            if (User.activeUser === null) {
+                var d = $q.defer();
+                $http.get('/apps/campfire/api/user/get_active/').then(function (result) {
+                    console.log(result.data);
+                    User.activeUser = User.transformer(result.data);
+                    console.log("User loaded just now", User.activeUser);
+                    d.resolve(User.activeUser);
+                });
+                return d.promise;
+            } else {
+                console.log("User loaded already", User.activeUser);
+                return User.activeUser;
             }
-        );
+        };
 
         User.transformer = function (data) {
             if (angular.isArray(data)) {

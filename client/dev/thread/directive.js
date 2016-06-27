@@ -10,12 +10,12 @@
             },
             restrict: "E",
             templateUrl: "/apps/campfire/client/dev/thread/view.html",
-            controller: ["$scope", "$timeout", "Thread", "Scale", ThreadCtrl],
+            controller: ["$scope", "$timeout", "Thread", "Scale", "User", ThreadCtrl],
             controllerAs: "thread"
         }; 
     });
 
-    function ThreadCtrl($scope, $timeout, Thread, Scale) {
+    function ThreadCtrl($scope, $timeout, Thread, Scale, User) {
         var vm = this;
 
         vm.posts = [];
@@ -122,6 +122,7 @@
         };
         
         vm.initialize = function () {
+            User.loadActiveUser();
             activateMaterialize("Thread directive");
             vm.setThreadValues(vm.thread);
 

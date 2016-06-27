@@ -92,6 +92,7 @@
         };
 
         vm.initialize = function () {
+            User.loadActiveUser();
             angular.forEach(vm.post, function(val, key){
                 vm[key] = val;
             });
@@ -99,7 +100,7 @@
             vm.graderViewing = vm.post.scale.graderViewing;
             vm.authorViewing = vm.post.authorViewing;
             activateMaterialize("Post directive: " + vm.id);
-            if (vm.editing) {
+            if (vm.editing) { 
                 vm.edit();
             }
 

@@ -8,6 +8,8 @@
             parent, section, thread, scale, authorViewing,
             score, date_scored, grader
         ) {
+            User.loadActiveUser();
+
             this.update({
                 id: id,
                 body: body,
