@@ -4,11 +4,17 @@ class Post_model extends CI_Model
 {
 
     var $scale;
+    var $read_posts;
+    var $num_read_posts;
+    var $num_posts;
 
     public function __construct()
     {
         parent::__construct();
         $this->scale = NULL;
+        $this->read_posts = array();
+        $this->num_read_posts = 0;
+        $this->num_posts = 0;
     }
     
     public function delete($post_id)
@@ -72,6 +78,9 @@ class Post_model extends CI_Model
     public function get_list()
     {
         $posts = cfr('Post_details');
+
+        $this->_load_read_posts();
+
         if (!empty($posts))
         {
             $this->load->model('user_model');
@@ -82,6 +91,8 @@ class Post_model extends CI_Model
         }
 
         $this->scale = NULL;
+
+        $this->num_posts = count($posts);
 
         return $posts;
     }
@@ -95,6 +106,11 @@ class Post_model extends CI_Model
         if ($post->scale)
         {
             $post->scale->authorViewing = $post->authorViewing;
+        }
+        $post->isNew = TRUE;
+        if (!empty($this->read_posts))
+        {
+            $post->isNew = ! in_array($post->id, $this->read_posts);
         }
     }
 
@@ -215,5 +231,20 @@ class Post_model extends CI_Model
 
         // Return the updated post
         return $this->get($post_id);
+    }
+
+    private function _load_read_posts()
+    {
+        $this->db->where('user', $this->session->user->id);
+        $read_posts = cfr('Viewed_Post');
+        $simple_posts = array();
+
+        foreach ($read_posts as $post)
+        {
+            $simple_posts[] = $post->post;
+        }
+
+        $this->read_posts = $simple_posts;
+        $this->num_read_posts = count($this->read_posts);
     }
 }
