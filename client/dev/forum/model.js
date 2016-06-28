@@ -22,7 +22,8 @@
             ],
             cloneThread: function(thread) {
                 var forum = this;
-                var clone = new Thread(null, thread.label, thread.description, thread.forum);
+                console.log("Cloning with scale: ", thread.scale);
+                var clone = new Thread(null, thread.label, thread.description, thread.forum, [], thread.scale);
                 clone.save().then(function(result){
                     result.adminEditing = true;
                     forum.threads.push(result);

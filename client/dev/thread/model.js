@@ -26,7 +26,6 @@
                 newPost.save({ body: "" }).then(function(result){
                     result.editing = true;
                     result.isNew = true;
-                    console.log(thread.posts);
                     if (thread.posts.length > 0) {
                         thread.posts.unshift(result);
                     } else {
@@ -61,7 +60,8 @@
 
                 var data = {
                     label: this.label,
-                    description: this.description
+                    description: this.description,
+                    scale: this.scale.id ? this.scale.id : null
                 };
 
                 if (this.id === null || this.id === 0) {
@@ -74,8 +74,10 @@
 
                 var d = $q.defer();
                 thread.loading = true;
+                console.log(data);
                 $http.post(url, data).then(function (result) {
                     thread.update(result.data);
+                    console.log(result.data);
                     thread.loading = false;
                     d.resolve(thread);
                 });
