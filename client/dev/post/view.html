@@ -3,7 +3,7 @@
         <img src="http://placehold.it/100x100?text=Profile" class="circle" />
         {{post.user.name}} | {{post.date_posted | date}} {{post.date_posted | date : 'shortTime' }}
     </div>
-    <div ng-show="post.isNew" class="chip post-new green accent-4 white-text">
+    <div ng-show="post.isUnread" class="chip post-new green accent-4 white-text">
         <i class="material-icons small">star</i> New
     </div>
     <div ng-show="post.authorViewing" class="chip blue white-text score">

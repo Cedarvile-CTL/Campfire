@@ -55,18 +55,18 @@
         User.activeUser = null;
 
         User.loadActiveUser = function() {
-            console.log("Requested to load user");
+            // console.log("Requested to load user");
             if (User.activeUser === null) {
                 var d = $q.defer();
                 $http.get('/apps/campfire/api/user/get_active/').then(function (result) {
-                    console.log(result.data);
+                    // console.log(result.data);
                     User.activeUser = User.transformer(result.data);
-                    console.log("User loaded just now", User.activeUser);
+                    // console.log("User loaded just now", User.activeUser);
                     d.resolve(User.activeUser);
                 });
                 return d.promise;
             } else {
-                console.log("User loaded already", User.activeUser);
+                // console.log("User loaded already", User.activeUser);
                 return User.activeUser;
             }
         };

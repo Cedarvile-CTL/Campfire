@@ -73,6 +73,9 @@ class Main extends CI_Controller {
     
     public function error($type)
     {
+        $this->session->user->section_role = ACADEMICROLE_STU;
+        $this->_get_user_role_for_view();
+
         switch($type)
         {
             case 'access':

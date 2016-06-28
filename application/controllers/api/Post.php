@@ -43,6 +43,12 @@ class Post extends Main {
         $this->_output_result($post);
     }
 
+    public function mark_read($post_id)
+    {
+        $result = $this->Post_model->mark_read($post_id);
+        $this->_output_result($result);
+    }
+
     public function save($post_id=0)
     {
         $postdata = file_get_contents("php://input");

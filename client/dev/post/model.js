@@ -6,7 +6,7 @@
         var Post = function (
             id, body, posts, user, date_posted, date_updated,
             parent, section, thread, scale, authorViewing,
-            score, date_scored, grader
+            score, date_scored, grader, isUnread
         ) {
             User.loadActiveUser();
 
@@ -22,12 +22,12 @@
             this.section = section;
             this.thread = thread;
             this.posts = angular.isArray(posts) ? Post.transformer(posts) : [];
+            this.isUnread = isUnread;
             this.hasPosts = this.posts.length > 0 ? true : false;
             this.isMine = this.user.id === User.activeUser.id;
             this.notMine = !this.isMine;
             this.editing = false;
             this.isNew = false;
-            // TODO: Establish logic for marking posts as read on scroll.
             this.scale = Scale.transformer(scale);
             this.scale.setScore(this.score);
             this.authorViewing = authorViewing;
@@ -64,6 +64,15 @@
                 });
                 return d.promise;
             },
+            markAsRead: function() {
+                var post = this;
+                var d = $q.defer();
+                $http.get('/apps/campfire/api/post/mark_read/' + this.id).then(function (result) {
+                    post.isUnread = false;
+                    d.resolve(result.data);
+                });
+                return d.promise;
+            },
             save: function(form_data) {
                 var post = this;
                 angular.forEach(form_data, function(val, key){
@@ -96,6 +105,7 @@
                     post.update(result.data);
                     d.resolve(post);
                     post.loading = false;
+                    post.isNew = false;
                 });
                 return d.promise;
             },
@@ -168,7 +178,8 @@
                     data.authorViewing,
                     data.score,
                     data.date_scored,
-                    data.grader
+                    data.grader,
+                    data.isUnread
                 );
             }
             return new Post();

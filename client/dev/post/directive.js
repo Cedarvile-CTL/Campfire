@@ -25,6 +25,8 @@
         vm.graderViewing = false;
         vm.studentViewing = false;
 
+        vm.markingAsRead = false;
+
         vm.edit = function(id, e) {
             vm.loading = true;
             vm.editing = true;
@@ -109,6 +111,17 @@
             vm.isCreditScale = Number(vm.scale.type.id) === Scale.creditScale;
             vm.isNumericScale = Number(vm.scale.type.id) === Scale.numericScale;
             vm.isCustomScale = Number(vm.scale.type.id) === Scale.customScale;
+            
+            if (vm.post.isUnread) {
+                $interval(function(){
+                    var top = $("#post-" + vm.post.id).offset().top;
+                    $(document).on("scroll", function(e) {
+                        if ($(document).scrollTop()+300 >= top) {
+                            vm.markAsRead();
+                        }
+                    });
+                }, 500, 1);
+            }
 
             $scope.$on("post:delete", vm.childDeleted);
             $scope.$on("scale:setScore", vm.saveScore); 
@@ -123,6 +136,16 @@
                     msg = "Post cancelled.";
                 }
                 Materialize.toast(msg, 3000);
+            }
+        };
+
+        vm.markAsRead = function(e) {
+            if (!vm.markingAsRead) {
+                vm.markingAsRead = true;
+                vm.post.markAsRead().then(function(result){
+                    console.log(result);
+                    vm.isUnread = false;
+                });
             }
         };
 

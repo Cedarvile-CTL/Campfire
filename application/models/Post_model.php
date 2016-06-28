@@ -107,10 +107,10 @@ class Post_model extends CI_Model
         {
             $post->scale->authorViewing = $post->authorViewing;
         }
-        $post->isNew = TRUE;
+        $post->isUnread = TRUE;
         if (!empty($this->read_posts))
         {
-            $post->isNew = ! in_array($post->id, $this->read_posts);
+            $post->isUnread = ! in_array($post->id, $this->read_posts);
         }
     }
 
@@ -164,6 +164,17 @@ class Post_model extends CI_Model
         {
             $posts = $grouped_posts[0];
         }
+    }
+
+    public function mark_read($post_id)
+    {
+        $this->db->insert('Viewed_Post', array(
+            'post'=>$post_id,
+            'user'=>$this->session->user->id,
+            'date_viewed'=>date(SERVER_DATE_STR)
+        ));
+
+        return $this->db->affected_rows();
     }
 
     private function _load_child_posts(&$root_list, $full_list)
