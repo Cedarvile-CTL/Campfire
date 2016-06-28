@@ -45,6 +45,7 @@
                                 <i class="material-icons">delete</i>
                             </button>
                         </ul>
+                        <small>{base_url}{section-slug}/forum/{{forum.id}}</small>
                     </li>
                 </ul>
                 <p ng-hide="version.hasForums">No forums in this version yet.</p>

@@ -15,6 +15,9 @@
             ng-click="forum.addThread($event)">
         <i class="material-icons">add</i>
     </button>
+    <p class="right">
+        <i class="material-icons">link</i> {base_url}{section-slug}/forum/{forum.id}
+    </p>
     <div ng-show="forum.loading" class="progress">
         <div class="indeterminate"></div>
     </div>
