@@ -106,6 +106,7 @@
                 forum: vm.activeThreadForum
             }).then(function(result){
                 vm.forum.updateThreads(result);
+                vm.hasThreads = true;
                 $scope.$broadcast("thread:updated", result);
             });
         };
