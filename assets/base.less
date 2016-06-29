@@ -33,6 +33,16 @@
   margin-top:0; margin-bottom: 0;
 }
 
+.forum {
+  &.grader {
+    h1 { margin-bottom:50px; }
+  }
+  .btn-view-grades {
+    position: relative;
+    top:-50px;
+  }
+}
+
 .page-admin {
   .version {
     .collapsible-header {
@@ -77,10 +87,7 @@
   .scale-numeric {
     padding:0;
     input[type=range] {
-      width:70%;
       margin-left:10px;
-      position: relative;
-      top:-5px;
     }
   }
 }
@@ -135,6 +142,21 @@
       background-color: @color-standard-light-grey;
     }
   }
+}
+
+.scale-numeric {
+  .grader-score {
+    margin-top: 6px;
+    text-align: right;
+    width: 120px;
+  }
+  .range-slider {
+    width:100px;
+  }
+}
+
+.user-info {
+  margin-right:15px;
 }
 
 .list-inline {

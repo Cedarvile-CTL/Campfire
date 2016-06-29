@@ -2,6 +2,13 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+.forum.grader h1 {
+  margin-bottom: 50px;
+}
+.forum .btn-view-grades {
+  position: relative;
+  top: -50px;
+}
 .page-admin .version .collapsible-header:after {
   content: "";
   clear: both;
@@ -69,10 +76,7 @@
   padding: 0;
 }
 .post .scale-numeric input[type=range] {
-  width: 70%;
   margin-left: 10px;
-  position: relative;
-  top: -5px;
 }
 .thread .thread-label {
   font-weight: 600;
@@ -127,6 +131,17 @@
 .thread.active .thread-label {
   background-color: #e0e0e0;
 }
+.scale-numeric .grader-score {
+  margin-top: 6px;
+  text-align: right;
+  width: 120px;
+}
+.scale-numeric .range-slider {
+  width: 100px;
+}
+.user-info {
+  margin-right: 15px;
+}
 .list-inline:after {
   content: "";
   clear: both;
@@ -135,4 +150,3 @@
 .list-inline li {
   float: left;
 }
-/*# sourceMappingURL=base.css.map */

@@ -21,6 +21,7 @@
                     <small>{{version.programName}}</small>
                 </span>
                 <span class="col s4 m3 l2 right-align">{{version.numForums}} forums</span>
+                <div class="col s12"><small>Course Hyperlink: {base_url}{section-slug}</small></div>
             </div>
             <div class="collapsible-body">
                 <button data-target="modal-add-forum" ng-click="admin.addForum($event, version.id)"
@@ -45,7 +46,7 @@
                                 <i class="material-icons">delete</i>
                             </button>
                         </ul>
-                        <small>{base_url}{section-slug}/forum/{{forum.id}}</small>
+                        <small>Forum Hyperlink: {base_url}{section-slug}/forum/{{forum.id}}</small>
                     </li>
                 </ul>
                 <p ng-hide="version.hasForums">No forums in this version yet.</p>

@@ -1,5 +1,5 @@
-<p class="scale-numeric right range-field">
-    Score:
-    <input class="right" type="range" id="scale-{{vm.post.id}}" min="0" max="{{vm.scale.maxPoints}}"
+<p class="scale-numeric range-field">
+    <span class="left grader-score">Score: {{vm.score}}</span>
+    <input class="right range-slider" type="range" id="scale-{{vm.post.id}}" min="0" max="{{vm.scale.maxPoints}}"
            ng-model="vm.score" ng-change="vm.setScore($event)" />
 </p>
