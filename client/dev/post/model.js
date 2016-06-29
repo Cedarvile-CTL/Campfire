@@ -82,9 +82,11 @@
                 });
                 var url = '/apps/campfire/api/post/save';
 
+                console.log("Date: ", this.date_updated);
+
                 var data = {
                     body: this.body,
-                    date_updated: Date.parse(this.date_updated).toString('u').replace("Z", "")
+                    date_updated: this.date_updated.toString('s')
                 };
 
                 if (this.id === null || this.id === 0) {
@@ -98,7 +100,7 @@
                     // console.log("Update to existing post; keep it simple but add Id to API path");
                     url += "/" + this.id;
                 }
-                // console.log(data);
+                console.log(data);
                 var d = $q.defer();
                 post.loading = true;
                 $http.post(url, data).then(function (result) {
@@ -125,6 +127,7 @@
                     this.user = User.transformer(data.user);
                 }
                 this.date_posted = Date.parse(data.date_posted);
+                console.log("Date posted for " + this.id , this.date_posted);
                 this.date_updated = Date.parse(data.date_updated);
             }
         };
