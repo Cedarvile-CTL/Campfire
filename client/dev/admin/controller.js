@@ -28,6 +28,8 @@ angular.module('campfire-client')
         vm.activeForum = 0;
         vm.activeForumLabel = '';
         vm.activeForumDescription = '';
+        vm.activeForumNumPosts = 0;
+        vm.activeForumMaxPoints = 0;
         vm.isLabelActive = false;
         vm.isDescriptionActive = false;
 
@@ -69,7 +71,7 @@ angular.module('campfire-client')
         };
 
         vm.editForum = function(e, forum) {
-            vm.setupEditForumModal(forum.version, forum.id, forum.label, forum.description);
+            vm.setupEditForumModal(forum.version, forum.id, forum.label, forum.description, forum.maxPoints, forum.numPosts);
             $("#modal-edit-forum").openModal();
         };
 
@@ -79,7 +81,9 @@ angular.module('campfire-client')
                 label: vm.activeForumLabel,
                 description: vm.activeForumDescription,
                 id: vm.activeForum,
-                version: vm.activeForum
+                version: vm.activeForum,
+                numPosts: Number(vm.activeForumNumPosts),
+                maxPoints: Number(vm.activeForumMaxPoints)
             });
             vm.setupEditForumModal();
         };
@@ -95,13 +99,17 @@ angular.module('campfire-client')
             activateMaterialize("Admin controller");
         };
 
-        vm.setupEditForumModal = function(versionId, forumId, label, description) {
+        vm.setupEditForumModal = function(versionId, forumId, label, description, maxPoints, numPosts) {
             vm.activeVersion = (versionId === undefined) ? 0 : versionId;
             vm.activeForum = (forumId === undefined) ? 0 : forumId;
             vm.activeForumLabel = (label === undefined) ? '' : label;
+            vm.activeForumMaxPoints = (maxPoints === undefined) ? '' : maxPoints;
+            vm.activeForumNumPosts = (numPosts === undefined) ? '' : numPosts;
             vm.activeForumDescription = (description === undefined) ? '' : description;
             vm.isLabelActive = vm.activeForumLabel.length>0 ? true : false;
             vm.isDescriptionActive = vm.activeForumLabel.length>0 ? true : false;
+            vm.isMaxPointsActive = vm.activeForumMaxPoints >= 0 ? true : false;
+            vm.isNumPostsActive = vm.activeForumNumPosts >= 0 ? true : false;
         };
 
         vm.initialize();

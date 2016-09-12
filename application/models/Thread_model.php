@@ -38,9 +38,16 @@ class Thread_model extends CI_Model
     {
         $threads = cfr('Thread_Details');
 
-        foreach($threads as &$thread)
+        if (!empty($threads))
         {
-            $this->objectify($thread);
+            foreach($threads as &$thread)
+            {
+                $this->objectify($thread);
+            }
+        }
+        else
+        {
+            $threads = array();
         }
 
         return $threads;

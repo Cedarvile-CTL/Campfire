@@ -5,12 +5,14 @@
 
         var forums = [];
 
-        var Forum = function (id, label, description, version, threads) {
+        var Forum = function (id, label, description, version, threads, maxPoints, numPosts) {
             this.update({
                 id: id,
                 label: label,
                 description: description,
-                version: version
+                version: version,
+                maxPoints: maxPoints,
+                numPosts: numPosts
             });
             this.threads = threads ? Thread.transformer(threads) : [];
             this.loading = false;
@@ -18,7 +20,7 @@
 
         Forum.prototype = {
             modelProps: [
-                'id', 'label', 'description', 'version'
+                'id', 'label', 'description', 'version', 'numPosts', 'maxPoints'
             ],
             cloneThread: function(thread) {
                 var forum = this;
@@ -68,7 +70,9 @@
 
                 var data = {
                     label: this.label,
-                    description: this.description
+                    description: this.description,
+                    num_posts: this.numPosts,
+                    max_points: this.maxPoints
                 };
 
                 if (this.id === null || this.id === 0) {
@@ -93,6 +97,15 @@
                 this.label = data.label;
                 this.description = data.description;
                 this.version = data.version;
+                this.maxPoints = Number(data.maxPoints);
+                this.numPosts = Number(data.numPosts);
+
+                if (data.num_posts !== undefined) {
+                    this.numPosts = Number(data.num_posts);
+                }
+                if (data.max_points !== undefined) {
+                    this.maxPoints = Number(data.max_points);
+                }
             }
         };
 
@@ -120,12 +133,20 @@
         // static methods
         Forum.build = function (data) {
             if (data) {
+                if (data.num_posts !== undefined) {
+                    data.numPosts = Number(data.num_posts);
+                }
+                if (data.max_points !== undefined) {
+                    data.maxPoints = Number(data.max_points);
+                }
                 return new Forum(
                     data.id,
                     data.label,
                     data.description,
                     data.version,
-                    data.threads
+                    data.threads,
+                    data.maxPoints,
+                    data.numPosts
                 );
             }
             return new Forum();

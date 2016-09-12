@@ -31,7 +31,10 @@
                 <ul ng-show="version.hasForums" class="collection">
                     <li ng-repeat="forum in version.forums track by forum.id"
                         class="collection-item row forum">
-                        <a href="/apps/campfire/admin/forum/{{forum.id}}" class="col s7 m8 l9">{{forum.label}}</a>
+                        <a href="/apps/campfire/admin/forum/{{forum.id}}" class="col s7 m8 l9">
+                            {{forum.label}}
+                            <small>({{forum.numPosts}} posts; {{forum.maxPoints}} points)</small>
+                        </a>
                         <ul class="forum-options col s5 m4 l3 right-align">
                             <button ng-click="admin.editForum($event, forum)"
                                     class="btn-floating btn waves-effect waves-light amber">
@@ -46,6 +49,7 @@
                                 <i class="material-icons">delete</i>
                             </button>
                         </ul>
+
                         <small>Forum Hyperlink: {base_url}{section-slug}/forum/{{forum.id}}</small>
                     </li>
                 </ul>
@@ -58,15 +62,27 @@
             <div class="modal-content">
                 <h2>Edit a Forum</h2>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <input id="edit-forum-label" type="text" class="validate" ng-model="admin.activeForumLabel">
-                        <label ng-class="{'active' : admin.isLabelActive}" for="label" data-error="You must provide a label for this forum" data-success="Looks good!">Label</label>
+                        <label ng-class="{'active' : admin.isLabelActive}" for="edit-forum-label" data-error="You must provide a label for this forum" data-success="Looks good!">Label</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="edit-forum-numPosts" type="number" class="validate" ng-model="admin.activeForumNumPosts">
+                        <label ng-class="{'active' : admin.isNumPostsActive}" for="edit-forum-numPosts"
+                               data-error="Enter the minimum number of posts expected in this forum" 
+                               data-success="Work it.">Num. Posts</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <textarea id="edit-forum-description" class="materialize-textarea" ng-model="admin.activeForumDescription"></textarea>
-                        <label ng-class="{'active' : admin.isDescriptionActive}" for="description">Description</label>
+                        <label ng-class="{'active' : admin.isDescriptionActive}" for="edit-forum-description">Description</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="edit-forum-maxPoints" type="number" class="validate" ng-model="admin.activeForumMaxPoints">
+                        <label ng-class="{'active' : admin.isMaxPointsActive}" for="edit-forum-maxPoints"
+                               data-error="Enter the maximum number of points a student can earn for full participation in this forum" 
+                               data-success="That's nifty!">Max. Points</label>
                     </div>
                 </div>
                 <input type="hidden" id="edit-forum-version" name="versionId" ng-model="admin.activeVersion" />

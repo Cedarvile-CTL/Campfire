@@ -15,6 +15,8 @@
         vm.hasThreads = false;
         vm.isLabelActive = false;
         vm.isDescriptionActive = false;
+        vm.isNumPostsActive = false;
+        vm.isMaxPointsActive = false;
         vm.adminEditing = true;
         vm.isThreadLabelActive = false;
         vm.isThreadDescriptionActive = false;
@@ -49,6 +51,8 @@
         vm.editForum = function() {
             vm.isLabelActive = vm.forum.label.length > 0;
             vm.isDescriptionActive = vm.forum.description.length > 0;
+            vm.isNumPostsActive = vm.forum.numPosts >= 0;
+            vm.isMaxPointsActive = vm.forum.maxPoints >= 0;
             $("#modal-edit-forum").openModal();
         };
 
@@ -87,6 +91,8 @@
             vm.forum.save().then(function(){
                 $("#forum-label").text(vm.forum.label);
                 $("#forum-description").text(vm.forum.description);
+                $("#forum-numPosts").text(vm.forum.numPosts);
+                $("#forum-maxPoints").text(vm.forum.maxPoints);
             });
         };
 

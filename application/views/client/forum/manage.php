@@ -1,7 +1,8 @@
 <div ng-controller="forumAdminCtrl as forum" ng-init="init('{forum.id}')" class="container page-manage-forum">
     <div class="row section">
         <div class="col s9 m10 l11">
-            <h1 id="forum-label">{forum.label}</h1>
+            <h1 id="forum-label">{forum.label} </h1>
+            <p>(<span id="forum-numPosts">{forum.num_posts}</span> posts; <span id="forum-maxPoints">{forum.max_points}</span> points)</p>
             <p  id="forum-description" class="flow-text">{forum.description}</p>
         </div>
         <div class="col s3 m2 l1 right-align">
@@ -31,16 +32,28 @@
             <div class="modal-content">
                 <h2>Edit Forum</h2>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <input id="edit-forum-label" type="text" class="validate" ng-model="forum.forum.label">
                         <label ng-class="{'active' : forum.isLabelActive}" for="label"
                                data-error="You must provide a label for this forum" data-success="Looks good!">Label</label>
                     </div>
+                    <div class="input-field col s4">
+                        <input id="edit-forum-numPosts" type="number" class="validate" ng-model="forum.forum.numPosts">
+                        <label ng-class="{'active' : forum.isNumPostsActive}" for="edit-forum-numPosts"
+                               data-error="Enter the minimum number of posts expected in this forum"
+                               data-success="Work it.">Num. Posts</label>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s8">
                         <textarea id="edit-forum-description" class="materialize-textarea" ng-model="forum.forum.description"></textarea>
                         <label ng-class="{'active' : forum.isDescriptionActive}" for="description">Description</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="edit-forum-maxPoints" type="number" class="validate" ng-model="forum.forum.maxPoints">
+                        <label ng-class="{'active' : forum.isMaxPointsActive}" for="edit-forum-maxPoints"
+                               data-error="Enter the maximum number of points a student can earn for full participation in this forum"
+                               data-success="That's nifty!">Max. Points</label>
                     </div>
                 </div>
             </div>

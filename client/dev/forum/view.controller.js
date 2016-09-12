@@ -1,9 +1,6 @@
 (function () {
     'use strict';
 
-
-// Current password: project5508category
-
     angular.module('campfire-client').controller('forumCtrl', function (
         $routeParams, $scope,
         Forum
